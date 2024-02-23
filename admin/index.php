@@ -18,8 +18,7 @@ session_start();?>
                 <img src="images/icon100.png" alt="Login Image" class="imageshow1"/>
             </div>
             <div class="text">
-                <h3>Welcome!</h3>
-                <h3>hello world</h3>
+                <h3>Welcome!</h3> 
             </div>
             <div class="passshow">
                 Default Name = <span>admin</span> & Password = <span>1234</span>
