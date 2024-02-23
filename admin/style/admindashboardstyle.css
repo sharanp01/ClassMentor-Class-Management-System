@@ -1,0 +1,122 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400&display=swap");
+:root {
+  --main-color: rgb(1, 1, 63);
+  --main-font: "Montserrat", sans-serif;
+}
+.headertext {
+  text-align: center;
+  margin-top: 90px;
+}
+.dashimage{
+  vertical-align: middle;
+  height: 50px;
+  width: 50px;
+}
+.dashtext{
+  font-size: 1.5rem;
+  vertical-align: middle;
+  margin-left: 7px;
+  font-family: var(--main-font);
+}
+.stat{
+  display:flex;
+  justify-content: space-between;
+  margin-top:30px;
+  height: 100px;
+  margin-left: 80px;
+  margin-right: 80px;
+}
+
+.studstat, .teachstat, .coursestat{
+  width: 100%;
+  text-align: center;
+ padding-top: 25px;
+ font-size: 1.2rem;
+ margin-right: 10px;
+ border-radius: 20px;
+
+}
+.studstat{
+  background-color: lightgreen;
+  
+}
+.teachstat{
+  background-color: rgb(255, 145, 145);
+}
+.coursestat{
+  background-color: lightblue;
+}
+.statcount{
+  margin-top: 5px;
+}
+.count{
+  font-family: var(--main-font);
+  color: var(--main-color);
+  
+}
+.function{
+  display: flex;
+  justify-content: space-between;
+  height: 340px;
+  margin-top: 60px;
+  margin-left: 40px;
+  margin-right:40px;
+}
+.studsec ,.teachsec ,.coursesec , .feedbacksec{
+  height: 90%;
+  width: 300px; 
+  border: 3px solid var(--main-color);
+  border-radius: 20px;
+  text-align: center;
+  padding-top: 20px;
+}
+.studsec {
+  margin-right: 30px;
+}
+.teachsec{
+  margin-right: 30px;
+}
+.secimage{
+  height: 65px;
+  width: 65px;
+  margin-bottom: 10px;
+}
+.coursesec {
+  margin-right: 30px;
+}
+.stattext{
+  font-family: var(--main-font);
+  font-size: 1.2rem;
+  color: var(--main-color);
+  margin: 0px 10px;
+  font-weight: 100rem;
+}
+.infosec{
+  margin: 30px 20px;
+  font-family: var(--main-font);
+  font-size: .9rem;
+  color: var(--main-color);
+  font-weight: 100rem;
+}
+.secbtn{
+  width: 150px;
+  height: 40px;
+  font-size: 1rem;
+  font-family: var(--main-font);
+  font-weight: 100px;
+  color: var(--main-color);
+  background-color: white;
+  border-radius: 10px;
+}
+.secbtn:hover{
+  background-color: var(--main-color);
+  color: white;
+  border-radius: 40px;
+  transition: all .5s ease-in-out;
+}
+.separator {
+  border-top: 2px solid var(--main-color); 
+  margin-bottom: 20px;
+  margin-left: 25px;
+  margin-right: 25px;
+}

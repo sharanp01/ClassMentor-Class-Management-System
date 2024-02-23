@@ -1,0 +1,156 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400&display=swap");
+:root {
+  --main-color: rgb(1, 1, 63);
+  --main-font: "Montserrat", sans-serif;
+}
+body{
+  background-color: #ecf0f4;
+  overflow-x: hidden;
+}
+.mainpage{
+    height: 100%;
+    width:78.2rem;
+    margin-top: 80px;
+    margin-left: 220px;
+    z-index: -1;
+}
+.content-wrapper{
+    width: 100%;
+    height: 100%;
+    padding: 2.75rem 1.5rem 0;
+ }
+ .page-header{
+  margin: 1.5 0 1.5rem 0;
+  display: block;
+  text-align: center;
+  font-family: var(--main-font);
+  width: 100%;
+ }
+ 
+ 
+ .page-title{
+  color: #343a40;
+    font-size: 1.125rem;
+    margin-bottom: 0;
+    font-family: var(--main-font);
+   justify-content: center;
+ }
+ .row{
+  width: 95%;
+  Display: flex;
+  flex-wrap: wrap;
+  margin-left: 30px;
+  background-color: white;
+  margin-right: 23px;
+  position: relative;
+  margin-bottom: 100px;
+  font-family: var(--main-font);
+  box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+ }
+ .card{
+  position: relative;
+  width: 100%;
+    display: flex;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0;
+    padding: 1.875rem 1.875rem ;
+
+ }
+ .cardbody{
+  flex: 1 1 auto;
+  min-height: 1px;
+  padding-left:  1.875rem ;
+  padding-right:  1.875rem ;
+  margin-top: 0;
+ }
+ .cardtitle{
+  color: #343a40;
+  margin-top:0 ;
+  text-transform: capitalize;
+  font-family:var(--main-font);
+  font-weight: 600;
+  font-size: 1.125rem;
+ }
+ .formsample{
+  display: block;
+  margin-top: 0em;
+ }
+ .form-group{
+  margin-bottom: 1.5rem;
+ }
+ .form-text{
+  
+  font-size: 1.1rem;
+  vertical-align: top;
+  bottom: 20px;
+ }
+ .text-size{
+  font-size: 0.95rem;
+ }
+ .form-control{
+  display: block;
+    width: 50%;
+    height: 2.1rem;
+    font-size: 2rem;
+    margin-top: 8px;
+    padding-left: 10px;
+    color: #495057;
+    background-color: #ffffff;
+    border: 1px solid #ced4da;
+    border-radius: 2px;
+    font-family: "Open Sans", sans-serif;
+    font-size: 0.8125rem
+ }
+ option{
+  font-size: 0.9rem;
+  font-family: var(--main-font);
+ }
+ .input-text{
+  width:70%;
+ }
+ .btndiv{
+  width: 100%;
+  text-align: center;  
+  margin-bottom: 20px;
+  margin-top: 20px;
+ }
+ .btn{
+  background-color: var(--main-color);
+      height: 40px;
+      width: 200px;
+      border: 2px solid var(--main-color);
+      cursor: pointer;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-family: var(--main-font);
+      color: white;
+      margin-right: 35px;
+      margin-top: 20px;
+ }
+ .btn:hover{
+  background-color: rgb(3, 3, 157);
+  color: white;
+  border-radius: 60px;
+  transition: all .6s ease-in-out;
+}
+.table-control{
+  margin-top: 30px;
+  width: 50%;
+  margin-right: 120px;
+}
+.errormsg{
+  color: red;
+}
+.errormsgcss{
+ margin-top: 10px;
+ color: red;
+
+}
+.btn2{
+  margin-top: 5px;
+}

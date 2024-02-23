@@ -1,0 +1,102 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400&display=swap");
+:root {
+  --main-color: rgb(1, 1, 63);
+  --main-font: "Montserrat", sans-serif;
+}
+body {
+  margin: 0;
+  text-align: center;
+}
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 450px;
+    margin-top: 60px;
+    margin-left: 500px;
+    margin-right: 500px;
+    padding: 0;
+    border-radius: 20px;
+    border: 2px solid var(--main-color);
+    box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.1);
+
+  }
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  header {
+    background-color: var(--main-color);
+    color: white;
+    font-family: var(--main-font);
+    padding: 10px;
+    text-align: center;
+    display: block;
+  }
+.imageshow{
+    margin-bottom: 0px;
+}
+  .imageshow1{
+    width: 100px;
+    height:90px;
+    margin-bottom: 0px;
+  }
+ div .text h3 {
+    padding: 0;
+    color: var(--main-color);
+    font-size: 1.5rem;
+    margin-top: none;
+    margin-bottom: none;
+
+  }
+
+  .passshow,
+  .usernameform,
+  .passform {
+    margin-bottom: 20px;
+  }
+  .usernameform input,
+  .passform input {
+    width: 300px;
+    height: 40px;
+    text-align: center;
+    font-family: var(--main-font);
+    border: 1.5px solid var(--main-color);
+    border-radius: 2px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--main-color);
+  }
+  
+  .error {
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-size: 0.8rem;
+    color: red;
+  }
+  .error_msg {
+    margin-top: 30px;
+    font-size: 1.2rem;
+  }
+  .btn{
+      background-color: white;
+      height: 40px;
+      width: 100px;
+      border: 2px solid var(--main-color);
+      cursor: pointer;
+      border-radius: 7px;
+      font-size: 1rem;
+      font-family: var(--main-font);
+      color: black;
+  
+  }
+  .btn:hover{
+      background-color: var(--main-color);
+      color: white;
+      border-radius: 40px;
+      transition: all .6s ease-in-out;
+  }
+  

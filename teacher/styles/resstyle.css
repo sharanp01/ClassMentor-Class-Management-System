@@ -1,0 +1,101 @@
+body{
+  background-color:#E4E9F7 ;
+
+}
+.resource-control{
+    width: 80%;
+   position: relative;
+   bottom:30px;
+    background-color: white;
+    border-radius: 40px;
+    margin-top: 40px;
+    padding:30px;
+    margin-left: 140px;
+    text-align: left;
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.4);
+
+}
+.resource-control h1{
+    text-align: left;
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+.resinput label{
+ font-size: 1.2rem;
+}
+.resinput input{
+    --input-focus: #2d8cf0;
+    --font-color: #323232;
+    --font-color-sub: #666;
+    --bg-color: #fff;
+    --main-color: #323232;
+    width: 390px;
+    height: 45px;
+    border-radius: 5px;
+    border: 2px solid var(--main-color);
+    background-color: var(--bg-color);
+    box-shadow: 4px 4px var(--main-color);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--font-color);
+    padding: 5px 10px;
+    outline: none;
+    margin-top: 5px;
+    margin-left: 7px;
+    margin-bottom: 20px;
+   
+  }
+  .resinput input::placeholder {
+    color: var(--font-color-sub);
+    opacity: 0.8;
+  }
+  .resinput input:focus {
+    border: 2px solid var(--input-focus);
+  }
+  .resinput textarea{
+    --input-focus: #2d8cf0;
+    --font-color: #323232;
+    --font-color-sub: #666;
+    --bg-color: #fff;
+    --main-color: #323232;
+   /*  width: 390px;
+    height: 45px; */
+    border-radius: 5px;
+    border: 2px solid var(--main-color);
+    background-color: var(--bg-color);
+    box-shadow: 4px 4px var(--main-color);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--font-color);
+    padding: 5px 10px;
+    outline: none;
+    margin-top: 5px;
+    margin-left: 7px;
+    margin-bottom: 20px;
+   
+  }
+  .resinput textarea::placeholder {
+    color: var(--font-color-sub);
+    opacity: 0.8;
+  }
+  .resinput textarea:focus{
+    border: 2px solid var(--input-focus);
+  }
+.resinput input[type = 'file']{
+    width: 390px;
+    height: 40px;
+}
+.centerdiv{
+    text-align: center;
+}
+.deletetext{
+  text-decoration: none;
+}
+.deletetext2{
+  color: black;
+  cursor: pointer;
+  text-decoration: none;
+}
+.deletetext2:hover{
+  color: rgb(70, 64, 64);
+}

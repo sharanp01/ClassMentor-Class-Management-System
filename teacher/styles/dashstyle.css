@@ -1,0 +1,158 @@
+.sidebarcontainer {
+  display: inline-block;
+  background-color: grey;
+  height: 94vh;
+  width: 16%;
+  border-radius: 20px;
+  margin-top: 6px;
+  margin-bottom: 15px;
+  margin-left: 5px;
+  background-color: #111; /* Black */
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 20px;
+}
+
+
+
+.sidebarcontainer a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidebarcontainer a:hover {
+  color: #f1f1f1;
+}
+.navbarcontainer {
+  display: inline-block;
+  vertical-align: middle;
+}
+nav {
+  background-color: blue;
+  color: Black;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  position: fixed;
+  align-items: center;
+  height: 60px;
+  margin-left: 0px;
+  width: 82%;
+  top: 0;
+  z-index: 2;
+  box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+nav h1 {
+  position: relative;
+  margin: 0;
+  font-family: var(--main-font);
+  font-size: 1.5rem;
+  color: white;
+}
+
+/*  nav a {
+    position: relative;
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    font-family: var(--main-font);
+    border: 2px solid white;
+    margin-right: 30px;
+    margin-bottom: 200px;
+  }
+  nav a:hover{
+      color: black;
+      background-color: white;
+      border-radius: 15px;
+      transition:  all .6s ease-in-out;
+  }  */
+/*   nav div{
+    position: relative;
+      text-align: center;
+      height: 100%;
+      padding-top: 40px; 
+     
+  }
+  nav div span{
+    position: relative;
+      display: inline;
+      font-size: 1.2rem;
+      font-family: var(--main-font);
+      font-weight: none;
+      margin-right: 20px;
+  }*/
+  .home-section{
+    overflow: auto;
+  }
+.headingtext {
+  position: relative;
+  top: 30px;
+  margin-left: 50px;
+  font-size: 1.5rem;
+}
+.sidebarcontainer h1 {
+  border: 2px solid white;
+  margin-top: 40px;
+}
+.dropdowntext {
+  color: white;
+  font-size: 1.5rem;
+  position: relative;
+  right: 40px;
+}
+.dropbtn {
+  background-color: inherit;
+  color: white;
+  padding: 10px;
+  font-size: 1.3rem;
+  border: none;
+  cursor: pointer;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+  right: 40px;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+}
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
