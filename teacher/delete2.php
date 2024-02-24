@@ -1,5 +1,5 @@
 <?php   
- include ('connect.php');  
+ include ('components/connect.php');  
  if (isset($_GET['id'])) {  
       $id = $_GET['id'];  
       $query = "DELETE FROM `resourcedetails` WHERE ResourceID = '$id'";  

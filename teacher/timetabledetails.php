@@ -51,38 +51,69 @@ $subjectanswer2 = $subjectanswer['SubjectID'];
             <form action="" method="post" enctype="multipart/form-data" id="myForm">
                 <div class="resinput">
                     <label for="">Enter Date:</label><br>
-                    <input type="date" name="timetabledate" id="timetabledate" class="resname" required><br>
+                    <input type="date" name="timetabledate" id="timetabledate" class="resname" oninput=validateDate() required>
+                    <span id="dateError" style="color: red; font-size: 1rem; position: relative; left: 10px;"></span><br>
                 </div>
                 <div class="resinput">
                     <label for="">Enter Lecture Start Time:</label> <br>
                     <input type="time" name="timetablestarttime" id="timetablestarttime" class="resname" required><br>
+
                 </div>
-                <div class="resinput"> <label for="fileToUpload">Add Resource File</label><br>
+                <div class="resinput">
                     <label for="">Enter Lecture End Time:</label> <br>
-                    <input type="time" name="timetableendtime" id="timetableendtime" class="resname" required><br>
+                    <input type="time" name="timetableendtime" id="timetableendtime" class="resname" oninput="validateTime()" required>
+                    <span id="timeError" style="color: red; font-size: 1rem; position: relative; left: 10px;"></span><br>
                 </div>
 
                 <div class="btndiv centerdiv">
                     <button type="submit" name="submit" id="button" class="button">Schedule Lecture</button>
                     <?php
-                    if(isset($_POST['submit'])){
-                    $date = $_POST['timetabledate'];
-                    $starttime = $_POST['timetablestarttime'];
-                    $endtime = $_POST['timetableendtime'];
-                    $sql = "Insert into timetabledetails (TeacherID, SubjectID, Date, Starttime, Endtime) values('$answer2','$subjectanswer2','$date','$starttime','$endtime')";
-                    if ($conn->query($sql) == TRUE) {
-                        echo "<div class='successmsg'>
+                    if (isset($_POST['submit'])) {
+                        $date = $_POST['timetabledate'];
+                        $starttime = $_POST['timetablestarttime'];
+                        $endtime = $_POST['timetableendtime'];
+                        $sql = "Insert into timetabledetails (TeacherID, SubjectID, Date, Starttime, Endtime) values('$answer2','$subjectanswer2','$date','$starttime','$endtime')";
+                        if ($conn->query($sql) == TRUE) {
+                            echo "<div class='successmsg'>
                        <label class='successtext'>Lecture Scheduled!</label>
            </div>";
-                    } else {
-                        echo "<div class='successmsg'>
+                        } else {
+                            echo "<div class='successmsg'>
                        <label class='successtext'>Lecture Was'nt Scheduled!</label>
            </div>";
+                        }
                     }
-                }
                     ?>
                 </div>
     </section>
 </body>
+<script>
+    function validateDate() {
+        var selectedDate = new Date(document.getElementById("timetabledate").value);
+        var currentDate = new Date();
+
+        if (selectedDate < currentDate) {
+            document.getElementById("dateError").innerText = "Please select a date equal to or after the current date.";
+        } else {
+            // Reset error message
+            document.getElementById("dateError").innerText = "";
+        }
+    }
+
+    function validateTime() {
+        var startTimeInput = document.getElementById("timetablestarttime").value;
+        var endTimeInput = document.getElementById("timetableendtime").value;
+        var startTime = new Date("2000-01-01 " + startTimeInput);
+        var endTime = new Date("2000-01-01 " + endTimeInput);
+
+        // Check if end time is before start time
+        if (endTime < startTime) {
+            document.getElementById("timeError").innerText = "End time must be after start time.";
+        } else {
+            // Reset error message
+            document.getElementById("timeError").innerText = "";
+        }
+    }
+</script>
 
 </html>
