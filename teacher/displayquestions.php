@@ -11,68 +11,67 @@
     <title>Document</title>
     <link rel="stylesheet" href="styles/sidebarstyle.css">
     <link rel="stylesheet" href="styles/tablestyle.css">
-    <link rel="stylesheet" href="styles/resstyle.css">
-    <style>
-        .question-checkbox {
-            display: none;
-        }
-
-
-        .question-label {
-            cursor: pointer;
-            font-weight: bold;
-            border: 2px solid #ccc;
-            border-radius: 10px;
-            padding: 10px;
-            margin-bottom: 10px;
-            display: inline-block;
-            align-items: center;
-
-            justify-content: space-between;
-
-            transition: background-color 0.3s ease;
-
-        }
-
-        .question-label p {
-            display: inline-block;
-            margin-right: 5px;
-        }
-
-
-        .question-label:hover {
-            background-color: #f0f0f0;
-        }
-
-
-        .question-details {
-            max-height: 0;
-            padding-top: 10px;
-            overflow: hidden;
-            padding-left: 10px;
-            transition: max-height 0.6s ease;
-
-            background-color: yellow;
-
-        }
-
-        .question-details p {
-            margin-top: 10px;
-        }
-
-        .question-details a {
-            margin-top: 10px;
-        }
-
-
-        .question-checkbox:checked~.question-details {
-
-            max-height: 500px;
-
-        }
-    </style>
+    <link rel="stylesheet" href="styles/resstyle.css"> 
 </head>
+ <style>
+    .question-checkbox {
+  display: none;
+}
 
+.question-label {
+  cursor: pointer;
+  font-weight: bold;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 10px;
+  display: inline-block;
+  align-items: center;
+  justify-content: space-between;
+  transition: background-color 0.3s ease;
+}
+
+.question-label p {
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.question-label:hover {
+  background-color: #f0f0f0;
+}
+
+.question-details {
+  max-height: 0;
+  padding-top: 10px;
+  overflow: hidden;
+  padding-left: 10px;
+  transition: max-height 0.6s ease;
+}
+
+.option-text {
+  border: 2px solid black;
+  width: 20%;
+  padding: 5px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+}
+.question-details a {
+  margin-top: 10px;
+}
+
+.question-checkbox:checked ~ .question-details {
+  max-height: 500px;
+}
+
+.btndiv a {
+  color: white;
+  text-decoration: none;
+}
+
+.btndiv a:hover {
+  color: black;
+}
+ </style>
 <body>
     <div class="home-content">
         <div class="left-content">
@@ -91,14 +90,15 @@
     </div>
 
     <div class="resource-control">
-        <h1 class="heading-text">Test/<?php if(isset($_GET['questionid'])){
-            include("components/connect.php");
-            $id2 = $_GET['questionid'];
-            $namesql = "Select Quiztopic from quiztopic where QuizID = '$id2'";
-            $res = mysqli_query($conn,$namesql);
-            $namerow = mysqli_fetch_assoc($res);
-            echo  $namerow['Quiztopic'];}
-        ?> Questions</h1>
+        <h1 class="heading-text">Test/<?php if (isset($_GET['questionid'])) {
+                                            include("components/connect.php");
+                                            $id2 = $_GET['questionid'];
+                                            $namesql = "Select Quiztopic from quiztopic where QuizID = '$id2'";
+                                            $res = mysqli_query($conn, $namesql);
+                                            $namerow = mysqli_fetch_assoc($res);
+                                            echo  $namerow['Quiztopic'];
+                                        }
+                                        ?> Questions</h1>
         <div class="questions-container">
             <?php
 
@@ -113,12 +113,12 @@
                         echo "<input type='checkbox' id='question-" . $row['QuestionID'] . "' class='question-checkbox'>";
                         echo "<div  class='question-label'><p>Q." . $i . ")</p><label for='question-" . $row['QuestionID'] . "'>" . $row['Question'] . "</label></div>";
                         echo "<div class='question-details'>";
-                        echo "<p>Option 1: " . $row['Option1'] . "</p>";
-                        echo "<p>Option 2: " . $row['Option2'] . "</p>";
-                        echo "<p>Option 3: " . $row['Option3'] . "</p>";
-                        echo "<p>Option 4: " . $row['Option4'] . "</p>";
-                        echo "<p>Answer: " . $row['Answer'] . "</p>";
-                        echo "<a href='deleteassignment.php?id=" . $row['QuestionID'] . "' id='btn' class='deletetext2'> <i class='fas fa-trash-alt'  ></i> Delete</a>";
+                        echo "<div class='option-text'><p>Option 1 : " . $row['Option1'] . "</p></div>";
+                        echo "<div class='option-text'><p>Option 2 : " . $row['Option2'] . "</p></div>";
+                        echo "<div class='option-text'><p>Option 3 : " . $row['Option3'] . "</p></div>";
+                        echo "<div class='option-text'><p>Option 4 : " . $row['Option4'] . "</p></div>";
+                        echo "<div class='option-text'><p>Answer : " . $row['Answer'] . "</p></div>";
+                        echo "<a href='deletequestions.php?id=" . $row['QuestionID'] . "' id='btn' class='deletetext2'> <i class='fas fa-trash-alt' ></i> Delete Question</a>";
                         echo "</div>";
                         $i++;
                     }
@@ -127,6 +127,9 @@
                 }
             }
             ?>
+            <div class="centerdiv btndiv">
+                <button class="button"><a href="displaytest.php">Back to Display page</a></button>
+            </div>
         </div>
     </div>
 

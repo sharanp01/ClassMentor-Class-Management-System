@@ -1,12 +1,9 @@
 <?php
-include('components/sidebar.php');
+include('components/sidebar.php'); 
 include('components/connect.php');
 if (isset($_GET['quizid'])) {
-
     $quizID = $_GET['quizid'];
-    echo "QuizID: " . $quizID;
 } else {
-    echo "QuizID not found in the URL";
 }
 ?>
 <!DOCTYPE html>
