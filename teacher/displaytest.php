@@ -55,6 +55,7 @@ $result3 = mysqli_query($conn, $sql3);
                         <th>Sr No</th>
                         <th>Quiz Topic</th>
                         <th>Add Questions</th>
+                        <th>View Questions</th>
                         <th>Remove</th>
                     </tr>
 
@@ -67,6 +68,7 @@ $result3 = mysqli_query($conn, $sql3);
               <td>" . $i . "</td>  
               <td>" . $result4['Quiztopic'] . "</td>
               <td><a href='Addquestions.php?quizid=" . $result4['QuizID'] . "' id='btn' class='deletetext2' >Select</a></td>
+              <td><a href='displayquestions.php?questionid=" . $result4['QuizID'] . "' id='btn' class='deletetext2' >View</a></td>
               <td><a href='deletequiz.php?id=" . $result4['QuizID'] . "' id='btn' class='deletetext2'> <i class='fas fa-trash-alt'  ></i> Delete</a></td>
          </tr>  
     ";
