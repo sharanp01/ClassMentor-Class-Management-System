@@ -1,7 +1,7 @@
 <?php
 include('components/connect.php');
 include('components/sidebar.php');
-$username = "Divya01";
+$username = "sharan01";
 $sql = "select * from teacherdetails where Username= '$username' ";
 $result = mysqli_query($conn, $sql);
 $answer = mysqli_fetch_assoc($result);
@@ -10,7 +10,10 @@ $sql2 = "select * from subjectdetails where TeacherID = '$answer2'";
 $result2 = mysqli_query($conn, $sql2);
 $subjectanswer = mysqli_fetch_assoc($result2);
 $subjectanswer2 = $subjectanswer['SubjectID'];
-
+$sql3 = "select CourseID from subjectdetails where SubjectID = '$subjectanswer2'";
+$result3 = mysqli_query($conn, $sql3);
+$courseanswer = mysqli_fetch_assoc($result3);
+$courseanswer2 = $courseanswer['CourseID'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,7 +31,7 @@ $subjectanswer2 = $subjectanswer['SubjectID'];
 </head>
 
 <body>
-<section class="home-section">
+    <section class="home-section">
 
         <div class="home-content">
             <div class="left-content">
@@ -58,23 +61,22 @@ $subjectanswer2 = $subjectanswer['SubjectID'];
                     <textarea name="announcedesc" id="" cols="60" rows="3" required></textarea><br>
                 </div>
                 <div class="btndiv centerdiv">
-                    <button type="submit" name="submit" id="button" class="button" >Post Announcement</button>
-                    <?php 
-                      if(isset($_POST['submit'])){
+                    <button type="submit" name="submit" id="button" class="button">Post Announcement</button>
+                    <?php
+                    if (isset($_POST['submit'])) {
                         $title = $_POST['announcetitle'];
                         $desc = $_POST['announcedesc'];
-                        $sql = "Insert into announcementdetails (SubjectID, Announcementtitle, AnnouncementDesc) values('$subjectanswer2','$title','$desc')";
-                        if($conn->query($sql) == TRUE){
+                        $sql = "Insert into announcementdetails (SubjectID, Announcementtitle, AnnouncementDesc,CourseID) values('$subjectanswer2','$title','$desc','$courseanswer2')";
+                        if ($conn->query($sql) == TRUE) {
                             echo "<div class='successmsg'>
                             <label class='successtext'>Announcement Posted!</label>
                 </div>";
-                        }
-                        else{
+                        } else {
                             echo "<div class='successmsg'>
                             <label class='successtext'>Announcement Was'nt Posted!</label>
                 </div>";
                         }
-                      }
+                    }
                     ?>
                 </div>
             </form>

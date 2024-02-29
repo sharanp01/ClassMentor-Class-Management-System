@@ -1,6 +1,19 @@
 <?php
 include("components/connect.php");
 include('components/sidebar.php');
+$username = "Divya01";
+$sql = "select * from teacherdetails where Username= '$username' ";
+$result = mysqli_query($conn, $sql);
+$answer = mysqli_fetch_assoc($result);
+$answer2 = $answer['TeacherID'];
+$sql2 = "select * from subjectdetails where TeacherID = '$answer2'";
+$result2 = mysqli_query($conn, $sql2);
+$subjectanswer = mysqli_fetch_assoc($result2);
+$subjectanswer2 = $subjectanswer['SubjectID'];
+$sql3 = "select CourseID from subjectdetails where SubjectID = '$subjectanswer2'";
+$result3 = mysqli_query($conn, $sql3);
+$courseanswer = mysqli_fetch_assoc($result3);
+$courseanswer2 = $courseanswer['CourseID'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -58,13 +71,13 @@ include('components/sidebar.php');
                         $resname = $_POST['resname'];
                         $resdesc = $_POST['resdesc'];
                         $targetDir = "uploads/";
+                       
                         $fileName = basename($_FILES["fileToUpload"]["name"]);
 
-
+                     
                         $targetFilePath = $targetDir . $fileName;
                         if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $targetFilePath)) {
-
-                            $sql = "INSERT INTO resourcedetails (Resourcename,Resourcedesc,filename ,filepath) VALUES ('$resname','$resdesc','$fileName', '$targetFilePath')";
+                            $sql = "INSERT INTO resourcedetails (Resourcename,CourseID,Resourcedesc,filename ,filepath) VALUES ('$resname','$courseanswer2','$resdesc','$fileName', '$targetFilePath')";
                             if ($conn->query($sql) === TRUE) {
                                 echo "<div class='successmsg'>
                     <label class='successtext'>Resource File Added</label>
@@ -89,11 +102,11 @@ include('components/sidebar.php');
     </section>
     <script>
         window.onload = function() {
-  // Get the form element
-  var form = document.getElementById("myForm");
-  // Reset the form
-  form.reset();
-};
+            // Get the form element
+            var form = document.getElementById("myForm");
+            // Reset the form
+            form.reset();
+        };
     </script>
 
 </body>

@@ -10,6 +10,10 @@ $sql2 = "select * from subjectdetails where TeacherID = '$answer2'";
 $result2 = mysqli_query($conn, $sql2);
 $subjectanswer = mysqli_fetch_assoc($result2);
 $subjectanswer2 = $subjectanswer['SubjectID'];
+$sql3 = "select CourseID from subjectdetails where SubjectID = '$subjectanswer2'";
+$result3 = mysqli_query($conn, $sql3);
+$courseanswer = mysqli_fetch_assoc($result3);
+$courseanswer2 = $courseanswer['CourseID'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -72,7 +76,7 @@ $subjectanswer2 = $subjectanswer['SubjectID'];
                         $date = $_POST['timetabledate'];
                         $starttime = $_POST['timetablestarttime'];
                         $endtime = $_POST['timetableendtime'];
-                        $sql = "Insert into timetabledetails (TeacherID, SubjectID, Date, Starttime, Endtime) values('$answer2','$subjectanswer2','$date','$starttime','$endtime')";
+                        $sql = "Insert into timetabledetails (TeacherID, CourseID,SubjectID, Date, Starttime, Endtime) values('$answer2','$courseanswer2','$subjectanswer2','$date','$starttime','$endtime')";
                         if ($conn->query($sql) == TRUE) {
                             echo "<div class='successmsg'>
                        <label class='successtext'>Lecture Scheduled!</label>
