@@ -40,7 +40,7 @@ $result = mysqli_query($conn, $sql);
             </div>
         </div>
         <div class="table-control">
-        <h1 class="heading-text">Announcement/Manage Announcement</h1>
+        <h1 class="heading-text">Notice/Manage Notice</h1>
             <?php
         if (mysqli_num_rows($result)>0) {
        ?>

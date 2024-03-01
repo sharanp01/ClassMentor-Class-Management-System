@@ -50,7 +50,7 @@ $courseanswer2 = $courseanswer['CourseID'];
             </div>
         </div>
         <div class="resource-control">
-            <h1 class="heading-text">Announcement/Post Announcement</h1>
+            <h1 class="heading-text">Notice/Add Notice</h1>
             <form action="" method="post">
                 <div class="resinput">
                     <label for="">Enter Announcement Title:</label><br>

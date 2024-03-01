@@ -35,7 +35,7 @@ $run = mysqli_query($con, $query);
                         <?php
                         if (isset($_POST['submit'])) {
                             $search = $_POST['searchname'];
-                            $sql2 = "Select StudentID, Firstname, Lastname, Email, Phone, Age, Username, Password from studentdetails where Firstname='$search'";
+                            $sql2 = "Select StudentID, Firstname, Lastname, Email, Phone, Age, Username, Password from studentdetails where Username='$search'";
                             $result2 = mysqli_query($con, $sql2);
                             if ($result2) {
                                 if (mysqli_num_rows($result2) > 0) { ?>
@@ -50,6 +50,8 @@ $run = mysqli_query($con, $query);
                                                 <th>Age</th>
                                                 <th>Username</th>
                                                 <th>Password</th>
+                                                <th>Delete</th>
+
                                             </tr>
 
                                 <?php

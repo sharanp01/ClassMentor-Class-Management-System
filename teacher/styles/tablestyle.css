@@ -12,7 +12,7 @@
 }
 .table-control h1{
     text-align: left;
-    font-size: 3rem;
+    font-size: 1.5rem;
 }
 .table-control table{
     width: 100%;
@@ -68,7 +68,7 @@
     --font-color-dark: #323232;
     --font-color-light: #FFF;
     --bg-color: #fff;
-    --main-color: #323232;
+    --main-color: black;
     position: relative;
     width: 169px;
     height: 36px;
@@ -102,9 +102,13 @@
   .span {
     color: var(--font-color-dark);
   }
-  
+  .btn{
+    border-radius: 20px;
+    height: 28px;
+  }
   .input:checked + .btn {
     background-color: var(--main-color);
+    transition: 0.6s all ease;
   }
   
   .input:checked + .btn .span {

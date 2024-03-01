@@ -4,7 +4,7 @@ include('components/connect.php');
 include('components/sidebar.php');
 if (isset($_GET['id'])) {  
     $id = $_GET['id'];  
-}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,6 +13,7 @@ if (isset($_GET['id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/sidebarstyle.css">
+    <link rel="stylesheet" href="styles/resstyle.css">
     <link rel="stylesheet" href="styles/tablestyle.css">
     <!-- Boxiocns CDN Link -->
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
@@ -59,14 +60,14 @@ if (isset($_GET['id'])) {
             if ($result4) {
                 if (mysqli_num_rows($result4) > 0) { ?>
                     <div class="table-control" id="table-control">
-                        <h1>Attendance/Take Attendance</h1>
+                        <h1>Assignment/Assign Marks</h1>
                         <table border="1" cellspacing="6" cellpadding="6" id="my-table">
                             <tr class="heading">
                                 <th>Sr no</th>
                                 <th>StudentID</th>
                                 <th>Firstname</th>
                                 <th>Lastname</th>
-                                <th>Attendance</th>
+                                <th>Marks</th>
 
 
                             </tr>
@@ -95,7 +96,7 @@ if (isset($_GET['id'])) {
 
                         ?>
                         </table>
-                        <button type="submit" name="submit" class="button">Take Attendance</button>
+                        <button type="submit" name="submit" class="button">Assign Marks</button>
                     <?php
 
                     if (isset($_POST['submit'])) {
@@ -116,7 +117,7 @@ if (isset($_GET['id'])) {
                 ";
                     }
                 }
-
+            }
                     ?>
         </form>
     </section>

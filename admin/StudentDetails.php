@@ -98,7 +98,7 @@ include('components/sidebar.php'); ?>
                 $phone = sanitizeInput($_POST['studentphone']);
                 $age = sanitizeInput($_POST['studentage']);
                 $username = sanitizeInput($_POST['susername']);
-                $password = password_hash($_POST['tpassword1'], PASSWORD_DEFAULT); // Hash the password
+                $password = $_POST['tpassword1']; // Hash the password
 
                 // SQL query to insert data into the database
                 $sql = "INSERT INTO studentdetails (CourseID, Firstname, Lastname, Email,Phone, Age, Username, Password)

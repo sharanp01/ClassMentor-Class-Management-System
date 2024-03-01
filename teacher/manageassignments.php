@@ -87,6 +87,7 @@ $assignresult = mysqli_query($conn, $assignsql);
                     echo "<div  class='assignment-label'><div class='assign-space'><p>Assignment Question: </p> <label for='question-" . $row['AssignmentID'] . "'  class='assign-text'>" . $row['Assignmentquestion'] . "</label><br></div>
                     <div class='assign-space'><p>Assignment Submission Date: </p><label for='question-" . $row['AssignmentID'] . "' class='assign-text'>" . $row['AssignmentSubdate'] . "</label><br></div>
                    <div class='assign-space'><p>Assignment Weightage: </p><label for='question-" . $row['AssignmentID'] . "' class='assign-text'>" . $row['Assignmentweightage'] . "</label><br></div>
+                   <a href='assignmarks.php?id=" . $row['AssignmentID'] . "' id='btn' class='deletetext2'>Assign Marks</a>
                     <a href='deleteassignment.php?id=" . $row['AssignmentID'] . "' id='btn' class='deletetext2'> <i class='fas fa-trash-alt' ></i> Delete Assignment</a></div>";
                     $i++;
                 }

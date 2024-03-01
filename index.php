@@ -68,7 +68,7 @@ include('components/connect.php');
                                 $count = mysqli_num_rows($result);
 
                                 if ($count == 1) {
-                                    header("Location:teacherdashboard.php");
+                                    header("Location:teacher/teacherdashboard.php");
                                     exit();
                                 } else {
                                     echo "<label class='error-msg'>Invalid username or password</label>";

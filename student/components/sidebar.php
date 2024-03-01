@@ -16,12 +16,12 @@
 <body>
     <div class="sidebar close">
         <div class="logo-details">
-            <span class="logo_name">Teacher Panel</span>
+            <span class="logo_name">Student Panel</span>
         </div>
         <h1 class="line"></h1>
         <ul class="nav-links">
             <li>
-                <a href="#">
+                <a href="studentdashboard.php">
                     <i class='bx bx-grid-alt'></i>
                     <span class="link_name">Dashboard</span>
                 </a>
@@ -35,9 +35,7 @@
                     <i class='bx bxs-chevron-down arrow'></i>
                 </div>
                 <ul class="sub-menu">
-                    <li><a href="#">Assign Test</a></li>
-                    <li><a href="#">Marks</a></li>
-
+                    <li><a href="#">Give Test</a></li>
                 </ul>
             </li>
             <li>
@@ -49,48 +47,33 @@
                     <i class='bx bxs-chevron-down arrow'></i>
                 </div>
                 <ul class="sub-menu">
-                    <li><a href="#">Give Assignment</a></li>
-                    <li><a href="#">Alot Marks</a></li>
-
+                    <li><a href="studentassignment.php">Give Assignment</a></li>
                 </ul>
             </li>
+            
             <li>
                 <div class="iocn-link">
-                    <a href="#">
-                        <i class='bx bx-collection'></i>
-                        <span class="link_name">Attendance</span>
-                    </a>
-                    <i class='bx bxs-chevron-down arrow'></i>
-                </div>
-                <ul class="sub-menu">
-                    <li><a href="#">Take Attendance</a></li>
-                    <li><a href="#">Attendance Report</a></li>
-                </ul>
-            </li>
-            <li>
-                <div class="iocn-link">
-                    <a href="#">
+                    <a href="studenttimetabledisplay.php">
                         <i class='bx bx-collection'></i>
                         <span class="link_name">Timetable</span>
                     </a>
-                    <i class='bx bxs-chevron-down arrow'></i>
-                </div>
-                <ul class="sub-menu">
-                    <li><a href="#">Assign Slot</a></li>
-                </ul>
+                  
             </li>
             <li>
                 <div class="iocn-link">
-                    <a href="#">
+                    <a href="studentresources.php">
                         <i class='bx bx-collection'></i>
                         <span class="link_name">Resource</span>
                     </a>
-                    <i class='bx bxs-chevron-down arrow'></i>
-                </div>
-                <ul class="sub-menu">
-                    <li><a href="#">Add Resources</a></li>
-
-                </ul>
+                    
+            </li>
+            <li>
+                <div class="iocn-link">
+                    <a href="studentnoticedisplay.php">
+                        <i class='bx bx-collection'></i>
+                        <span class="link_name">Notices</span>
+                    </a>
+                    
             </li>
             <li>
                 <div class="iocn-link">

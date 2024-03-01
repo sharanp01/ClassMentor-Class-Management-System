@@ -11,6 +11,7 @@ include('components/sidebar.php');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/sidebarstyle.css">
+    <link rel="stylesheet" href="styles/resstyle.css">
     <link rel="stylesheet" href="styles/tablestyle.css">
     <!-- Boxiocns CDN Link -->
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>

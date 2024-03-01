@@ -10,6 +10,10 @@ $sql2 = "select * from subjectdetails where TeacherID = '$answer2'";
 $result2 = mysqli_query($conn, $sql2);
 $subjectanswer = mysqli_fetch_assoc($result2);
 $subjectanswer2 = $subjectanswer['SubjectID'];
+$sql3 = "select CourseID from subjectdetails where SubjectID = '$subjectanswer2'";
+$result3 = mysqli_query($conn, $sql3);
+$courseanswer = mysqli_fetch_assoc($result3);
+$courseanswer2 = $courseanswer['CourseID'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,7 +28,11 @@ $subjectanswer2 = $subjectanswer['SubjectID'];
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <title>Document</title>
-    <style> body{ background-color:#E4E9F7  ;}</style>
+    <style>
+        body {
+            background-color: #E4E9F7;
+        }
+    </style>
 </head>
 
 <body>
@@ -73,7 +81,7 @@ $subjectanswer2 = $subjectanswer['SubjectID'];
                         $assignweightage = $_POST['assignweightage'];
                         $assignsubdate = $_POST['assignsubdate'];
                         $assignsublink = $_POST['assignsublink'];
-                        $sql = "Insert into assignmentdetails (TeacherID,SubjectID, Assignmentquestion, Assignmentweightage, AssignmentSubdate, AssignmentSublink) values('$answer2','$subjectanswer2','$assignquestion','$assignweightage','$assignsubdate','$assignsublink')";
+                        $sql = "Insert into assignmentdetails (TeacherID,SubjectID, CourseID, Assignmentquestion, Assignmentweightage, AssignmentSubdate, AssignmentSublink) values('$answer2','$subjectanswer2','$courseanswer2','$assignquestion','$assignweightage','$assignsubdate','$assignsublink')";
                         if ($conn->query($sql) == TRUE) {
                             echo "<div class='successmsg'>
                             <label class='successtext'>Assignment Posted!</label>

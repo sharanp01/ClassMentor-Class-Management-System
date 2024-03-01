@@ -8,8 +8,7 @@
     <link rel="stylesheet" href="sidebarstyle.css">
     <!-- Boxiocns CDN Link -->
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
@@ -21,7 +20,7 @@
         <h1 class="line"></h1>
         <ul class="nav-links">
             <li>
-                <a href="#">
+                <a href="teacherdashboard.php">
                     <i class='bx bx-grid-alt'></i>
                     <span class="link_name">Dashboard</span>
                 </a>
@@ -35,7 +34,8 @@
                     <i class='bx bxs-chevron-down arrow'></i>
                 </div>
                 <ul class="sub-menu">
-                    <li><a href="#">Assign Test</a></li>
+                    <li><a href="Quizdetails.php">Assign Test</a></li>
+                    <li><a href="displaytest.php">Manage Test</a></li>
                     <li><a href="#">Marks</a></li>
 
                 </ul>
@@ -49,8 +49,8 @@
                     <i class='bx bxs-chevron-down arrow'></i>
                 </div>
                 <ul class="sub-menu">
-                    <li><a href="#">Give Assignment</a></li>
-                    <li><a href="#">Alot Marks</a></li>
+                    <li><a href="addassignment.php">Assign Assignment</a></li>
+                    <li><a href="manageassignments.php">Manage Assignment</a></li>
 
                 </ul>
             </li>
@@ -63,8 +63,8 @@
                     <i class='bx bxs-chevron-down arrow'></i>
                 </div>
                 <ul class="sub-menu">
-                    <li><a href="#">Take Attendance</a></li>
-                    <li><a href="#">Attendance Report</a></li>
+                    <li><a href="attendance2.php">Take Attendance</a></li>
+                    <li><a href="viewattendance.php">Attendance Report</a></li>
                 </ul>
             </li>
             <li>
@@ -76,7 +76,8 @@
                     <i class='bx bxs-chevron-down arrow'></i>
                 </div>
                 <ul class="sub-menu">
-                    <li><a href="#">Assign Slot</a></li>
+                    <li><a href="timetabledetails.php">Assign Slot</a></li>
+                    <li><a href="displaytimetable.php">View Schedule</a></li>
                 </ul>
             </li>
             <li>
@@ -88,8 +89,21 @@
                     <i class='bx bxs-chevron-down arrow'></i>
                 </div>
                 <ul class="sub-menu">
-                    <li><a href="#">Add Resources</a></li>
-
+                    <li><a href="add-resources.php">Add Resources</a></li>
+                    <li><a href="manageresources.php">Manage Resources</a></li>
+                </ul>
+            </li>
+            <li>
+                <div class="iocn-link">
+                    <a href="#">
+                        <i class='bx bx-collection'></i>
+                        <span class="link_name" >Notice</span>
+                    </a>
+                    <i class='bx bxs-chevron-down arrow'></i>
+                </div>
+                <ul class="sub-menu">
+                    <li><a href="add-notice.php">Post Notice</a></li>
+                    <li><a href="managenotice.php">Manage Notice</a></li>
                 </ul>
             </li>
             <li>
@@ -117,7 +131,7 @@
             </li> -->
         </ul>
     </div>
-   <!-- <section class="home-section">
+    <!-- <section class="home-section">
 
         <div class="home-content">
             <div class="left-content">
@@ -140,13 +154,13 @@
 
 
     <script>
-    let arrow = document.querySelectorAll(".arrow");
-    for (var i = 0; i < arrow.length; i++) {
-        arrow[i].addEventListener("click", (e) => {
-            let arrowParent = e.target.parentElement.parentElement; //selecting main parent of arrow
-            arrowParent.classList.toggle("showMenu");
-        });
-    }
+        let arrow = document.querySelectorAll(".arrow");
+        for (var i = 0; i < arrow.length; i++) {
+            arrow[i].addEventListener("click", (e) => {
+                let arrowParent = e.target.parentElement.parentElement; //selecting main parent of arrow
+                arrowParent.classList.toggle("showMenu");
+            });
+        }
     </script>
 </body>
 
