@@ -1,16 +1,13 @@
 <?php
-include('components/sidebar.php');
 include('components/connect.php');
-$username = "Divya01";
-$sql = "select * from teacherdetails where Username= '$username' ";
-$result = mysqli_query($conn, $sql);
-$answer = mysqli_fetch_assoc($result);
-$answer2 = $answer['TeacherID'];
-$sql2 = "select * from subjectdetails where TeacherID = '$answer2'";
-$result2 = mysqli_query($conn, $sql2);
-$subjectanswer = mysqli_fetch_assoc($result2);
-$subjectanswer2 = $subjectanswer['SubjectID'];
-$sql3 = "Select * from quiztopic where SubjectID='$subjectanswer2'";
+include('components/sidebar.php');
+$username = "sathya05";
+$studentsql = "select CourseID,StudentID from studentdetails where Username = '" . $username . "' ";
+$studentresult = mysqli_query($conn, $studentsql);
+$row1 = mysqli_fetch_assoc($studentresult);
+$col1 = $row1['CourseID'];
+$col2 = $row1['StudentID'];
+$sql3 = "Select * from quiztopic where CourseID='$col1'";
 $result3 = mysqli_query($conn, $sql3);
 ?>
 <!DOCTYPE html>
@@ -19,9 +16,8 @@ $result3 = mysqli_query($conn, $sql3);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles/sidebarstyle.css">
-    <link rel="stylesheet" href="styles/tablestyle.css">
-    <link rel="stylesheet" href="styles/resstyle.css">
+    <link rel="stylesheet" href="styles/studentstyle.css">
+    
     <title>Document</title>
 </head>
 
@@ -45,7 +41,7 @@ $result3 = mysqli_query($conn, $sql3);
             </div>
         </div>
         <div class="table-control">
-            <h1 class="heading-text">Test/Manage Tests</h1>
+            <h1 class="heading-text">Test/Give Tests</h1>
             <?php
             if (mysqli_num_rows($result3) > 0) {
             ?>
@@ -54,10 +50,9 @@ $result3 = mysqli_query($conn, $sql3);
                     <tr class="heading">
                         <th>Sr No</th>
                         <th>Quiz Topic</th>
-                        <th>Add Questions</th>
-                        <th>View Questions</th>
-                        <th>View Results</th>
-                        <th>Remove</th>
+                        <th>Diffculty</th>
+                        <th>Give Test</th>
+                        <th>View Test Results</th>
                     </tr>
 
                 <?php
@@ -68,10 +63,9 @@ $result3 = mysqli_query($conn, $sql3);
          <tr class='data'>  
               <td>" . $i . "</td>  
               <td>" . $result4['Quiztopic'] . "</td>
-              <td><a href='Addquestions.php?quizid=" . $result4['QuizID'] . "' id='btn' class='deletetext2' >Select</a></td>
-              <td><a href='displayquestions.php?questionid=" . $result4['QuizID'] . "' id='btn' class='deletetext2' >View</a></td>
-              <td><a href='studentresults.php?id=" . $result4['QuizID'] . "' id='btn' class='deletetext2' >View Results</a></td>
-              <td><a href='deletequiz.php?id=" . $result4['QuizID'] . "' id='btn' class='deletetext2'> <i class='fas fa-trash-alt'  ></i> Delete</a></td>
+              <td>" . $result4['Difficulty'] . "</td>
+              <td><a href='Displayquestions.php?id=" . $result4['QuizID'] . "&studid=".$col2."' id='btn' class='deletetext2' >Select</a></td>
+              <td><a href='Showresult.php?id=" . $result4['QuizID'] . "&studid=".$col2."' id='btn' class='deletetext2' >View</a></td>
          </tr>  
     ";
                     $i++;
