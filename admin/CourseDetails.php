@@ -39,7 +39,9 @@ include('components/sidebar.php');
 
                                 // Retrieve data from the form
                                 $coursename = sanitizeInput($_POST['coursename']);
-
+                                $sqlcheck = "Select * from coursedetails where Coursename = '$coursename'";
+                                $rescheck = mysqli_query($con,$sqlcheck);
+                                if(mysqli_num_rows($rescheck) <= 0){
                                 // SQL query to insert data into the database
                                 $sql = "INSERT INTO coursedetails (Coursename)
         VALUES ('$coursename')";
@@ -50,6 +52,7 @@ include('components/sidebar.php');
                                 } else {
                                 }
                             }
+                        }
                             ?>
                         </form>
                     </div>

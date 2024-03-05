@@ -85,20 +85,22 @@ include('components/sidebar.php');
                 $education = sanitizeInput($_POST['teducation']);
                 $subjectsTaken = sanitizeInput($_POST['subjectstaken']);
                 $username = sanitizeInput($_POST['tusername']);
-                $password = password_hash($_POST['tpassword1'], PASSWORD_DEFAULT) ; // Hash the password
-
-                // SQL query to insert data into the database
-                $sql = "INSERT INTO teacherdetails (Firstname, Lastname, Email, Phone, SubjectsTaken, Education, Username, Password)
+                $password = password_hash($_POST['tpassword1'], PASSWORD_DEFAULT); // Hash the password
+                $sqlcheck = "Select * from teacherdetails where Username = '$username'";
+                $rescheck = mysqli_query($con, $sqlcheck);
+                if (mysqli_num_rows($rescheck) <= 0) {
+                  // SQL query to insert data into the database
+                  $sql = "INSERT INTO teacherdetails (Firstname, Lastname, Email, Phone, SubjectsTaken, Education, Username, Password)
         VALUES ('$firstname', '$lastname', '$email', '$phone', '$subjectsTaken', '$education', '$username', '$password')";
 
-                // Execute the query
-                if ($con->query($sql) === TRUE) {
-                  echo "<div class='btndiv'>Data inserted successfully!</div>";
-                } else {
-                  echo "<div class='btndiv'>Error in inserting data</div>";
+                  // Execute the query
+                  if ($con->query($sql) === TRUE) {
+                    echo "<div class='btndiv'>Data inserted successfully!</div>";
+                  } else {
+                    echo "<div class='btndiv'>Error in inserting data</div>";
+                  }
                 }
               }
-              
 
               // Close the database connection
               $con->close();
