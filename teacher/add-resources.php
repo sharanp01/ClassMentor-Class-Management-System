@@ -40,76 +40,83 @@ $courseanswer2 = $courseanswer['CourseID'];
             <div class="right-content">
                 <label for="" class="dropdowntext">Welcome</label>
                 <div class="dropdown">
+                    <div class="dropdown">
+                        <a href="logout.php"><button class="Btn">
+                                <div class="sign"><svg viewBox="0 0 512 512">
+                                        <path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"></path>
+                                    </svg></div>
+                                <div class="text">Logout</div>
 
-                    <button class="dropbtn">Dropdown</button>
-                    <div class="dropdown-content">
-                        <a href="#">Profile</a>
-                        <a href="#">Logout</a>
+                            </button>
+                        </a>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="resource-control">
-            <h1 class="heading-text">Resources/Add Resources</h1>
-            <form action="" method="post" enctype="multipart/form-data" id="myForm">
-                <div class="resinput">
-                    <label for="">Enter Resource Name:</label><br>
-                    <input type="text" name="resname" id="resname" class="resname" required><br>
-                </div>
-                <div class="resinput">
-                    <label for="">Enter Resource Description:</label> <br>
-                    <textarea name="resdesc" id="" cols="60" rows="3" required></textarea><br>
-                </div>
-                <div class="resinput"> <label for="fileToUpload">Add Resource File</label><br>
-                    <input type="file" name="fileToUpload" id="fileToUpload" required><br>
-                </div>
+            <div class="resource-control">
+                <h1 class="heading-text">Resources/Add Resources</h1>
+                <form action="" method="post" enctype="multipart/form-data" id="myForm">
+                    <div class="resinput">
+                        <label for="">Enter Resource Name:</label><br>
+                        <input type="text" name="resname" id="resname" class="resname" required><br>
+                    </div>
+                    <div class="resinput">
+                        <label for="">Enter Resource Description:</label> <br>
+                        <textarea name="resdesc" id="" cols="60" rows="3" required></textarea><br>
+                    </div>
+                    <div class="resinput"> <label for="fileToUpload">Add Resource File</label><br>
+                        <input type="file" name="fileToUpload" id="fileToUpload" required><br>
+                    </div>
 
-                <div class="btndiv centerdiv">
-                    <button type="submit" name="submit" id="button" class="button" onclick="clearForm()">Upload Resource</button>
-                    <?php
-                    if (isset($_POST["submit"])) {
-                        $resname = $_POST['resname'];
-                        $resdesc = $_POST['resdesc'];
-                        $targetDirTeacher = "uploads/"; // Teacher's upload folder
-                        $targetDirStudent = "C:/xampp/htdocs/cms/student/uploads/";
+                    <div class="btndiv centerdiv">
+                        <button type="submit" name="submit" id="button" class="button" onclick="clearForm()">Upload Resource</button>
+                        <?php
+                        if (isset($_POST["submit"])) {
+                            $resname = $_POST['resname'];
+                            $resdesc = $_POST['resdesc'];
+                            $targetDirTeacher = "uploads/"; // Teacher's upload folder
+                            $targetDirStudent = "C:/xampp/htdocs/cms/student/uploads/";
 
-                        $fileName = basename($_FILES["fileToUpload"]["name"]);
+                            $fileName = basename($_FILES["fileToUpload"]["name"]);
 
-                        // Teacher's directory path
-                        $targetFilePathTeacher = $targetDirTeacher . $fileName;
-                        // Student's directory path
-                        $targetFilePathStudent = $targetDirStudent . $fileName;
+                            // Teacher's directory path
+                            $targetFilePathTeacher = $targetDirTeacher . $fileName;
+                            // Student's directory path
+                            $targetFilePathStudent = $targetDirStudent . $fileName;
 
-                        // Upload to Teacher's folder
-                        if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $targetFilePathTeacher)) {
-                            // Upload to Student's folder
-                            if (copy($targetFilePathTeacher, $targetFilePathStudent)) {
-                                $sql = "INSERT INTO resourcedetails (Resourcename,CourseID,Resourcedesc,filename ,filepath,Studentfilepath) VALUES ('$resname','$courseanswer2','$resdesc','$fileName', '$targetFilePathTeacher','$targetFilePathStudent')";
-                                if ($conn->query($sql) === TRUE) {
-                                    echo "<div class='successmsg'>
+                            // Upload to Teacher's folder
+                            if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $targetFilePathTeacher)) {
+                                // Upload to Student's folder
+                                if (copy($targetFilePathTeacher, $targetFilePathStudent)) {
+                                    $sqlcheck = "Select * from resourcedetails where Resourcename = '$resname' and Resourcedesc = '$resdesc' and filename = '$fileName'";
+                                    $rescheck = mysqli_query($conn, $sqlcheck);
+                                    if (mysqli_num_rows($rescheck) <= 0) {
+                                        $sql = "INSERT INTO resourcedetails (Resourcename,CourseID,Resourcedesc,filename ,filepath,Studentfilepath) VALUES ('$resname','$courseanswer2','$resdesc','$fileName', '$targetFilePathTeacher','$targetFilePathStudent')";
+                                        if ($conn->query($sql) === TRUE) {
+                                            echo "<div class='successmsg'>
                                         <label class='successtext'>Resource File Added</label>
                                     </div>";
-                                } else {
-                                    echo "<div class='successmsg'>
+                                        } else {
+                                            echo "<div class='successmsg'>
                                         <label class='successtext'>Resource File wasn't Added</label>
                                     </div>";
+                                        }
+                                    }
+                                } else {
+                                    echo "<div class='successmsg'>
+                                    <label class='successtext'>Failed to copy file to student's folder</label>
+                                </div>";
                                 }
                             } else {
                                 echo "<div class='successmsg'>
-                                    <label class='successtext'>Failed to copy file to student's folder</label>
-                                </div>";
-                            }
-                        } else {
-                            echo "<div class='successmsg'>
                                 <label class='successtext'>Failed to upload file to teacher's folder</label>
                             </div>";
+                            }
                         }
-                    }
 
-                    ?>
-                </div>
-            </form>
-        </div>
+                        ?>
+                    </div>
+                </form>
+            </div>
     </section>
     <script>
         window.onload = function() {

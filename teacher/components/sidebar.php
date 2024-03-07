@@ -21,14 +21,14 @@
         <ul class="nav-links">
             <li>
                 <a href="teacherdashboard.php">
-                    <i class='bx bx-grid-alt'></i>
+                    <i class='bx bxs-dashboard'></i>
                     <span class="link_name">Dashboard</span>
                 </a>
             </li>
             <li>
                 <div class="iocn-link">
                     <a href="#">
-                        <i class='bx bx-collection'></i>
+                        <i class='bx bxs-book-reader'></i>
                         <span class="link_name">Test</span>
                     </a>
                     <i class='bx bxs-chevron-down arrow'></i>
@@ -43,7 +43,7 @@
             <li>
                 <div class="iocn-link">
                     <a href="#">
-                        <i class='bx bx-collection'></i>
+                        <i class='bx bxs-food-menu'></i>
                         <span class="link_name">Assignments</span>
                     </a>
                     <i class='bx bxs-chevron-down arrow'></i>
@@ -57,7 +57,7 @@
             <li>
                 <div class="iocn-link">
                     <a href="#">
-                        <i class='bx bx-collection'></i>
+                        <i class='bx bxs-group'></i>
                         <span class="link_name">Attendance</span>
                     </a>
                     <i class='bx bxs-chevron-down arrow'></i>
@@ -70,7 +70,7 @@
             <li>
                 <div class="iocn-link">
                     <a href="#">
-                        <i class='bx bx-collection'></i>
+                        <i class='bx bxs-calendar'></i>
                         <span class="link_name">Timetable</span>
                     </a>
                     <i class='bx bxs-chevron-down arrow'></i>
@@ -83,7 +83,7 @@
             <li>
                 <div class="iocn-link">
                     <a href="#">
-                        <i class='bx bx-collection'></i>
+                        <i class='bx bxs-folder-minus'></i>
                         <span class="link_name">Resource</span>
                     </a>
                     <i class='bx bxs-chevron-down arrow'></i>
@@ -96,8 +96,8 @@
             <li>
                 <div class="iocn-link">
                     <a href="#">
-                        <i class='bx bx-collection'></i>
-                        <span class="link_name" >Notice</span>
+                        <i class='bx bxs-message-alt-detail'></i>
+                        <span class="link_name">Notice</span>
                     </a>
                     <i class='bx bxs-chevron-down arrow'></i>
                 </div>
@@ -109,7 +109,7 @@
             <li>
                 <div class="iocn-link">
                     <a href="#">
-                        <i class='bx bx-collection'></i>
+                    <i class='bx bxs-message-rounded-dots'></i>
                         <span class="link_name">Feedback</span>
                     </a>
                     <i class='bx bxs-chevron-down arrow'></i>
@@ -140,19 +140,14 @@
             <div class="right-content">
                 <label for="" class="dropdowntext">Welcome</label>
                 <div class="dropdown">
-
                     <button class="dropbtn">Dropdown</button>
-                    <div class="dropdown-content">
-                        <a href="#">Profile</a>
-                        <a href="#">Logout</a>
-                    </div>
                 </div>
             </div>
         </div>
         <label for="">alnaivn</label>
     </section>-->
 
-
+   
     <script>
         let arrow = document.querySelectorAll(".arrow");
         for (var i = 0; i < arrow.length; i++) {
