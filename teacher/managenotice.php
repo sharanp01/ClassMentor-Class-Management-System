@@ -10,7 +10,7 @@ $result = mysqli_query($conn, $sql);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Notice</title>
     <link rel="stylesheet" href="styles/sidebarstyle.css">
     <link rel="stylesheet" href="styles/tablestyle.css">
     <link rel="stylesheet" href="styles/resstyle.css">

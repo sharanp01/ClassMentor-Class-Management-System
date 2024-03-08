@@ -15,7 +15,7 @@ if (isset($_GET['quizid'])) {
     <link rel="stylesheet" href="styles/sidebarstyle.css">
     <link rel="stylesheet" href="styles/tablestyle.css">
     <link rel="stylesheet" href="styles/resstyle.css">
-    <title>Document</title>
+    <title>Add Questions</title>
 </head>
 
 <body>

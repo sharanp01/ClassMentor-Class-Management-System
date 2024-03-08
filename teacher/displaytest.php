@@ -22,7 +22,7 @@ $result3 = mysqli_query($conn, $sql3);
     <link rel="stylesheet" href="styles/sidebarstyle.css">
     <link rel="stylesheet" href="styles/tablestyle.css">
     <link rel="stylesheet" href="styles/resstyle.css">
-    <title>Document</title>
+    <title>Test</title>
 </head>
 
 <body>

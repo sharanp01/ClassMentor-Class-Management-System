@@ -10,7 +10,7 @@ include("components/connect.php");
     <link rel="stylesheet" href="styles/sidebarstyle.css">
     <link rel="stylesheet" href="styles/tablestyle.css">
     <link rel="stylesheet" href="styles/resstyle.css">
-    <title>Document</title>
+    <title>Results</title>
 </head>
 
 <body>
