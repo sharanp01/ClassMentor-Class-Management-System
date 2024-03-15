@@ -35,7 +35,7 @@
                     <i class='bx bxs-chevron-down arrow'></i>
                 </div>
                 <ul class="sub-menu">
-                    <li><a href="#">Give Test</a></li>
+                    <li><a href="studentquizdisplay.php">Give Test</a></li>
                 </ul>
             </li>
             <li>

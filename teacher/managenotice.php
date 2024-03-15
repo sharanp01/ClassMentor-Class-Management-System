@@ -39,6 +39,7 @@ $result = mysqli_query($conn, $sql);
                     </a>
                 </div>
             </div>
+        </div>
             <div class="table-control">
                 <h1 class="heading-text">Notice/Manage Notice</h1>
                 <?php

@@ -36,8 +36,6 @@
                 <ul class="sub-menu">
                     <li><a href="Quizdetails.php">Assign Test</a></li>
                     <li><a href="displaytest.php">Manage Test</a></li>
-                    <li><a href="#">Marks</a></li>
-
                 </ul>
             </li>
             <li>
@@ -108,15 +106,11 @@
             </li>
             <li>
                 <div class="iocn-link">
-                    <a href="#">
+                    <a href="feedback.php">
                     <i class='bx bxs-message-rounded-dots'></i>
                         <span class="link_name">Feedback</span>
                     </a>
-                    <i class='bx bxs-chevron-down arrow'></i>
                 </div>
-                <ul class="sub-menu">
-                    <li><a href="#">Create FeedbackForm</a></li>
-                </ul>
             </li>
             <!-- <li>
                 <div class="profile-details">

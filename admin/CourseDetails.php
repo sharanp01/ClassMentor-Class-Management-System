@@ -109,10 +109,10 @@ include('components/sidebar.php');
                             </div>
                             <?php
                             if (isset($_POST['submit2'])) {
-                                function sanitizeInput($data)
+                              /*   function sanitizeInput($data)
                                 {
                                     return htmlspecialchars(strip_tags($data));
-                                }
+                                } */
                                 $showdata = $_POST['selected_column1'];
                                 $sqlquery = "select CourseID from coursedetails where Coursename='$showdata' ";
                                 $res = mysqli_query($con, $sqlquery);
