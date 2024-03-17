@@ -125,22 +125,7 @@
             </li> -->
         </ul>
     </div>
-    <!-- <section class="home-section">
-
-        <div class="home-content">
-            <div class="left-content">
-                ClassMentor
-            </div>
-            <div class="right-content">
-                <label for="" class="dropdowntext">Welcome</label>
-                <div class="dropdown">
-                    <button class="dropbtn">Dropdown</button>
-                </div>
-            </div>
-        </div>
-        <label for="">alnaivn</label>
-    </section>-->
-
+   
    
     <script>
         let arrow = document.querySelectorAll(".arrow");

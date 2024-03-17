@@ -73,6 +73,9 @@ $result = mysqli_query($conn, $feedbacksql);
             font-size: 1rem;
             margin-left: 15px;
         }
+        .assign-text{
+            color : red;
+        }
     </style>
 </head>
 
@@ -101,9 +104,11 @@ $result = mysqli_query($conn, $feedbacksql);
             if (mysqli_num_rows($result) > 0) {
                 $i = 1;
                 while ($row = $result->fetch_assoc()) {
+                    $feedback = ucwords($row['Feedback']); 
+                    $suggestion = ucwords($row['Suggestion']); 
                     echo "<div  class='announcement-label'><div class='announcement-heading'>New Feedback<hr></div>
-            <div class='announce-desc'><p>Feedback: </p><label  class='assign-text'>" . $row['Feedback'] . "</label><br></div>
-            <div class='announce-desc'><p>Suggestion for Improvement: </p><label  class='assign-text'>" . $row['Suggestion'] . "</label><br></div></div>";
+            <div class='announce-desc'><p>Feedback: </p><label  class='assign-text'>" . $feedback . "</label><br></div>
+            <div class='announce-desc'><p>Suggestion for Improvement: </p><label  class='assign-text'>" . $suggestion . "</label><br></div></div>";
                     $i++;
                 }
             } else {

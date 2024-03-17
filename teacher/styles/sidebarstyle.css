@@ -1,20 +1,9 @@
 /* Google Fonts Import Link */
-@import url("https://fonts.googleapis.com/css2?family=Kode+Mono:wght@400..700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Concert+One&family=Kode+Mono:wght@400..700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Acme&family=Concert+One&family=Kode+Mono:wght@400..700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Acme&family=Concert+One&family=Kode+Mono:wght@400..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Acme&family=Concert+One&family=DM+Serif+Text:ital@0;1&family=Kode+Mono:wght@400..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  /*  font-family: "Kode Mono", monospace;
-  font-optical-sizing: auto; */
-  /*  font-family: "Concert One", sans-serif; */
-  /*  font-family: "Acme", sans-serif; */
-  /* font-family: "Playfair Display", serif;
-font-weight: 2rem;
-} */
   font-family: "DM Serif Text", serif;
 }
 .sidebar {
