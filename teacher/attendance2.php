@@ -38,6 +38,7 @@ include('components/sidebar.php');
                     </a>
                 </div>
             </div>
+        </div>   
             <form action="" method="POST">
                 <?php
                 $username = "Divya01";

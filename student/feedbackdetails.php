@@ -1,7 +1,7 @@
 <?php
 include("components/connect.php");
 include("components/sidebar.php");
-$username = "sharan31";
+$username = "sathya05";
 $studentsql = "select * from studentdetails where Username = '" . $username . "' ";
 $studentresult = mysqli_query($conn, $studentsql);
 $row1 = mysqli_fetch_assoc($studentresult);

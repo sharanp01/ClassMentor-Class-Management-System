@@ -30,6 +30,7 @@
   font-size: 1.2rem;
   margin-right: 10px;
   border-radius: 10px;
+  color: white;
   box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.4);
 }
 .timestat{
@@ -40,16 +41,17 @@
   margin-right: 10px;
   border-radius: 10px;
   box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.4);
-  background-color: white;
+  background-color: rgb(16, 237, 53);
+  color: white;
   margin-left: 20px;
 
 }
 .studstat {
-  background-color: white;
+  background-color: rgb(107, 100, 255);
   margin-left: 20px;
 }
 .subname {
-  background-color: white;
+  background-color: rgb(238, 47, 47);
 }
 statcount {
   position: relative;
@@ -57,7 +59,7 @@ statcount {
 }
 .count {
   font-family: var(--main-font);
-  color: var(--main-color);
+  color: white;
 }
 .pagecenter{
     width: 70%;

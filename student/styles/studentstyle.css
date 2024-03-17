@@ -6,6 +6,21 @@
   box-sizing: border-box;
   font-family: "DM Serif Text", serif;
 }
+.headertext {
+  text-align: center;
+  margin-top: 30px;
+}
+.dashimage {
+  vertical-align: middle;
+  height: 50px;
+  width: 50px;
+}
+.dashtext {
+  font-size: 1.5rem;
+  vertical-align: middle;
+  margin-left: 7px;
+  margin-bottom: 20px;
+}
 .sidebar {
   position: fixed;
   top: 0;

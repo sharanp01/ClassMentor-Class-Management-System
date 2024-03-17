@@ -1,20 +1,27 @@
 <?php
+// Include necessary files and establish database connection
 include("components/connect.php");
 include('components/sidebar.php');
+
+// Fetch the course ID of the logged-in student
 $username = "sathya05";
-$studentsql = "select CourseID from studentdetails where Username = '" . $username . "' ";
+$studentsql = "SELECT CourseID FROM studentdetails WHERE Username = '" . $username . "'";
 $studentresult = mysqli_query($conn, $studentsql);
 $row1 = mysqli_fetch_assoc($studentresult);
 $col1 = $row1['CourseID'];
+
+// Fetch timetable data for the current date and onwards
 $currentDate = date('Y-m-d');
 $sql = "SELECT teacherdetails.Firstname, subjectdetails.Subjectname, timetabledetails.Date, timetabledetails.Starttime, timetabledetails.Endtime 
-FROM timetabledetails
-INNER JOIN teacherdetails ON teacherdetails.TeacherID = timetabledetails.TeacherID
-INNER JOIN subjectdetails ON subjectdetails.SubjectID = timetabledetails.SubjectID
-WHERE timetabledetails.CourseID='$col1' AND timetabledetails.Date >='$currentDate'
-ORDER BY timetabledetails.Date ASC"; /* TeacherID='".$_SESSION['user']."' */
+        FROM timetabledetails
+        INNER JOIN teacherdetails ON teacherdetails.TeacherID = timetabledetails.TeacherID
+        INNER JOIN subjectdetails ON subjectdetails.SubjectID = timetabledetails.SubjectID
+        WHERE timetabledetails.CourseID='$col1' AND timetabledetails.Date >='$currentDate'
+        ORDER BY timetabledetails.Date ASC, timetabledetails.Starttime ASC";
+
 $result = mysqli_query($conn, $sql);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,12 +29,36 @@ $result = mysqli_query($conn, $sql);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/studentstyle.css">
-    <title>Document</title>
+    <title>Timetable</title>
+    <style>
+        /* Add your calendar styling here */
+        .calendar {
+            display: grid;
+            border: 2px solid black;
+            margin-top: 30px;
+            grid-template-columns: repeat(7, 1fr);
+        }
+
+        .calendar-day {
+            border: 2px solid black;
+           padding-top: 10px;
+        }
+
+        .calendar-day-heading {
+            font-weight: bold;
+        }
+
+        .lecture {
+            border-bottom: 2px solid black;
+            padding-bottom: 10px;
+        }
+    </style>
 </head>
 
 <body>
     <section class="home-section">
         <div class="home-content">
+
             <div class="left-content">
                 ClassMentor
             </div>
@@ -46,46 +77,47 @@ $result = mysqli_query($conn, $sql);
                 </div>
             </div>
         </div>
-        </div>
+
         <div class="table-control">
             <h1 class="heading-text">Timetable</h1>
-            <?php
-            if (mysqli_num_rows($result) > 0) {
-            ?>
-
-                <table border="1" cellspacing="6" cellpadding="6" id="attendancetable">
-                    <tr class="heading">
-                        <th>Sr No</th>
-                        <th>Teacher Name</th>
-                        <th>Subject Name</th>
-                        <th>Date</th>
-                        <th>Start Time</th>
-                        <th>End Time</th>
-                    </tr>
-
+            <div class="calendar">
                 <?php
-                $i = 1;
-                while ($result3 = mysqli_fetch_assoc($result)) {
+                // Initialize an array to hold timetable data organized by date
+                $timetableData = array();
 
-                    echo "  
-         <tr class='data'>  
-              <td>" . $i . "</td>  
-              <td>" . $result3['Firstname'] . "</td>
-              <td>" . $result3['Subjectname'] . "</td>
-              <td>" . date('d-m-Y', strtotime($result3['Date'])) . "</td>
-              <td>" . date('H:i', strtotime($result3['Starttime'])) . "</td>
-              <td>" . date('H:i', strtotime($result3['Endtime'])) . "</td>
-              
-         </tr>  
-    ";
-                    $i++;
+                // Fetch timetable data into the array
+                while ($row = mysqli_fetch_assoc($result)) {
+                    $date = date('Y-m-d', strtotime($row['Date']));
+                    $timetableData[$date][] = $row;
                 }
-            } else {
-                echo "<div class='successmsg'><label class='successtext'>Data not found</label><br>
-            <label class='successtext'>No lectures Schedules To Schedule New Lectures <br><div class='btndiv'><a href='timetabledetails.php' class='button deletetext'>Click Here!</a></div></label></div>";
-            }
 
+                // Loop through the days starting from the current date
+                for ($i = 0; $i < 7; $i++) {
+                    $date = date('Y-m-d', strtotime($currentDate . ' + ' . $i . ' day'));
+                    $dayName = date('l', strtotime($date));
+
+                    echo '<div class="calendar-day">';
+                    echo '<div class="calendar-day-heading lecture">' . $dayName . '</div>';
+
+                    // Check if timetable data exists for the current date
+                    if (isset($timetableData[$date])) {
+                        // Loop through the timetable data for the current date
+                        foreach ($timetableData[$date] as $timetable) {
+                            echo '<div class="lecture">';
+                            echo '<strong>' . $timetable['Date'] . '</strong><br>';
+                            echo '<strong>' . $timetable['Firstname'] . '</strong><br>';
+                            echo '<span>' . $timetable['Subjectname'] . '</span><br>';
+                            echo '<span>' . date('H:i', strtotime($timetable['Starttime'])) . ' - ' . date('H:i', strtotime($timetable['Endtime'])) . '</span>';
+                            echo '</div>';
+                        }
+                    } else {
+                        echo 'No classes scheduled';
+                    }
+
+                    echo '</div>';
+                }
                 ?>
+            </div>
         </div>
     </section>
 </body>

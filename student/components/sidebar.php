@@ -47,6 +47,7 @@
                 </div>
                 <ul class="sub-menu">
                     <li><a href="studentassignment.php">Give Assignment</a></li>
+                    <li><a href="studentassignmarks.php">View Marks</a></li>
                 </ul>
             </li>
 
