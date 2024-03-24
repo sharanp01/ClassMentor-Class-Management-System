@@ -43,7 +43,7 @@ session_start();?>
 
 
             </div>
-
+           <div class="passform"><a href="forgotpassword.php">Forgot Password</a></div>
             <div class="btnshow"> <input type="submit" value="Login" name="Login" class="btn"> </div>
             <?php
             include("components/dbconnection.php");
