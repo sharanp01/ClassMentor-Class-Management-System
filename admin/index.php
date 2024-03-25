@@ -10,7 +10,7 @@ session_start();?>
 
 <body>
     <header>
-        <h2>Class Mentor</h2>
+        <h2>ClassMentor</h2>
     </header>
     <div id="frm" class="login-container">
         <form name="f1" action="" method="POST">
@@ -43,7 +43,7 @@ session_start();?>
 
 
             </div>
-           <div class="passform"><a href="forgotpassword.php">Forgot Password</a></div>
+           <div class="passform"><a href="forgotpassword.php" style="text-decoration: none;">Forgot Password?</a></div>
             <div class="btnshow"> <input type="submit" value="Login" name="Login" class="btn"> </div>
             <?php
             include("components/dbconnection.php");

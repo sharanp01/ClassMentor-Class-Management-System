@@ -33,8 +33,6 @@ include('components/connect.php');
                             if (isset($_POST['login'])) {
                                 $username = $_POST['username'];
                                 $password = $_POST['password'];
-
-
                                 $username = stripcslashes($username);
                                 $password = stripcslashes($password);
                                 $username = mysqli_real_escape_string($conn, $username);
@@ -51,8 +49,7 @@ include('components/connect.php');
                                 } else {
                                     echo "<label class='error-msg'>Invalid username or password</label>";
                                 }
-                            }
-                            else{
+                            } else {
                                 $username = $_POST['username'];
                                 $password = $_POST['password'];
 
@@ -77,7 +74,20 @@ include('components/connect.php');
                         }
                         ?>
                     </div>
+                    <!--  <div class="switch2">
+                        <div class="switch3">
+                            <label class="switch">
+                                <input type="checkbox" name="login">
+                                <div class="slider">
+                                    <span>Teacher</span>
+                                    <span>Student</span>
+                                </div>
+                            </label>
+                        </div>
+                        <label for=""><a href="forgot-password.php">Forgot Password?</a></label>
+                    </div> -->
                     <div class="switch2">
+                        <label for=""><a href="forgot-password.php" class="forgot-password">Forgot Password?</a></label>
                         <div class="switch3">
                             <label class="switch">
                                 <input type="checkbox" name="login">
