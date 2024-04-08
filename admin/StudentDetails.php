@@ -101,6 +101,7 @@ include('components/sidebar.php'); ?>
                 $age = sanitizeInput($_POST['studentage']);
                 $username = sanitizeInput($_POST['susername']);
                 $password = $_POST['tpassword1']; // Hash the password
+                $password = password_hash($password, PASSWORD_DEFAULT);
                 $sqlcheck = "Select * from studentdetails where Username = '$username'";
                 $rescheck = mysqli_query($con, $sqlcheck);
                 if (mysqli_num_rows($rescheck) <= 0) {

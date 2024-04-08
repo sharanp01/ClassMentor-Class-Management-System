@@ -36,18 +36,21 @@ include('components/connect.php');
                                 $username = stripcslashes($username);
                                 $password = stripcslashes($password);
                                 $username = mysqli_real_escape_string($conn, $username);
-                                $password = mysqli_real_escape_string($conn, $password);
-
-                                $sql = "select * from studentdetails where Username = '$username' and Password = '$password'";
+                                $password = mysqli_real_escape_string($conn, $password); 
+                                $sql = "select * from studentdetails where Username = '$username'";
                                 $result = mysqli_query($conn, $sql);
-                                $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-                                $count = mysqli_num_rows($result);
-
-                                if ($count == 1) {
-                                    header("Location:student/studentdashboard.php");
-                                    exit();
+                                if (mysqli_num_rows($result) > 0) {
+                                    $row = $result->fetch_assoc();
+                                    $check = password_verify($password, $row['Password']);
+                                    if ($check == 1) {
+                                        header("location:student/studentdashboard.php");
+                                        exit();
+                                       
+                                    } else {
+                                        echo "<label class='error-msg'>Invalid password</label>";
+                                    }
                                 } else {
-                                    echo "<label class='error-msg'>Invalid username or password</label>";
+                                    echo "<label class='error-msg'>Invalid username</label>";
                                 }
                             } else {
                                 $username = $_POST['username'];
@@ -59,16 +62,20 @@ include('components/connect.php');
                                 $username = mysqli_real_escape_string($conn, $username);
                                 $password = mysqli_real_escape_string($conn, $password);
 
-                                $sql = "select * from teacherdetails where Username = '$username' and Password = '$password'";
+                                $sql = "select * from teacherdetails where Username = '$username'";
                                 $result = mysqli_query($conn, $sql);
-                                $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-                                $count = mysqli_num_rows($result);
-
-                                if ($count == 1) {
-                                    header("Location:teacher/teacherdashboard.php");
-                                    exit();
+                                if (mysqli_num_rows($result) > 0) {
+                                    $row = $result->fetch_assoc();
+                                    $check = password_verify($password, $row['Password']);
+                                    if ($check == 1) {
+                                        header("location:teacher/teacherdashboard.php");
+                                        exit();
+                                       
+                                    } else {
+                                        echo "<label class='error-msg'>Invalid password</label>";
+                                    }
                                 } else {
-                                    echo "<label class='error-msg'>Invalid username or password</label>";
+                                    echo "<label class='error-msg'>Invalid username</label>";
                                 }
                             }
                         }
