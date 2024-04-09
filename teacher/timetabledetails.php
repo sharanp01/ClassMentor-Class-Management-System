@@ -14,6 +14,51 @@ $sql3 = "select CourseID from subjectdetails where SubjectID = '$subjectanswer2'
 $result3 = mysqli_query($conn, $sql3);
 $courseanswer = mysqli_fetch_assoc($result3);
 $courseanswer2 = $courseanswer['CourseID'];
+$errors = [];
+function sanitizeInput($data)
+{
+    global $conn;
+    return mysqli_real_escape_string($conn, htmlspecialchars(strip_tags($data)));
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $timetabledate = sanitizeInput($_POST['timetabledate']);
+    $currentDate = new DateTime();
+    $timetabledate = new DateTime($timetabledate);
+    if ($timetabledate < $currentDate) {
+        $errors['timetabledate'] = "Lecture Date is Invalid!";
+    }
+    $timestart = sanitizeInput($_POST['timetablestarttime']);
+    $timeend = sanitizeInput($_POST['timetableendtime']);
+
+    $timestartDateTime = DateTime::createFromFormat('H:i', $timestart); // Convert start time to DateTime object
+    $timeendDateTime = DateTime::createFromFormat('H:i', $timeend); // Convert end time to DateTime object`
+
+    if ($timestartDateTime >= $timeendDateTime) {
+        $errors['timetabletime'] = "End time must be after start time.";
+    }
+
+
+    if (empty($errors)) {
+        $date = $_POST['timetabledate'];
+        $starttime = $_POST['timetablestarttime'];
+        $endtime = $_POST['timetableendtime'];
+        $sqlcheck = "Select * from timetabledetails where Date = '$date' and SubjectID = '$subjectanswer2'";
+        $rescheck = mysqli_query($conn, $sqlcheck);
+        if (mysqli_num_rows($rescheck) <= 0) {
+            $sql = "Insert into timetabledetails (TeacherID, CourseID,SubjectID, Date, Starttime, Endtime) values('$answer2','$courseanswer2','$subjectanswer2','$date','$starttime','$endtime')";
+            if ($conn->query($sql) == TRUE) {
+                $errors['timetable-insertion'] = "<div class='successmsg'>
+       <label class='successtext'>Lecture Scheduled!</label>
+</div>";
+            } else {
+                $errors['timetable-insertion'] = "<div class='successmsg'>
+       <label class='successtext'>Lecture Was'nt Scheduled!</label>
+</div>";
+            }
+        }
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -56,73 +101,27 @@ $courseanswer2 = $courseanswer['CourseID'];
             <form action="" method="post" enctype="multipart/form-data" id="myForm">
                 <div class="resinput">
                     <label for="">Enter Date:</label><br>
-                    <input type="date" name="timetabledate" id="timetabledate" class="resname" oninput=validateDate() required>
-                    <span id="dateError" style="color: red; font-size: 1rem; position: relative; left: 10px;"></span><br>
+                    <input type="date" name="timetabledate" value="<?= isset($_POST['timetabledate']) ? htmlspecialchars($_POST['timetabledate']) : ''; ?>" id="timetabledate" class="resname" required>
+                    <?php if (isset($errors['timetabledate'])) echo "<div class='errormsgcss'><span class='errormsg' style='color:red;'>{$errors['timetabledate']}</span></div>"; ?>
                 </div>
                 <div class="resinput">
                     <label for="">Enter Lecture Start Time:</label> <br>
-                    <input type="time" name="timetablestarttime" id="timetablestarttime" class="resname" required><br>
+                    <input type="time" name="timetablestarttime" value="<?= isset($_POST['timetablestarttime']) ? htmlspecialchars($_POST['timetablestarttime']) : ''; ?>" id="timetablestarttime" class="resname" required><br>
+
 
                 </div>
                 <div class="resinput">
                     <label for="">Enter Lecture End Time:</label> <br>
-                    <input type="time" name="timetableendtime" id="timetableendtime" class="resname" oninput="validateTime()" required>
-                    <span id="timeError" style="color: red; font-size: 1rem; position: relative; left: 10px;"></span><br>
+                    <input type="time" name="timetableendtime" value="<?= isset($_POST['timetableendtime']) ? htmlspecialchars($_POST['timetableendtime']) : ''; ?>" id="timetableendtime" class="resname" required>
+                    <?php if (isset($errors['timetabletime'])) echo "<div class='errormsgcss'><span class='errormsg' style='color:red;'>{$errors['timetabletime']}</span></div>"; ?>
                 </div>
 
                 <div class="btndiv centerdiv">
                     <button type="submit" name="submit" id="button" class="button">Schedule Lecture</button>
-                    <?php
-                    if (isset($_POST['submit'])) {
-                        $date = $_POST['timetabledate'];
-                        $starttime = $_POST['timetablestarttime'];
-                        $endtime = $_POST['timetableendtime'];
-                        $sqlcheck = "Select * from timetabledetails where Date = '$date' and SubjectID = '$subjectanswer2'";
-                        $rescheck = mysqli_query($conn, $sqlcheck);
-                        if (mysqli_num_rows($rescheck) <= 0) {
-                            $sql = "Insert into timetabledetails (TeacherID, CourseID,SubjectID, Date, Starttime, Endtime) values('$answer2','$courseanswer2','$subjectanswer2','$date','$starttime','$endtime')";
-                            if ($conn->query($sql) == TRUE) {
-                                echo "<div class='successmsg'>
-                       <label class='successtext'>Lecture Scheduled!</label>
-           </div>";
-                            } else {
-                                echo "<div class='successmsg'>
-                       <label class='successtext'>Lecture Was'nt Scheduled!</label>
-           </div>";
-                            }
-                        }
-                    }
-                    ?>
+                    <?php if (isset($errors['timetable-insertion'])) echo "{$errors['timetable-insertion']}"; ?>
                 </div>
     </section>
 </body>
-<script>
-    function validateDate() {
-        var selectedDate = new Date(document.getElementById("timetabledate").value);
-        var currentDate = new Date();
 
-        if (selectedDate < currentDate) {
-            document.getElementById("dateError").innerText = "Please select a date equal to or after the current date.";
-        } else {
-            // Reset error message
-            document.getElementById("dateError").innerText = "";
-        }
-    }
-
-    function validateTime() {
-        var startTimeInput = document.getElementById("timetablestarttime").value;
-        var endTimeInput = document.getElementById("timetableendtime").value;
-        var startTime = new Date("2000-01-01 " + startTimeInput);
-        var endTime = new Date("2000-01-01 " + endTimeInput);
-
-        // Check if end time is before start time
-        if (endTime < startTime) {
-            document.getElementById("timeError").innerText = "End time must be after start time.";
-        } else {
-            // Reset error message
-            document.getElementById("timeError").innerText = "";
-        }
-    }
-</script>
 
 </html>

@@ -14,6 +14,43 @@ $sql3 = "select CourseID from subjectdetails where SubjectID = '$subjectanswer2'
 $result3 = mysqli_query($conn, $sql3);
 $courseanswer = mysqli_fetch_assoc($result3);
 $courseanswer2 = $courseanswer['CourseID'];
+$errors = [];
+function sanitizeInput($data)
+{
+    global $conn;
+    return mysqli_real_escape_string($conn, htmlspecialchars(strip_tags($data)));
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    $announcetitle = sanitizeInput($_POST['announcetitle']);
+    if (strlen($announcetitle) > 50) {
+        $errors['announcetitle'] = "Announcement Title must be 50 characters or less";
+    }
+
+    $announcedesc = sanitizeInput($_POST['announcedesc']);
+    if (strlen($announcedesc) > 150) {
+        $errors['announcedesc'] = "Announcement Description must be 150 characters or less";
+    }
+    if (empty($errors)) {
+        $title = $_POST['announcetitle'];
+        $desc = $_POST['announcedesc'];
+        $sqlcheck = "Select * from announcementdetails where Announcementtitle = '$title' and AnnouncementDesc = '$desc'";
+        $rescheck = mysqli_query($conn, $sqlcheck);
+        if (mysqli_num_rows($rescheck) <= 0) {
+            $sql = "Insert into announcementdetails (SubjectID, Announcementtitle, AnnouncementDesc,CourseID) values('$subjectanswer2','$title','$desc','$courseanswer2')";
+            if ($conn->query($sql) == TRUE) {
+                $errors['announcement-insertion'] = "<div class='successmsg'>
+            <label class='successtext'>Announcement Posted!</label>
+</div>";
+            } else {
+                $errors['announcement-insertion'] = "<div class='successmsg'>
+            <label class='successtext'>Announcement Was'nt Posted!</label>
+</div>";
+            }
+        }
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -57,34 +94,17 @@ $courseanswer2 = $courseanswer['CourseID'];
             <form action="" method="post">
                 <div class="resinput">
                     <label for="">Enter Announcement Title:</label><br>
-                    <input type="text" name="announcetitle" id="resname" class="resname" required><br>
+                    <input type="text" name="announcetitle" placeholder= "Character Limit: 50 Words" value="<?= isset($_POST['announcetitle']) ? htmlspecialchars($_POST['announcetitle']) : ''; ?>" id="resname" class="resname" required><br>
+                    <?php if (isset($errors['announcetitle'])) echo "<div class='errormsgcss'><span class='errormsg' style='color:red;'>{$errors['announcetitle']}</span></div>"; ?>
                 </div>
                 <div class="resinput">
                     <label for="">Enter Announcement:</label> <br>
-                    <textarea name="announcedesc" id="" cols="60" rows="3" required></textarea><br>
+                    <textarea name="announcedesc" placeholder= "Character Limit: 150 Words" value="<?= isset($_POST['announcedesc']) ? htmlspecialchars($_POST['announcedesc']) : ''; ?>"id="" cols="60" rows="3" required></textarea><br>
+                    <?php if (isset($errors['announcedesc'])) echo "<div class='errormsgcss'><span class='errormsg' style='color:red;'>{$errors['announcedesc']}</span></div>"; ?>
                 </div>
                 <div class="btndiv centerdiv">
                     <button type="submit" name="submit" id="button" class="button">Post Announcement</button>
-                    <?php
-                    if (isset($_POST['submit'])) {
-                        $title = $_POST['announcetitle'];
-                        $desc = $_POST['announcedesc'];
-                        $sqlcheck = "Select * from announcementdetails where Announcementtitle = '$title' and AnnouncementDesc = '$desc'";
-                        $rescheck = mysqli_query($conn, $sqlcheck);
-                        if (mysqli_num_rows($rescheck) <= 0) {
-                            $sql = "Insert into announcementdetails (SubjectID, Announcementtitle, AnnouncementDesc,CourseID) values('$subjectanswer2','$title','$desc','$courseanswer2')";
-                            if ($conn->query($sql) == TRUE) {
-                                echo "<div class='successmsg'>
-                            <label class='successtext'>Announcement Posted!</label>
-                </div>";
-                            } else {
-                                echo "<div class='successmsg'>
-                            <label class='successtext'>Announcement Was'nt Posted!</label>
-                </div>";
-                            }
-                        }
-                    }
-                    ?>
+                    <?php if (isset($errors['announcement-insertion'])) echo "{$errors['announcement-insertion']}"; ?>
                 </div>
             </form>
         </div>

@@ -7,6 +7,45 @@ $studentresult = mysqli_query($conn, $studentsql);
 $row1 = mysqli_fetch_assoc($studentresult);
 $col1 = $row1['CourseID'];
 $studid = $row1['StudentID'];
+$errors = [];
+function sanitizeInput($data)
+{
+    global $conn;
+    return mysqli_real_escape_string($conn, htmlspecialchars(strip_tags($data)));
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    $feedback = sanitizeInput($_POST['feedback']);
+    if (strlen($feedback) > 200) {
+        $errors['feedback'] = "Feedback must be 200 characters or less";
+    }
+
+    $suggestion = sanitizeInput($_POST['suggestion']);
+    if (strlen($suggestion) > 200) {
+        $errors['suggestion'] = "Suggestion must be 200 characters or less";
+    }
+    if (empty($errors)) {
+        $showdata = $_POST['selected_column1'];
+        $feedback = $_POST['feedback'];
+        $suggestion = $_POST['suggestion'];
+        $teachersql = "SELECT TeacherID FROM teacherdetails WHERE Username = '$showdata'";
+        $teacheresult = mysqli_query($conn, $teachersql);
+        $row2 = mysqli_fetch_assoc($teacheresult);
+        $teacherid = $row2['TeacherID'];
+        $sqlcheck = "Select * from feedbackdetails where StudentID = '$studid' and Suggestion = '$suggestion'";
+        $rescheck = mysqli_query($conn, $sqlcheck);
+        if (mysqli_num_rows($rescheck) <= 0) {
+            // SQL query to insert data into the database
+            $sql = "INSERT INTO feedbackdetails(StudentID, TeacherID , CourseID, Feedback, Suggestion) VALUES ('$studid','$teacherid','$col1','$feedback','$suggestion')";
+            if ($conn->query($sql) === TRUE) {
+                $errors['feedback-insertion'] = "<div class='btndiv centerdiv'><label class='form-text'>Suggestion Submitted Successfully!</label></div>";
+            } else {
+                $errors['feedback-insertion'] = "<div class='btndiv centerdiv'><label class='form-text'>Suggestion wasn't submitted!</label></div>";
+            }
+        }
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -64,37 +103,21 @@ $studid = $row1['StudentID'];
                 </div>
                 <div class="resinput">
                     <label for="">Enter feedback based on the Performance:</label> <br>
-                    <textarea name="feedback" id="" cols="60" rows="3" placeholder="Enter Feedback here....." required></textarea><br>
+                    <textarea name="feedback" id="" cols="60" value="<?= isset($_POST['feedback']) ? htmlspecialchars($_POST['feedback']) : ''; ?>" rows="3" placeholder="Character limit: 200 words" required></textarea><br>
+                    <?php if (isset($errors['feedback'])) echo "<div class='errormsgcss'><span class='errormsg' style='color:red;'>{$errors['feedback']}</span></div>"; ?>
+
                 </div>
-                <div class="resinput">
+                <div class="resinput" style="margin-top:15px;">
                     <label for="">Enter Suggestion for Improvement:</label> <br>
-                    <textarea name="suggestion" id="" cols="60" rows="3" placeholder="Enter Suggestion here....." required></textarea><br>
+                    <textarea name="suggestion" value = "<?= isset($_POST['suggestion']) ? htmlspecialchars($_POST['suggestion']) : ''; ?> " id="" cols="60" rows="3" placeholder="Character limit: 200 words" required></textarea><br>
+                    <?php if (isset($errors['suggestion'])) echo "<div class='errormsgcss'><span class='errormsg' style='color:red;'>{$errors['suggestion']}</span></div>"; ?>
                 </div>
                 <div class="btndic centerdiv">
                     <button name="submit" class="button">Submit</button>
+                    <?php if (isset($errors['feedback-insertion'])) echo "{$errors['feedback-insertion']}"; ?>
                 </div>
             </form>
-            <?php
-            if (isset($_POST['submit'])) {
-                $showdata = $_POST['selected_column1'];
-                $feedback = $_POST['feedback'];
-                $suggestion = $_POST['suggestion'];
-                $teachersql = "SELECT TeacherID FROM teacherdetails WHERE Username = '$showdata'";
-                $teacheresult = mysqli_query($conn, $teachersql);
-                $row2 = mysqli_fetch_assoc($teacheresult);
-                $teacherid = $row2['TeacherID'];
-                $sqlcheck = "Select * from feedbackdetails where StudentID = '$studid' and Suggestion = '$feedback'";
-                $rescheck = mysqli_query($conn, $sqlcheck);
-                if (mysqli_num_rows($rescheck) <= 0) {
-                    // SQL query to insert data into the database
-                    $sql = "INSERT INTO feedbackdetails(StudentID, TeacherID , CourseID, Feedback, Suggestion) VALUES ('$studid','$teacherid','$col1','$feedback','$suggestion')";
-                    if ($conn->query($sql) === TRUE) {
-                        echo "<div class='btndiv centerdiv'><label class='form-text'>Suggestion Submitted Successfully!</label></div>";
-                    } else {
-                    }
-                }
-            }
-            ?>
+            
         </div>
     </section>
 </body>

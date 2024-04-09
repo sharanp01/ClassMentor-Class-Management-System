@@ -14,6 +14,52 @@ $sql3 = "select CourseID from subjectdetails where SubjectID = '$subjectanswer2'
 $result3 = mysqli_query($conn, $sql3);
 $courseanswer = mysqli_fetch_assoc($result3);
 $courseanswer2 = $courseanswer['CourseID'];
+$errors = [];
+function sanitizeInput($data)
+{
+    global $conn;
+    return mysqli_real_escape_string($conn, htmlspecialchars(strip_tags($data)));
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    $assignquestion = sanitizeInput($_POST['assignquestion']);
+    if (strlen($assignquestion) > 200) {
+        $errors['assignquestion'] = "Assignment Question must be 200 characters or less";
+    }
+
+    $assignsublink = sanitizeInput($_POST['assignsublink']);
+    if (strlen($assignsublink) > 200) {
+        $errors['assignsublink'] = "Assignment Submission Link must be 200 characters or less";
+    }
+    $assignsubdate = sanitizeInput($_POST['assignsubdate']);
+    $currentDate = new DateTime();
+    $assignsubdate = new DateTime($assignsubdate);
+    if ($assignsubdate < $currentDate)
+    {
+        $errors['assignsubdate'] = "Submission Date is Invalid!";
+    }
+    if (empty($errors)) {
+        $assignquestion = $_POST['assignquestion'];
+        $assignweightage = $_POST['assignweightage'];
+        $assignsubdate = $_POST['assignsubdate'];
+        $assignsublink = $_POST['assignsublink'];
+        $sqlcheck = "Select * from assignmentdetails where Assignmentquestion = '$assignquestion' and AssignmentSubdate = '$assignsubdate'";
+        $rescheck = mysqli_query($conn, $sqlcheck);
+        if (mysqli_num_rows($rescheck) <= 0) {
+            $sql = "Insert into assignmentdetails (TeacherID,SubjectID, CourseID, Assignmentquestion, Assignmentweightage, AssignmentSubdate, AssignmentSublink) values('$answer2','$subjectanswer2','$courseanswer2','$assignquestion','$assignweightage','$assignsubdate','$assignsublink')";
+            if ($conn->query($sql) == TRUE) {
+               $errors['assignment-insertion'] =  "<div class='successmsg'>
+            <label class='successtext'>Assignment Posted!</label>
+</div>";
+            } else {
+                $errors['assignment-insertion'] = "<div class='successmsg'>
+            <label class='successtext'>Assignment Was'nt Posted!</label>
+</div>";
+            }
+        }
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -60,45 +106,26 @@ $courseanswer2 = $courseanswer['CourseID'];
             <form action="" method="post">
                 <div class="resinput">
                     <label for="">Add Assignment Question:</label> <br>
-                    <textarea name="assignquestion" id="" cols="60" rows="3" required></textarea><br>
+                    <textarea name="assignquestion"  placeholder="Character limit: 200 Words" value = "<?= isset($_POST['assignquestion']) ? htmlspecialchars($_POST['assignquestion']) : ''; ?>"id="" cols="60" rows="3" required></textarea>
+                    <?php if (isset($errors['assignquestion'])) echo "<div class='errormsgcss'><span class='errormsg' style='color:red;'>{$errors['assignquestion']}</span></div>"; ?>
                 </div>
                 <div class="resinput">
                     <label for="">Add Assignment Weightage</label> <br>
-                    <input type="text" name="assignweightage" id="resname" required><br>
+                    <input type="number" max="200" name="assignweightage" id="resname" required><br>
                 </div>
                 <div class="resinput">
                     <label for="">Add Assignment Submission Date</label> <br>
-                    <input type="date" name="assignsubdate" id="resname" required><br>
+                    <input type="date" name="assignsubdate" value="<?= isset($_POST['assignsubdate']) ? htmlspecialchars($_POST['assignsubdate']) : ''; ?>" id="resname" required>
+                    <?php if (isset($errors['assignsubdate'])) echo "<div class='errormsgcss'><span class='errormsg' style='color:red;'>{$errors['assignsubdate']}</span></div>"; ?>
                 </div>
                 <div class="resinput">
                     <label for="">Add Assignment Submission Link</label> <br>
-                    <input type="text" name="assignsublink" id="resname" required><br>
+                    <input type="text" name="assignsublink" value="<?= isset($_POST['assignsublink']) ? htmlspecialchars($_POST['assignsublink']) : ''; ?>" placeholder="Character limit: 100 Words" id="resname" required>
+                    <?php if (isset($errors['assignsublink'])) echo "<div class='errormsgcss'><span class='errormsg' style='color:red;'>{$errors['assignsublink']}</span></div>"; ?>
                 </div>
                 <div class="btndiv centerdiv">
                     <button type="submit" name="submit" id="button" class="button" onclick="clearForm()">Post Assignment</button>
-                    <?php
-                    if (isset($_POST["submit"])) {
-                        $assignquestion = $_POST['assignquestion'];
-                        $assignweightage = $_POST['assignweightage'];
-                        $assignsubdate = $_POST['assignsubdate'];
-                        $assignsublink = $_POST['assignsublink'];
-                        $sqlcheck = "Select * from assignmentdetails where Assignmentquestion = '$assignquestion' and AssignmentSubdate = '$assignsubdate'";
-                        $rescheck = mysqli_query($conn, $sqlcheck);
-                        if (mysqli_num_rows($rescheck) <= 0) {
-                            $sql = "Insert into assignmentdetails (TeacherID,SubjectID, CourseID, Assignmentquestion, Assignmentweightage, AssignmentSubdate, AssignmentSublink) values('$answer2','$subjectanswer2','$courseanswer2','$assignquestion','$assignweightage','$assignsubdate','$assignsublink')";
-                            if ($conn->query($sql) == TRUE) {
-                                echo "<div class='successmsg'>
-                            <label class='successtext'>Assignment Posted!</label>
-                </div>";
-                            } else {
-                                echo "<div class='successmsg'>
-                            <label class='successtext'>Assignment Was'nt Posted!</label>
-                </div>";
-                            }
-                        }
-                    }
-
-                    ?>
+                    <?php if (isset($errors['assignment-insertion'])) echo "{$errors['assignment-insertion']}"; ?>
                 </div>
             </form>
         </div>
