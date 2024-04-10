@@ -19,7 +19,7 @@ $result = mysqli_query($conn, $sql);
     <meta charset="UTF-8">
     <link rel="stylesheet" href="styles/studentstyle.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Notices</title>
     <style>
         .announcement-label {
             --input-focus: #2d8cf0;

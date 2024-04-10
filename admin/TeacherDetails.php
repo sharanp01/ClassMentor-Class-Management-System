@@ -42,14 +42,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $errors['password'] = "Passwords do not match";
     }
     if (empty($errors)) {
-        $firstname = sanitizeInput($_POST['teacherfname']);
-        $lastname = sanitizeInput($_POST['teacherlname']);
-        $email = sanitizeInput($_POST['teacheremail']);
-        $phone = sanitizeInput($_POST['teacherphone']);
-        $education = sanitizeInput($_POST['teducation']);
-        $subjectsTaken = sanitizeInput($_POST['subjectstaken']);
-        $username = sanitizeInput($_POST['tusername']);
-        $password = password_hash($_POST['tpassword1'], PASSWORD_DEFAULT); // Hash the password
+        $firstname = mysqli_real_escape_string($con, $_POST['teacherfname']);
+        $lastname =  mysqli_real_escape_string($con, $_POST['teacherlname']);
+        $email =  mysqli_real_escape_string($con, $_POST['teacheremail']);
+        $phone =  mysqli_real_escape_string($con, $_POST['teacherphone']);
+        $education =  mysqli_real_escape_string($con, $_POST['teducation']);
+        $subjectsTaken =  mysqli_real_escape_string($con, $_POST['subjectstaken']);
+        $username =  mysqli_real_escape_string($con, $_POST['tusername']);
+        $password = mysqli_real_escape_string($con,  mysqli_real_escape_string($con,  password_hash($_POST['tpassword1'], PASSWORD_DEFAULT))); // Hash the password
         $sqlcheck = "Select * from teacherdetails where Username = '$username'";
         $rescheck = mysqli_query($con, $sqlcheck);
         if (mysqli_num_rows($rescheck) <= 0) {

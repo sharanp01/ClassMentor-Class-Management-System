@@ -192,9 +192,22 @@ then set the desired styles for .card-img. */
                     echo "</div></div>";
                     $i++;
                 }
-                if (strtolower($fileExt) == 'pdf') {
+               elseif(strtolower($fileExt) == 'pdf') {
                     echo "<div class='card'>";
                     echo " <div class='card-img'><img src='images/smallpdf.png'/></div>";
+                    echo "<div class='card-title'>" . $row['Resourcename'] . "</div>";
+                    echo "<div class='card-subtitle'>" . $row['Resourcedesc'] . "</div>";
+                    echo " <hr class='card-divider'>";
+                    echo "<div class='card-footer'>";
+                    echo "<a href='" . $row["filepath"] . "' target='_blank'><button class='card-btn'>View</button></a>";
+                    echo "<a href='download.php?file=" . urlencode($row["filename"]) . "'><button class='card-btn'>Download</button></a>";
+                    echo " <td><a href='delete2.php?id=" . $row['ResourceID'] . "' id='btn' class='deletetext2'> <i class='fas fa-trash-alt icond' ></i></a></td>";
+                    echo "</div></div>";
+                    $i++;
+                }
+                else{
+                    echo "<div class='card'>";
+                    echo " <div class='card-img'><img src='images/file.png'/></div>";
                     echo "<div class='card-title'>" . $row['Resourcename'] . "</div>";
                     echo "<div class='card-subtitle'>" . $row['Resourcedesc'] . "</div>";
                     echo " <hr class='card-divider'>";

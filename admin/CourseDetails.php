@@ -2,6 +2,61 @@
 include('components/dbconnection.php');
 include('components/adminHeader.php');
 include('components/sidebar.php');
+$errors = [];
+
+function sanitizeInput($data)
+{
+    global $con;
+    return mysqli_real_escape_string($con, htmlspecialchars(strip_tags($data)));
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+
+    
+    $column2 = sanitizeInput($_POST['selected_column2']);
+    $sqlquery2 = "select TeacherID from teacherdetails where Username='$column2' ";
+    $res2 = mysqli_query($con, $sqlquery2);
+    $row2 = mysqli_fetch_array($res2);
+    $subjectTeacher = $row2['TeacherID'];
+    $sqlcoursecheck = "SELECT * FROM subjectdetails WHERE TeacherID='$subjectTeacher'";
+    $courseresult = mysqli_query($con, $sqlcoursecheck);
+    if (mysqli_num_rows($courseresult) > 0) {
+        $errors['teacher'] = "This Teacher has already been assigned to a subject please choose another teacher";
+    }
+
+    if (empty($errors)) {
+
+        $showdata = mysqli_real_escape_string($con,$_POST['selected_column1']);
+        $sqlquery = "select CourseID from coursedetails where Coursename='$showdata' ";
+        $res = mysqli_query($con, $sqlquery);
+        $row = mysqli_fetch_array($res);
+        $course = $row['CourseID'];
+
+        $showdata2 = mysqli_real_escape_string($con,$_POST['selected_column2']);
+        $sqlquery2 = "select TeacherID from teacherdetails where Username='$showdata2' ";
+        $res2 = mysqli_query($con, $sqlquery2);
+        $row2 = mysqli_fetch_array($res2);
+        $subjectTeacher = $row2['TeacherID'];
+
+        // Retrieve data from the form
+        $subjectname = mysqli_real_escape_string($con,$_POST['subjectname']);
+        $sqlcheck = "Select * from subjectdetails where CourseID = '$course' and TeacherID ='$subjectTeacher' and Subjectname = '$subjectname'";
+        $rescheck = mysqli_query($con, $sqlcheck);
+        if (mysqli_num_rows($rescheck) <= 0) {
+
+            $sql = "INSERT INTO subjectdetails (CourseID, TeacherID, Subjectname)
+                                        VALUES ('$course', '$subjectTeacher','$subjectname')";
+
+            // Execute the query
+            if ($con->query($sql) === TRUE) {
+                $errors['subject-insertion'] =  "<div class='btndiv'><label class='form-text'>Data Inserted successfully</label></div>";
+            } else {
+                $errors['subject-insertion'] =  "<div class='btndiv'><label class='form-text'>Data wasn't Inserted </label></div>";
+            }
+        }
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -10,7 +65,7 @@ include('components/sidebar.php');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="style/teacherstyle.css" />
-    <title>Course details</title>
+    <title>Course Details</title>
 </head>
 
 <body>
@@ -38,21 +93,21 @@ include('components/sidebar.php');
                                 }
 
                                 // Retrieve data from the form
-                                $coursename = sanitizeInput($_POST['coursename']);
+                                $coursename = mysqli_real_escape_string($con, $_POST["coursename"]);
                                 $sqlcheck = "Select * from coursedetails where Coursename = '$coursename'";
-                                $rescheck = mysqli_query($con,$sqlcheck);
-                                if(mysqli_num_rows($rescheck) <= 0){
-                                // SQL query to insert data into the database
-                                $sql = "INSERT INTO coursedetails (Coursename)
+                                $rescheck = mysqli_query($con, $sqlcheck);
+                                if (mysqli_num_rows($rescheck) <= 0) {
+                                    // SQL query to insert data into the database
+                                    $sql = "INSERT INTO coursedetails (Coursename)
         VALUES ('$coursename')";
 
-                                // Execute the query
-                                if ($con->query($sql) === TRUE) {
-                                    echo "<div class='btndiv'><label class='form-text'>Data Inserted successfully</label></div>";
-                                } else {
+                                    // Execute the query
+                                    if ($con->query($sql) === TRUE) {
+                                        echo "<div class='btndiv'><label class='form-text'>Data Inserted successfully</label></div>";
+                                    } else {
+                                    }
                                 }
                             }
-                        }
                             ?>
                         </form>
                     </div>
@@ -71,7 +126,7 @@ include('components/sidebar.php');
                                 $result = mysqli_query($con, $query);
                                 if (mysqli_num_rows($result) > 0) {
                                     echo "<label for='columns' class='form-text'>Select a course:</label><br>";
-                                    echo "<select id='showdata' name='selected_column1' class= 'form-control'>";
+                                    echo "<select id='showdata' name='selected_column1' value='" . (isset($_POST['selected_column1']) ? htmlspecialchars($_POST['selected_column1']) : '') . "' class='form-control'>";
                                     // Output data of each row
                                     while ($row = mysqli_fetch_assoc($result)) {
                                         echo "<option value='" . $row['Coursename'] . "' class= 'option-control'>" . $row['Coursename'] . "</option>";
@@ -88,7 +143,7 @@ include('components/sidebar.php');
                                 $result = mysqli_query($con, $query);
                                 if (mysqli_num_rows($result) > 0) {
                                     echo "<label for='columns' class='form-text'>Select the teacher u want to assign the subject:</label><br>";
-                                    echo "<select id='showdata' name='selected_column2' class= 'form-control'>";
+                                    echo "<select id='showdata' name='selected_column2' value='" . (isset($_POST['selected_column2']) ? htmlspecialchars($_POST['selected_column2']) : '') . "' class= 'form-control'>";
                                     // Output data of each row
                                     while ($row = mysqli_fetch_assoc($result)) {
                                         echo "<option value='" . $row['Username'] . "' class= 'option-control'>" . $row['Username'] . "</option>";
@@ -98,6 +153,7 @@ include('components/sidebar.php');
                                     echo "0 results";
                                 }
                                 ?>
+                                <?php if (isset($errors['teacher'])) echo "<div class='errormsgcss'><span class='errormsg'>{$errors['teacher']}</span></div>"; ?>
                             </div>
                             <div class="form-group">
                                 <label class="form-text">Subject Name</label>
@@ -107,38 +163,7 @@ include('components/sidebar.php');
 
                             <div class="btndiv"><button class="btn" name="submit2" value="submit">Add Subject</button>
                             </div>
-                            <?php
-                            if (isset($_POST['submit2'])) {
-                              /*   function sanitizeInput($data)
-                                {
-                                    return htmlspecialchars(strip_tags($data));
-                                } */
-                                $showdata = $_POST['selected_column1'];
-                                $sqlquery = "select CourseID from coursedetails where Coursename='$showdata' ";
-                                $res = mysqli_query($con, $sqlquery);
-                                $row = mysqli_fetch_array($res);
-                                $course = $row['CourseID'];
-
-                                $showdata2 = $_POST['selected_column2'];
-                                $sqlquery2 = "select TeacherID from teacherdetails where Username='$showdata2' ";
-                                $res2 = mysqli_query($con, $sqlquery2);
-                                $row2 = mysqli_fetch_array($res2);
-                                $subjectTeacher = $row2['TeacherID'];
-
-                                // Retrieve data from the form
-                                $subjectname = sanitizeInput($_POST['subjectname']);
-
-                                // SQL query to insert data into the database
-                                $sql = "INSERT INTO subjectdetails (CourseID, TeacherID, Subjectname)
-                                        VALUES ('$course', '$subjectTeacher','$subjectname')";
-
-                                // Execute the query
-                                if ($con->query($sql) === TRUE) {
-                                    echo "<div class='btndiv'><label class='form-text'>Data Inserted successfully</label></div>";
-                                } else {
-                                }
-                            }
-                            ?>
+                            <?php if (isset($errors['subject-insertion'])) echo "<div class='btndiv'>{$errors['subject-insertion']}</div>"; ?>
                         </form>
                     </div>
                 </div>

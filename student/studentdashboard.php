@@ -36,7 +36,7 @@ $scheduleresult = mysqli_query($conn, $schedulesql);
     <meta charset="UTF-8">
     <link rel="stylesheet" href="styles/studentstyle.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Dashboard</title>
 </head>
 
 <body>

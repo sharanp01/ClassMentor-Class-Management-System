@@ -10,6 +10,36 @@ $sql2 = "select * from subjectdetails where TeacherID = '$answer2'";
 $result2 = mysqli_query($conn, $sql2);
 $subjectanswer = mysqli_fetch_assoc($result2);
 $subjectanswer2 = $subjectanswer['SubjectID'];
+$errors = [];
+function sanitizeInput($data)
+{
+    global $conn;
+    return mysqli_real_escape_string($conn, htmlspecialchars(strip_tags($data)));
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    $topic = sanitizeInput($_POST['Quiztopic']);
+    if (strlen($topic) > 50) {
+        $errors['quiztopic'] = "Topic must be 50 characters or less";
+    }
+
+    if (empty($errors)) {
+        $topic =mysqli_real_escape_string($conn ,  $_POST['Quiztopic']);;
+        $diff =mysqli_real_escape_string($conn ,  $_POST['difflevel']);;
+        $sql = "Insert into quiztopic (SubjectID, Quiztopic, Difficulty) values('$subjectanswer2','$topic','$diff')";
+        if ($conn->query($sql) == TRUE) {
+            echo "<div class='successmsg'>
+            <label class='successtext'>Test Created!</label>
+</div>";
+        } else {
+            echo "<div class='successmsg'>
+            <label class='successtext'>Test Was'nt Created!</label>
+</div>";
+        }
+    }
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -57,7 +87,8 @@ $subjectanswer2 = $subjectanswer['SubjectID'];
             <form action="" method="post">
                 <div class="resinput">
                     <label for="">Enter Quiz Topic:</label><br>
-                    <input type="text" name="Quiztopic" id="resname" class="resname" required><br>
+                    <input type="text" name="Quiztopic" value="<?= isset($_POST['Quiztopic']) ? htmlspecialchars($_POST['Quiztopic']) : ''; ?> "id="resname" class="resname" placeholder="Character Limit: 50"><br>
+                    <?php if (isset($errors['quiztopic'])) echo "<div class='errormsgcss'><span class='errormsg' style='color:red;'>{$errors['quiztopic']}</span></div>"; ?>
                 </div>
                 <div class="resinput">
                     <label for="">Enter Difficulty Level:</label><br>
@@ -66,22 +97,6 @@ $subjectanswer2 = $subjectanswer['SubjectID'];
                 <div class="btndiv centerdiv">
                     <button type="submit" name="submit" id="button" class="button">Add Test</button>
 
-                    <?php
-                    if (isset($_POST['submit'])) {
-                        $topic = $_POST['Quiztopic'];
-                        $diff = $_POST['difflevel'];
-                        $sql = "Insert into quiztopic (SubjectID, Quiztopic, Difficulty) values('$subjectanswer2','$topic','$diff')";
-                        if ($conn->query($sql) == TRUE) {
-                            echo "<div class='successmsg'>
-                            <label class='successtext'>Test Created!</label>
-                </div>";
-                        } else {
-                            echo "<div class='successmsg'>
-                            <label class='successtext'>Test Was'nt Created!</label>
-                </div>";
-                        }
-                    }
-                    ?>
                 </div>
             </form>
         </div>

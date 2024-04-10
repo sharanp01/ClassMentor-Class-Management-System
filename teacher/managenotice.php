@@ -61,7 +61,7 @@ $result = mysqli_query($conn, $sql);
          <tr class='data'>  
               <td>" . $i . "</td>  
               <td>" . $result3['Announcementtitle'] . "</td>
-              <td><a href='delete.php?id=" . $result3['AnnouncementID'] . "' id='btn' class='deletetext2'> <i class='fas fa-trash-alt'  ></i> Delete</a></td>
+              <td><a href='deletenotices.php?id=" . $result3['AnnouncementID'] . "' id='btn' class='deletetext2'> <i class='fas fa-trash-alt'  ></i> Delete</a></td>
               
          </tr>  
     ";

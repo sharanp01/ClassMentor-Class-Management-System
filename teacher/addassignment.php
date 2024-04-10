@@ -40,10 +40,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $errors['assignsubdate'] = "Submission Date is Invalid!";
     }
     if (empty($errors)) {
-        $assignquestion = $_POST['assignquestion'];
-        $assignweightage = $_POST['assignweightage'];
-        $assignsubdate = $_POST['assignsubdate'];
-        $assignsublink = $_POST['assignsublink'];
+        $assignquestion =mysqli_real_escape_string($conn, $_POST['assignquestion']);
+        $assignweightage =mysqli_real_escape_string($conn ,  $_POST['assignweightage']);
+        $assignsubdate = mysqli_real_escape_string($conn ,  $_POST['assignsubdate']);
+        $assignsublink =mysqli_real_escape_string($conn ,  $_POST['assignsublink']);
         $sqlcheck = "Select * from assignmentdetails where Assignmentquestion = '$assignquestion' and AssignmentSubdate = '$assignsubdate'";
         $rescheck = mysqli_query($conn, $sqlcheck);
         if (mysqli_num_rows($rescheck) <= 0) {

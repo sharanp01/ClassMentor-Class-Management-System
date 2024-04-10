@@ -18,7 +18,7 @@ $result3 = mysqli_query($conn, $sql3);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/studentstyle.css">
 
-    <title>Document</title>
+    <title>Test</title>
 </head>
 
 <body>

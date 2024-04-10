@@ -59,14 +59,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $res = mysqli_query($con, $sqlquery);
             $row = mysqli_fetch_array($res);
             $studentcourse = $row['CourseID'];
-            $firstname = sanitizeInput($_POST['studentfname']);
-            $lastname = sanitizeInput($_POST['studentlname']);
-            $email = sanitizeInput($_POST['studentemail']);
-            $phone = sanitizeInput($_POST['studentphone']);
-            $age = sanitizeInput($_POST['studentage']);
-            $username = sanitizeInput($_POST['susername']);
+            $firstname =  mysqli_real_escape_string($con, ($_POST['studentfname']));
+            $lastname =  mysqli_real_escape_string($con, ($_POST['studentlname']));
+            $email = mysqli_real_escape_string($con, ($_POST['studentemail']));
+            $phone =  mysqli_real_escape_string($con, ($_POST['studentphone']));
+            $age =  mysqli_real_escape_string($con, ($_POST['studentage']));
+            $username =  mysqli_real_escape_string($con, ($_POST['susername']));
             $password = $_POST['tpassword1']; // Hash the password
-            $password = password_hash($password, PASSWORD_DEFAULT);
+            $password = mysqli_real_escape_string($con,  password_hash($password, PASSWORD_DEFAULT));
             $sqlcheck = "Select * from studentdetails where Username = '$username'";
             $rescheck = mysqli_query($con, $sqlcheck);
             if (mysqli_num_rows($rescheck) <= 0) {

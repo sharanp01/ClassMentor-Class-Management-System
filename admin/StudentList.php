@@ -34,7 +34,7 @@ $run = mysqli_query($con, $query);
                         </form>
                         <?php
                         if (isset($_POST['submit'])) {
-                            $search = $_POST['searchname'];
+                            $search =  mysqli_real_escape_string($con, ($_POST['searchname']));
                             $sql2 = "Select StudentID, Firstname, Lastname, Email, Phone, Age, Username, Password from studentdetails where Username='$search'";
                             $result2 = mysqli_query($con, $sql2);
                             if ($result2) {
