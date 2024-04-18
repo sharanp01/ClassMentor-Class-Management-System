@@ -89,7 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 ClassMentor
             </div>
             <div class="right-content">
-                <label for="" class="dropdowntext">Welcome</label>
+                
                 <div class="dropdown">
                     <a href="logout.php"><button class="Btn">
                             <div class="sign"><svg viewBox="0 0 512 512">

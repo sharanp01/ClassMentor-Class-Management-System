@@ -28,7 +28,7 @@ $result3 = mysqli_query($conn, $sql3);
                 ClassMentor
             </div>
             <div class="right-content">
-                <label for="" class="dropdowntext" style="margin-right: 30px;">Welcome sathya04</label>
+                
                 <div class="dropdown">
                     <div class="dropdown">
                         <a href="logout.php"><button class="Btn">
