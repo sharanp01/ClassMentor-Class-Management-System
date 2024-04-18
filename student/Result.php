@@ -52,12 +52,12 @@ if (isset($_GET['studid'])) {
         </head>
 
         <body>
-            <div class="home-content"  style="background-color: black;">
+            <div class="home-content" style="background-color: black;">
                 <div class="left-content">
                     ClassMentor
                 </div>
                 <div class="right-content">
-                    
+
                     <div class="dropdown">
                         <div class="dropdown">
                             <a href="logout.php"><button class="Btn">
@@ -117,8 +117,11 @@ if (isset($_GET['studid'])) {
                 }
             }
         }
+
+
             ?>
-            </div>
+            
+    </div>
         </body>
 
         </html>

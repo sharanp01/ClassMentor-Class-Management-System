@@ -1,7 +1,9 @@
 <?php
+session_start();
 include('components/connect.php');
 include('components/sidebar.php');
-$username = "sathya05";
+if(isset($_SESSION['username'])){
+$username = $_SESSION['username'];
 $studentsql = "select CourseID,StudentID from studentdetails where Username = '" . $username . "' ";
 $studentresult = mysqli_query($conn, $studentsql);
 $row1 = mysqli_fetch_assoc($studentresult);
@@ -78,7 +80,7 @@ $result3 = mysqli_query($conn, $sql3);
             <label class='successtext'>To Assign New Tests <br><div class='btndiv'><a href='QuizDetails.php' class='button deletetext'>Click Here!</a></div></label></div>";
             }
 
-                ?>
+          }  ?>
         </div>
     </section>
 </body>

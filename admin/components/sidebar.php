@@ -30,6 +30,7 @@ include("components/adminHeader.php");
     <a href="#" onclick="toggleDropdown('course')" class="sidetext">Course</a>
     <div class="dropdown" id="courseDropdown">
         <a href="CourseDetails.php" class="droptext">Add Course</a>
+        <a href="SubjectDetails.php" class="droptext">Add Subject</a>
         <a href="CourseList.php" class="droptext">Course List</a>
         <a href="EditCourseDetails.php" class="droptext">Edit Course</a>
     </div>

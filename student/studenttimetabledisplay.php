@@ -1,10 +1,10 @@
 <?php
-// Include necessary files and establish database connection
+session_start();
 include("components/connect.php");
 include('components/sidebar.php');
 
-// Fetch the course ID of the logged-in student
-$username = "sathya05";
+if(isset($_SESSION['username'])){
+$username = $_SESSION['username'];
 $studentsql = "SELECT CourseID FROM studentdetails WHERE Username = '" . $username . "'";
 $studentresult = mysqli_query($conn, $studentsql);
 $row1 = mysqli_fetch_assoc($studentresult);
@@ -115,7 +115,7 @@ $result = mysqli_query($conn, $sql);
                     }
 
                     echo '</div>';
-                }
+                   }   }
                 ?>
             </div>
         </div>

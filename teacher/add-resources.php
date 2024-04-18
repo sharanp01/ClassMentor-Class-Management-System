@@ -1,83 +1,85 @@
 <?php
+session_start();
 include("components/connect.php");
 include('components/sidebar.php');
-$username = "Divya01";
-$sql = "select * from teacherdetails where Username= '$username' ";
-$result = mysqli_query($conn, $sql);
-$answer = mysqli_fetch_assoc($result);
-$answer2 = $answer['TeacherID'];
-$sql2 = "select * from subjectdetails where TeacherID = '$answer2'";
-$result2 = mysqli_query($conn, $sql2);
-$subjectanswer = mysqli_fetch_assoc($result2);
-$subjectanswer2 = $subjectanswer['SubjectID'];
-$sql3 = "select CourseID from subjectdetails where SubjectID = '$subjectanswer2'";
-$result3 = mysqli_query($conn, $sql3);
-$courseanswer = mysqli_fetch_assoc($result3);
-$courseanswer2 = $courseanswer['CourseID'];
-$errors = [];
-function sanitizeInput($data)
-{
-    global $conn;
-    return mysqli_real_escape_string($conn, htmlspecialchars(strip_tags($data)));
-}
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-    $resname = sanitizeInput($_POST['resname']);
-    if (strlen($resname) > 100) {
-        $errors['resname'] = "Resource Name must be 100 characters or less";
+if (isset($_SESSION['username'])) {
+    $username = $_SESSION['username'];
+    $sql = "select * from teacherdetails where Username= '$username' ";
+    $result = mysqli_query($conn, $sql);
+    $answer = mysqli_fetch_assoc($result);
+    $answer2 = $answer['TeacherID'];
+    $sql2 = "select * from subjectdetails where TeacherID = '$answer2'";
+    $result2 = mysqli_query($conn, $sql2);
+    $subjectanswer = mysqli_fetch_assoc($result2);
+    $subjectanswer2 = $subjectanswer['SubjectID'];
+    $sql3 = "select CourseID from subjectdetails where SubjectID = '$subjectanswer2'";
+    $result3 = mysqli_query($conn, $sql3);
+    $courseanswer = mysqli_fetch_assoc($result3);
+    $courseanswer2 = $courseanswer['CourseID'];
+    $errors = [];
+    function sanitizeInput($data)
+    {
+        global $conn;
+        return mysqli_real_escape_string($conn, htmlspecialchars(strip_tags($data)));
     }
 
-    $resdesc = sanitizeInput($_POST['resdesc']);
-    if (strlen($resdesc) > 200) {
-        $errors['resdesc'] = "Resource Description must be 200 characters or less";
-    }
-    if (empty($errors)) {
-        $resname = $_POST['resname'];
-        $resdesc = $_POST['resdesc'];
-        $targetDirTeacher = "uploads/"; // Teacher's upload folder
-        $targetDirStudent = "C:/xampp/htdocs/cms/student/uploads/";
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-        $fileName = basename($_FILES["fileToUpload"]["name"]);
+        $resname = sanitizeInput($_POST['resname']);
+        if (strlen($resname) > 100) {
+            $errors['resname'] = "Resource Name must be 100 characters or less";
+        }
 
-        // Teacher's directory path
-        $targetFilePathTeacher = $targetDirTeacher . $fileName;
-        // Student's directory path
-        $targetFilePathStudent = $targetDirStudent . $fileName;
+        $resdesc = sanitizeInput($_POST['resdesc']);
+        if (strlen($resdesc) > 200) {
+            $errors['resdesc'] = "Resource Description must be 200 characters or less";
+        }
+        if (empty($errors)) {
+            $resname = $_POST['resname'];
+            $resdesc = $_POST['resdesc'];
+            $targetDirTeacher = "uploads/"; // Teacher's upload folder
+            $targetDirStudent = "C:/xampp/htdocs/cms/student/uploads/";
 
-        // Upload to Teacher's folder
-        if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $targetFilePathTeacher)) {
-            // Upload to Student's folder
-            if (copy($targetFilePathTeacher, $targetFilePathStudent)) {
-                $resname = mysqli_real_escape_string($conn, $resname);
-                $resdesc = mysqli_real_escape_string($conn, $resdesc);
-                $fileName = mysqli_real_escape_string($conn, $fileName);
-                $sqlcheck = "SELECT * FROM resourcedetails WHERE Resourcename = '$resname' AND Resourcedesc = '$resdesc' AND filename = '$fileName'";
-                $rescheck = mysqli_query($conn, $sqlcheck);
-                if (mysqli_num_rows($rescheck) <= 0) {
-                    $sql = "INSERT INTO resourcedetails (Resourcename,CourseID,Resourcedesc,filename ,filepath,Studentfilepath) VALUES ('$resname','$courseanswer2','$resdesc','$fileName', '$targetFilePathTeacher','$targetFilePathStudent')";
-                    if ($conn->query($sql) === TRUE) {
-                        $errors['resource-insertion']  = "<div class='successmsg'>
+            $fileName = basename($_FILES["fileToUpload"]["name"]);
+
+            // Teacher's directory path
+            $targetFilePathTeacher = $targetDirTeacher . $fileName;
+            // Student's directory path
+            $targetFilePathStudent = $targetDirStudent . $fileName;
+
+            // Upload to Teacher's folder
+            if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $targetFilePathTeacher)) {
+                // Upload to Student's folder
+                if (copy($targetFilePathTeacher, $targetFilePathStudent)) {
+                    $resname = mysqli_real_escape_string($conn, $resname);
+                    $resdesc = mysqli_real_escape_string($conn, $resdesc);
+                    $fileName = mysqli_real_escape_string($conn, $fileName);
+                    $sqlcheck = "SELECT * FROM resourcedetails WHERE Resourcename = '$resname' AND Resourcedesc = '$resdesc' AND filename = '$fileName'";
+                    $rescheck = mysqli_query($conn, $sqlcheck);
+                    if (mysqli_num_rows($rescheck) <= 0) {
+                        $sql = "INSERT INTO resourcedetails (Resourcename,CourseID,Resourcedesc,filename ,filepath,Studentfilepath) VALUES ('$resname','$courseanswer2','$resdesc','$fileName', '$targetFilePathTeacher','$targetFilePathStudent')";
+                        if ($conn->query($sql) === TRUE) {
+                            $errors['resource-insertion']  = "<div class='successmsg'>
                     <label class='successtext'>Resource File Added</label>
                 </div>";
-                    } else {
-                        $errors['resource-insertion']  = "<div class='successmsg'>
+                        } else {
+                            $errors['resource-insertion']  = "<div class='successmsg'>
                     <label class='successtext'>Resource File wasn't Added</label>
                 </div>";
+                        }
                     }
+                } else {
+                    $errors['resource-insertion']  = "<div class='successmsg'>
+                <label class='successtext'>Failed to copy file to student's folder</label>
+            </div>";
                 }
             } else {
                 $errors['resource-insertion']  = "<div class='successmsg'>
-                <label class='successtext'>Failed to copy file to student's folder</label>
-            </div>";
-            }
-        } else {
-            $errors['resource-insertion']  = "<div class='successmsg'>
             <label class='successtext'>Failed to upload file to teacher's folder</label>
         </div>";
+            }
         }
     }
-}
 
 ?>
 <!DOCTYPE html>
@@ -103,7 +105,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 ClassMentor
             </div>
             <div class="right-content">
-               
+
                 <div class="dropdown">
                     <div class="dropdown">
                         <a href="logout.php"><button class="Btn">
@@ -127,7 +129,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
                 <div class="resinput">
                     <label for="">Enter Resource Description:</label> <br>
-                    <textarea name="resdesc"  placeholder="Character limit: 200 Words" value="<?= isset($_POST['resdesc']) ? htmlspecialchars($_POST['resdesc']) : ''; ?>" id="" cols="60" rows="3" required></textarea><br>
+                    <textarea name="resdesc" placeholder="Character limit: 200 Words" value="<?= isset($_POST['resdesc']) ? htmlspecialchars($_POST['resdesc']) : ''; ?>" id="" cols="60" rows="3" required></textarea><br>
                     <?php if (isset($errors['resdesc'])) echo "<div class='errormsgcss'><span class='errormsg' style='color:red;'>{$errors['resdesc']}</span></div>"; ?>
 
                 </div>
@@ -137,9 +139,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 <div class="btndiv centerdiv">
                     <button type="submit" name="submit" id="button" class="button" onclick="clearForm()">Upload Resource</button>
-                    <?php if (isset($errors['resource-insertion'])) echo "{$errors['resource-insertion']}"; ?>
+                    <?php if (isset($errors['resource-insertion'])) echo "{$errors['resource-insertion']}"; }?>
                 </div>
-               
+
             </form>
         </div>
     </section>

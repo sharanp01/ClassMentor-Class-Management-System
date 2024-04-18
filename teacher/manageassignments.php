@@ -1,7 +1,9 @@
 <?php
+session_start();
 include('components/connect.php');
 include('components/sidebar.php');
-$username = "Divya01";
+if(isset($_SESSION['username'])){
+$username = $_SESSION['username'];
 $sql = "select * from teacherdetails where Username= '$username' ";
 $result = mysqli_query($conn, $sql);
 $answer = mysqli_fetch_assoc($result);
@@ -96,7 +98,7 @@ $assignresult = mysqli_query($conn, $assignsql);
                 echo "<div class='successmsg'><label class='successtext'>Data not found</label><br>
             <label class='successtext'>To Post New Announcements <br><div class='btndiv'><a href='add-notice.php' class='button deletetext'>Click Here!</a></div></label></div>";
             }
-
+        }
             ?>
         </div>
 

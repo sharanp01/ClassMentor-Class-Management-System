@@ -1,7 +1,9 @@
 <?php
+session_start();
 include('components/connect.php');
 include('components/sidebar.php');
-$username = "sharan01";
+if(isset($_SESSION['username'])){
+$username = $_SESSION['username'];
 $sql = "select * from teacherdetails where Username= '$username' ";
 $result = mysqli_query($conn, $sql);
 $answer = mysqli_fetch_assoc($result);
@@ -118,7 +120,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 <div class="btndiv centerdiv">
                     <button type="submit" name="submit" id="button" class="button">Schedule Lecture</button>
-                    <?php if (isset($errors['timetable-insertion'])) echo "{$errors['timetable-insertion']}"; ?>
+                    <?php if (isset($errors['timetable-insertion'])) echo "{$errors['timetable-insertion']}"; }?>
                 </div>
     </section>
 </body>

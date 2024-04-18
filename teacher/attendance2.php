@@ -1,8 +1,8 @@
 <?php
-
+session_start();
 include('components/connect.php');
 include('components/sidebar.php');
-
+if(isset($_SESSION['username'])){
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -41,7 +41,7 @@ include('components/sidebar.php');
         </div>   
             <form action="" method="POST">
                 <?php
-                $username = "Divya01";
+                $username =$_SESSION['username'];
                 $sql = "select * from teacherdetails where Username= '$username' ";
                 $result = mysqli_query($conn, $sql);
                 $answer = mysqli_fetch_assoc($result);
@@ -135,7 +135,7 @@ include('components/sidebar.php');
         </div>";
                         }
                     }
-                        ?>
+                     }     ?>
             </form>
     </section>
 

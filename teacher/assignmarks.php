@@ -1,50 +1,51 @@
 <?php
-
+session_start();
 include('components/connect.php');
 include('components/sidebar.php');
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
+if (isset($_SESSION['username'])) {
+    if (isset($_GET['id'])) {
+        $id = $_GET['id'];
 
 ?>
-    <!DOCTYPE html>
-    <html lang="en">
+        <!DOCTYPE html>
+        <html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="styles/sidebarstyle.css">
-        <link rel="stylesheet" href="styles/resstyle.css">
-        <link rel="stylesheet" href="styles/tablestyle.css">
-        <!-- Boxiocns CDN Link -->
-        <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-        <title>Assignment Marks</title>
-    </head>
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="stylesheet" href="styles/sidebarstyle.css">
+            <link rel="stylesheet" href="styles/resstyle.css">
+            <link rel="stylesheet" href="styles/tablestyle.css">
+            <!-- Boxiocns CDN Link -->
+            <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+            <title>Assignment Marks</title>
+        </head>
 
-    <body>
-        <section class="home-section">
+        <body>
+            <section class="home-section">
 
-            <div class="home-content">
-                <div class="left-content">
-                    ClassMentor
-                </div>
-                <div class="right-content">
-                
-                    <div class="dropdown">
-                        <a href="manageassignment.php"><button class="Btn">
-                                <div class="sign"><svg viewBox="0 0 512 512">
-                                        <path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"></path>
-                                    </svg></div>
-                                <div class="text">Go to Manage Assignment</div>
-                            </button>
-                        </a>
+                <div class="home-content">
+                    <div class="left-content">
+                        ClassMentor
+                    </div>
+                    <div class="right-content">
+
+                        <div class="dropdown">
+                            <a href="manageassignment.php"><button class="Btn">
+                                    <div class="sign"><svg viewBox="0 0 512 512">
+                                            <path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"></path>
+                                        </svg></div>
+                                    <div class="text">Go to Manage Assignment</div>
+                                </button>
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            
+
                 <form action="" method="POST">
                     <?php
-                    $username = "Divya01";
+                    $username = $_SESSION['username'];
                     $sql = "select * from teacherdetails where Username= '$username' ";
                     $result = mysqli_query($conn, $sql);
                     $answer = mysqli_fetch_assoc($result);
@@ -99,7 +100,7 @@ if (isset($_GET['id'])) {
                                 ?>
                                 </table>
                                 <button type="submit" name="submit" class="button">Assign Marks</button>
-                        <?php
+                    <?php
 
                         if (isset($_POST['submit'])) {
                             foreach ($_POST['marks'] as $studentid => $marks) {
@@ -121,36 +122,36 @@ if (isset($_GET['id'])) {
                         }
                     }
                 }
-                        ?>
+            }      ?>
                 </form>
-        </section>
+            </section>
 
-        <script>
-            // Get references to the table and its container
-            const table = document.getElementById('my-table');
-            const container = document.getElementById('table-container');
+            <script>
+                // Get references to the table and its container
+                const table = document.getElementById('my-table');
+                const container = document.getElementById('table-container');
 
-            // Function to adjust container height based on table height
-            function adjustContainerHeight() {
-                container.style.height = table.offsetHeight + 'px';
-            }
+                // Function to adjust container height based on table height
+                function adjustContainerHeight() {
+                    container.style.height = table.offsetHeight + 'px';
+                }
 
-            // MutationObserver to observe changes in the table's child elements
-            const observer = new MutationObserver(() => {
+                // MutationObserver to observe changes in the table's child elements
+                const observer = new MutationObserver(() => {
+                    adjustContainerHeight();
+                });
+
+                // Configuration of the observer: observe changes in childList
+                const observerConfig = {
+                    childList: true
+                };
+
+                // Start observing the table
+                observer.observe(table, observerConfig);
+
+                // Call adjustContainerHeight initially
                 adjustContainerHeight();
-            });
+            </script>
+        </body>
 
-            // Configuration of the observer: observe changes in childList
-            const observerConfig = {
-                childList: true
-            };
-
-            // Start observing the table
-            observer.observe(table, observerConfig);
-
-            // Call adjustContainerHeight initially
-            adjustContainerHeight();
-        </script>
-    </body>
-
-    </html>
+        </html>

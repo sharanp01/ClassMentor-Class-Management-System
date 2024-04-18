@@ -1,5 +1,6 @@
 <?php
 include('components/connect.php');
+session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -43,6 +44,7 @@ include('components/connect.php');
                                     $row = $result->fetch_assoc();
                                     $check = password_verify($password, $row['Password']);
                                     if ($check == 1) {
+                                        $_SESSION['username'] = $username;
                                         header("location:student/studentdashboard.php");
                                         exit();
                                        
@@ -55,8 +57,6 @@ include('components/connect.php');
                             } else {
                                 $username = $_POST['username'];
                                 $password = $_POST['password'];
-
-
                                 $username = stripcslashes($username);
                                 $password = stripcslashes($password);
                                 $username = mysqli_real_escape_string($conn, $username);
@@ -68,6 +68,7 @@ include('components/connect.php');
                                     $row = $result->fetch_assoc();
                                     $check = password_verify($password, $row['Password']);
                                     if ($check == 1) {
+                                        $_SESSION['username'] = $username;
                                         header("location:teacher/teacherdashboard.php");
                                         exit();
                                        

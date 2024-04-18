@@ -1,7 +1,9 @@
 <?php
+session_start();
 include("components/connect.php");
 include("components/sidebar.php");
-$username = "sathya05";
+if(isset($_SESSION['username'])){
+$username = $_SESSION['username'];
 $studentsql = "select * from studentdetails where Username = '" . $username . "' ";
 $studentresult = mysqli_query($conn, $studentsql);
 $row1 = mysqli_fetch_assoc($studentresult);
@@ -114,7 +116,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
                 <div class="btndic centerdiv">
                     <button name="submit" class="button">Submit</button>
-                    <?php if (isset($errors['feedback-insertion'])) echo "{$errors['feedback-insertion']}"; ?>
+                    <?php if (isset($errors['feedback-insertion'])) echo "{$errors['feedback-insertion']}"; }?>
                 </div>
             </form>
             
