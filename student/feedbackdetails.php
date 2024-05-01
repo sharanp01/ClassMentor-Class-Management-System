@@ -1,8 +1,11 @@
 <?php
 session_start();
+if (!isset($_SESSION['username'])) {
+    header("Location: ../index.php");
+    exit();
+}
 include("components/connect.php");
 include("components/sidebar.php");
-if(isset($_SESSION['username'])){
 $username = $_SESSION['username'];
 $studentsql = "select * from studentdetails where Username = '" . $username . "' ";
 $studentresult = mysqli_query($conn, $studentsql);
@@ -38,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $sqlcheck = "Select * from feedbackdetails where StudentID = '$studid' and Suggestion = '$suggestion'";
         $rescheck = mysqli_query($conn, $sqlcheck);
         if (mysqli_num_rows($rescheck) <= 0) {
-            // SQL query to insert data into the database
+          
             $sql = "INSERT INTO feedbackdetails(StudentID, TeacherID , CourseID, Feedback, Suggestion) VALUES ('$studid','$teacherid','$col1','$feedback','$suggestion')";
             if ($conn->query($sql) === TRUE) {
                 $errors['feedback-insertion'] = "<div class='btndiv centerdiv'><label class='form-text'>Suggestion Submitted Successfully!</label></div>";
@@ -93,7 +96,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $result = mysqli_query($conn, $query);
                     if (mysqli_num_rows($result) > 0) {
                         echo "<select id='showdata' name='selected_column1' class= 'dropdowncontrol'>";
-                        // Output data of each row
+                    
                         while ($row = mysqli_fetch_assoc($result)) {
                             echo "<option value='" . $row['Username'] . "' class= 'option-control'>" . $row['Username'] . "</option>";
                         }
@@ -116,7 +119,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
                 <div class="btndic centerdiv">
                     <button name="submit" class="button">Submit</button>
-                    <?php if (isset($errors['feedback-insertion'])) echo "{$errors['feedback-insertion']}"; }?>
+                    <?php if (isset($errors['feedback-insertion'])) echo "{$errors['feedback-insertion']}"; ?>
                 </div>
             </form>
             

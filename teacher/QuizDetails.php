@@ -1,8 +1,11 @@
 <?php
 session_start();
+if (!isset($_SESSION['username'])) {
+    header("Location: ../index.php");
+    exit();
+}
 include("components/sidebar.php");
 include("components/connect.php");
-if (isset($_SESSION['username'])) {
     $username = $_SESSION['username'];
     $sql = "select * from teacherdetails where Username= '$username' ";
     $result = mysqli_query($conn, $sql);
@@ -103,7 +106,7 @@ if (isset($_SESSION['username'])) {
                     <div class="btndiv centerdiv">
                         <button type="submit" name="submit" id="button" class="button">Add Test</button>
                     <?php if (isset($errors['quiztopic-insertion'])) echo "{$errors['quiztopic-insertion']}";
-                } ?>
+                 ?>
                     </div>
                 </form>
             </div>

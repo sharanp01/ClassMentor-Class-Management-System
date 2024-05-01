@@ -51,9 +51,7 @@ if ($email == false) {
                     $update_pass = "UPDATE adminlogin SET code = $code, password = '$encpass' WHERE email = '$email'";
                     $run_query = mysqli_query($con, $update_pass);
                     if ($run_query) {
-                        /* $info = "Your password changed. Now you can login with your new password.";
-                    $_SESSION['info'] = $info;
-                    header('Location: password-changed.php'); */
+                       
                         echo "<div style='color:red; margin-bottom:20px; font-size:0.8rem;'>password changed successfully!</div>";
                     } else {
                         echo "<div style='color:red; margin-bottom:20px; font-size:0.8rem;'>Failed to change your password!</div>";

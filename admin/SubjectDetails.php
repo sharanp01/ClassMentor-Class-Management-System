@@ -1,9 +1,12 @@
 <?php
 session_start();
+if (!isset($_SESSION['username'])) {
+    header("Location: index.php");
+    exit();
+}
 include('components/dbconnection.php');
 include('components/adminHeader.php');
 include('components/sidebar.php');
-if (isset($_SESSION['username'])) {
 $errors = [];
 
 function sanitizeInput($data)
@@ -39,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $row2 = mysqli_fetch_array($res2);
         $subjectTeacher = $row2['TeacherID'];
 
-        // Retrieve data from the form
+     
         $subjectname = mysqli_real_escape_string($con, $_POST['subjectname']);
         $sqlcheck = "Select * from subjectdetails where CourseID = '$course' and TeacherID ='$subjectTeacher' and Subjectname = '$subjectname'";
         $rescheck = mysqli_query($con, $sqlcheck);
@@ -48,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $sql = "INSERT INTO subjectdetails (CourseID, TeacherID, Subjectname)
                                         VALUES ('$course', '$subjectTeacher','$subjectname')";
 
-            // Execute the query
+          
             if ($con->query($sql) === TRUE) {
                 $errors['subject-insertion'] =  "<div class='btndiv'><label class='form-text'>Data Inserted successfully</label></div>";
             } else {
@@ -124,10 +127,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             </div>
                             <?php if (isset($errors['subject-insertion'])) echo "<div class='btndiv'>{$errors['subject-insertion']}</div>"; 
                             
-                            }
-                            else{
-                                header("Location:index.php");
-                            }?>
+                          ?>
                         </form>
                     </div>
                 </div>

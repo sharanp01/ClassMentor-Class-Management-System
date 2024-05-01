@@ -1,8 +1,11 @@
 <?php
 session_start();
+if (!isset($_SESSION['username'])) {
+    header("Location: ../index.php");
+    exit();
+}
 include("components/connect.php");
 include('components/sidebar.php');
-if(isset($_SESSION['username'])){
 $username = $_SESSION['username'];
 $studentsql = "select CourseID from studentdetails where Username = '" . $username . "' ";
 $studentresult = mysqli_query($conn, $studentsql);
@@ -125,6 +128,8 @@ then set the desired styles for .card-img. */
             padding: 0 15px;
             transition: all 0.3s;
             margin-right: 7px;
+            position:relative;
+            left: 50px;
         }
 
         .card:hover {
@@ -175,17 +180,17 @@ then set the desired styles for .card-img. */
         </div>
         <?php
 
-        // Query to fetch uploaded files from the database
+   
         $sql = "SELECT * FROM resourcedetails where CourseID='$col1'";
         $result = $conn->query($sql);
 
-        // Display uploaded files
+      
         if ($result->num_rows > 0) {
             $i = 1;
             while ($row = $result->fetch_assoc()) {
                 $fileName = $row["filename"];
                 $fileExt = pathinfo($fileName, PATHINFO_EXTENSION);
-                // Check if the file extension is docx
+              
                 if (strtolower($fileExt) == 'docx') {
                     echo "<div class='card'>";
                     echo " <div class='card-img'><img src='images/smalldoc.png'/></div>";
@@ -193,7 +198,6 @@ then set the desired styles for .card-img. */
                     echo "<div class='card-subtitle'>" . $row['Resourcedesc'] . "</div>";
                     echo " <hr class='card-divider'>";
                     echo "<div class='card-footer'>";
-                    echo "<a href='" . $row["Studentfilepath"] . "' target='_blank'><button class='card-btn'>View</button></a>";
                     echo "<a href='download.php?file=" . urlencode($row["filename"]) . "'><button class='card-btn'>Download</button></a>";
                     echo "</div></div>";
                     $i++;
@@ -205,7 +209,6 @@ then set the desired styles for .card-img. */
                     echo "<div class='card-subtitle'>" . $row['Resourcedesc'] . "</div>";
                     echo " <hr class='card-divider'>";
                     echo "<div class='card-footer'>";
-                    echo "<a href='" . $row["Studentfilepath"] . "' target='_blank'><button class='card-btn'>View</button></a>";
                     echo "<a href='download.php?file=" . urlencode($row["filename"]) . "'><button class='card-btn'>Download</button></a>";
                     echo "</div></div>";
                     $i++;
@@ -217,16 +220,15 @@ then set the desired styles for .card-img. */
                     echo "<div class='card-subtitle'>" . $row['Resourcedesc'] . "</div>";
                     echo " <hr class='card-divider'>";
                     echo "<div class='card-footer'>";
-                    echo "<a href='" . $row["filepath"] . "' target='_blank'><button class='card-btn'>View</button></a>";
-                    echo "<a href='download.php?file=" . urlencode($row["filename"]) . "'><button class='card-btn'>Download</button></a>";
+                    echo "<a href='download.php?file=" . urlencode($row["filename"]) . "'><button class='card-btn style = 'margin-left:10px;''>Download</button></a>";
                     $i++;
                 }
             }
         } else {
             echo "No files uploaded yet.";
         }
-    }
-        // Close connection
+    
+      
         $conn->close();
         ?>
     </section>

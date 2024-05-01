@@ -1,8 +1,11 @@
 <?php
 session_start();
+if (!isset($_SESSION['username'])) {
+    header("Location: index.php");
+    exit();
+}
 include('components/sidebar.php');
 include("components/dbconnection.php");
-if (isset($_SESSION['username'])) {
 $errors = [];
 
 function sanitizeInput($data)
@@ -13,7 +16,7 @@ function sanitizeInput($data)
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    // Sanitize and validate inputs
+   
     $firstname = sanitizeInput($_POST['teacherfname']);
     if (strlen($firstname) > 20) {
         $errors['firstname'] = "Firstname must be 20 characters or less";
@@ -55,11 +58,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $sqlcheck = "Select * from teacherdetails where Username = '$username'";
         $rescheck = mysqli_query($con, $sqlcheck);
         if (mysqli_num_rows($rescheck) <= 0) {
-            // SQL query to insert data into the database
+            
             $sql = "INSERT INTO teacherdetails (Firstname, Lastname, Email, Phone, SubjectsTaken, Education, Username, Password)
 VALUES ('$firstname', '$lastname', '$email', '$phone', '$subjectsTaken', '$education', '$username', '$password')";
 
-            // Execute the query
+            
             if ($con->query($sql) === TRUE) {
                 $errors['db-insertion'] = "Data Inserted Successfully";
             } else {
@@ -146,11 +149,7 @@ VALUES ('$firstname', '$lastname', '$email', '$phone', '$subjectsTaken', '$educa
                         </form>
                         <?php if (isset($errors['db-insertion'])) echo "<div class='btndiv'>{$errors['db-insertion']}</div>"; ?>
                         <?php if (isset($errors['usernameduplication'])) echo "<div class='btndiv'>{$errors['usernameduplication']}</div>";
-                        
-}
-else{
-    header("Location:index.php");
-}?>
+                        ?>
 
                     </div>
                 </div>

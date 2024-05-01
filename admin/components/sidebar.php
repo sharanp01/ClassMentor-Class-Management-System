@@ -32,7 +32,7 @@ include("components/adminHeader.php");
         <a href="CourseDetails.php" class="droptext">Add Course</a>
         <a href="SubjectDetails.php" class="droptext">Add Subject</a>
         <a href="CourseList.php" class="droptext">Course/Subject List</a>
-        <a href="EditCourseDetails.php" class="droptext">Edit Course</a>
+        <a href="EditCourseDetails.php" class="droptext">Edit Course/Subject</a>
     </div>
     <a href="viewfeedback.php" class="sidetext" style="margin-bottom: 20px;">Feedback</a>
 

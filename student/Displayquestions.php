@@ -1,5 +1,9 @@
 <?php
-
+session_start();
+if (!isset($_SESSION['username'])) {
+    header("Location: ../index.php");
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -50,7 +54,7 @@
         </h1>
         <?php
         include("components/connect.php");
-        /* echo "You're in the questions page"; */
+     
         if (isset($_GET['studid'])) {
             $studid = $_GET['studid'];
             if (isset($_GET['id'])) {

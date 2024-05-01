@@ -1,58 +1,61 @@
 <?php
 session_start();
+if (!isset($_SESSION['username'])) {
+    header("Location: ../index.php");
+    exit();
+}
 include('components/connect.php');
 include('components/sidebar.php');
-if (isset($_SESSION['username'])) {
-    $username = $_SESSION['username'];
-    $sql = "select * from teacherdetails where Username= '$username' ";
-    $result = mysqli_query($conn, $sql);
-    $answer = mysqli_fetch_assoc($result);
-    $answer2 = $answer['TeacherID'];
-    $sql2 = "select * from subjectdetails where TeacherID = '$answer2'";
-    $result2 = mysqli_query($conn, $sql2);
-    $subjectanswer = mysqli_fetch_assoc($result2);
-    $subjectanswer2 = $subjectanswer['SubjectID'];
-    $sql3 = "select CourseID from subjectdetails where SubjectID = '$subjectanswer2'";
-    $result3 = mysqli_query($conn, $sql3);
-    $courseanswer = mysqli_fetch_assoc($result3);
-    $courseanswer2 = $courseanswer['CourseID'];
-    $errors = [];
-    function sanitizeInput($data)
-    {
-        global $conn;
-        return mysqli_real_escape_string($conn, htmlspecialchars(strip_tags($data)));
+$username = $_SESSION['username'];
+$sql = "select * from teacherdetails where Username= '$username' ";
+$result = mysqli_query($conn, $sql);
+$answer = mysqli_fetch_assoc($result);
+$answer2 = $answer['TeacherID'];
+$sql2 = "select * from subjectdetails where TeacherID = '$answer2'";
+$result2 = mysqli_query($conn, $sql2);
+$subjectanswer = mysqli_fetch_assoc($result2);
+$subjectanswer2 = $subjectanswer['SubjectID'];
+$sql3 = "select CourseID from subjectdetails where SubjectID = '$subjectanswer2'";
+$result3 = mysqli_query($conn, $sql3);
+$courseanswer = mysqli_fetch_assoc($result3);
+$courseanswer2 = $courseanswer['CourseID'];
+$errors = [];
+function sanitizeInput($data)
+{
+    global $conn;
+    return mysqli_real_escape_string($conn, htmlspecialchars(strip_tags($data)));
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    $announcetitle = sanitizeInput($_POST['announcetitle']);
+    if (strlen($announcetitle) > 50) {
+        $errors['announcetitle'] = "Announcement Title must be 50 characters or less";
     }
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-        $announcetitle = sanitizeInput($_POST['announcetitle']);
-        if (strlen($announcetitle) > 50) {
-            $errors['announcetitle'] = "Announcement Title must be 50 characters or less";
-        }
-
-        $announcedesc = sanitizeInput($_POST['announcedesc']);
-        if (strlen($announcedesc) > 150) {
-            $errors['announcedesc'] = "Announcement Description must be 150 characters or less";
-        }
-        if (empty($errors)) {
-            $title = $_POST['announcetitle'];
-            $desc = $_POST['announcedesc'];
-            $sqlcheck = "Select * from announcementdetails where Announcementtitle = '$title' and AnnouncementDesc = '$desc'";
-            $rescheck = mysqli_query($conn, $sqlcheck);
-            if (mysqli_num_rows($rescheck) <= 0) {
-                $sql = "Insert into announcementdetails (SubjectID, Announcementtitle, AnnouncementDesc,CourseID) values('$subjectanswer2','$title','$desc','$courseanswer2')";
-                if ($conn->query($sql) == TRUE) {
-                    $errors['announcement-insertion'] = "<div class='successmsg'>
+    $announcedesc = sanitizeInput($_POST['announcedesc']);
+    if (strlen($announcedesc) > 150) {
+        $errors['announcedesc'] = "Announcement Description must be 150 characters or less";
+    }
+    if (empty($errors)) {
+        $title = $_POST['announcetitle'];
+        $desc = $_POST['announcedesc'];
+        $sqlcheck = "Select * from announcementdetails where Announcementtitle = '$title' and AnnouncementDesc = '$desc'";
+        $rescheck = mysqli_query($conn, $sqlcheck);
+        if (mysqli_num_rows($rescheck) <= 0) {
+            $sql = "Insert into announcementdetails (SubjectID, Announcementtitle, AnnouncementDesc,CourseID) values('$subjectanswer2','$title','$desc','$courseanswer2')";
+            if ($conn->query($sql) == TRUE) {
+                $errors['announcement-insertion'] = "<div class='successmsg'>
             <label class='successtext'>Announcement Posted!</label>
 </div>";
-                } else {
-                    $errors['announcement-insertion'] = "<div class='successmsg'>
+            } else {
+                $errors['announcement-insertion'] = "<div class='successmsg'>
             <label class='successtext'>Announcement Was'nt Posted!</label>
 </div>";
-                }
             }
         }
     }
+}
 
 ?>
 <!DOCTYPE html>
@@ -65,7 +68,6 @@ if (isset($_SESSION['username'])) {
     <link rel="stylesheet" href="styles/sidebarstyle.css">
     <link rel="stylesheet" href="styles/tablestyle.css">
     <link rel="stylesheet" href="styles/resstyle.css">
-    <!-- Boxiocns CDN Link -->
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 </head>
@@ -108,12 +110,7 @@ if (isset($_SESSION['username'])) {
                 <div class="btndiv centerdiv">
                     <button type="submit" name="submit" id="button" class="button">Post Announcement</button>
                     <?php if (isset($errors['announcement-insertion'])) echo "{$errors['announcement-insertion']}";
-                  
-}
-/* else{
-    header("Location: /cms/index.php");
-} */
-?>
+                    ?>
                 </div>
             </form>
         </div>

@@ -1,35 +1,31 @@
 <?php
 session_start();
+if (!isset($_SESSION['username'])) {
+    header("Location: index.php");
+    exit();
+}
 include("components/dbconnection.php");
- include("components/adminHeader.php"); 
-include("components/sidebar.php"); 
-if (isset($_SESSION['username'])) {
+include("components/adminHeader.php");
+include("components/sidebar.php");
 $sql = "SELECT COUNT(*) AS total_rows FROM studentdetails";
 $sql2 = "SELECT COUNT(*) AS total_rows FROM teacherdetails";
 $sql3 = "SELECT COUNT(*) AS total_rows FROM coursedetails";
 $res1 = mysqli_query($con, $sql);
 $res2 = mysqli_query($con, $sql2);
 $res3 = mysqli_query($con, $sql3);
-if($res1)
-{
-    $row = $res1 ->fetch_assoc();
+if ($res1) {
+    $row = $res1->fetch_assoc();
     $total_rows = $row['total_rows'];
 }
-if($res2)
-{
-    $row = $res2 ->fetch_assoc();
+if ($res2) {
+    $row = $res2->fetch_assoc();
     $total_rows2 = $row['total_rows'];
 }
-if($res3)
-{
-    $row = $res3 ->fetch_assoc();
+if ($res3) {
+    $row = $res3->fetch_assoc();
     $total_rows3 = $row['total_rows'];
 }
-}
-else
-{
-    header('Location:index.php');
-}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

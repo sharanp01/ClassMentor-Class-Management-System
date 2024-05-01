@@ -1,8 +1,11 @@
 <?php
 session_start();
+if (!isset($_SESSION['username'])) {
+    header("Location: ../index.php");
+    exit();
+}
 include("components/connect.php");
 include('components/sidebar.php');
-if(isset($_SESSION['username'])){
 $username = $_SESSION['username'];
 $sql = "select * from teacherdetails where Username= '$username' ";
 $result = mysqli_query($conn, $sql);
@@ -72,7 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="styles/sidebarstyle.css">
     <link rel="stylesheet" href="styles/tablestyle.css">
     <link rel="stylesheet" href="styles/resstyle.css">
-    <!-- Boxiocns CDN Link -->
+
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <title>Add Assignment</title>
@@ -127,7 +130,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
                 <div class="btndiv centerdiv">
                     <button type="submit" name="submit" id="button" class="button" onclick="clearForm()">Post Assignment</button>
-                    <?php if (isset($errors['assignment-insertion'])) echo "{$errors['assignment-insertion']}"; }?>
+                    <?php if (isset($errors['assignment-insertion'])) echo "{$errors['assignment-insertion']}"; ?>
                 </div>
             </form>
         </div>

@@ -1,8 +1,11 @@
 <?php
 session_start();
+if (!isset($_SESSION['username'])) {
+    header("Location: ../index.php");
+    exit();
+}
 include('components/connect.php');
 include('components/sidebar.php');
-if(isset($_SESSION['username'])){
 $username = $_SESSION['username'];
 $studentsql = "select CourseID,StudentID from studentdetails where Username = '" . $username . "' ";
 $studentresult = mysqli_query($conn, $studentsql);
@@ -85,7 +88,7 @@ $result3 = mysqli_query($conn, $sql3);
             </div>";
             }
 
-          }  ?>
+            ?>
         </div>
     </section>
 </body>

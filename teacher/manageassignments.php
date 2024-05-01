@@ -1,8 +1,11 @@
 <?php
 session_start();
+if (!isset($_SESSION['username'])) {
+    header("Location: ../index.php");
+    exit();
+}
 include('components/connect.php');
 include('components/sidebar.php');
-if(isset($_SESSION['username'])){
 $username = $_SESSION['username'];
 $sql = "select * from teacherdetails where Username= '$username' ";
 $result = mysqli_query($conn, $sql);
@@ -22,7 +25,6 @@ $assignresult = mysqli_query($conn, $assignsql);
     <link rel="stylesheet" href="styles/sidebarstyle.css">
     <link rel="stylesheet" href="styles/tablestyle.css">
     <link rel="stylesheet" href="styles/resstyle.css">
-    <!-- Boxiocns CDN Link -->
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
@@ -70,7 +72,7 @@ $assignresult = mysqli_query($conn, $assignsql);
                 ClassMentor
             </div>
             <div class="right-content">
-              
+
                 <div class="dropdown">
                     <a href="logout.php"><button class="Btn">
                             <div class="sign"><svg viewBox="0 0 512 512">
@@ -96,10 +98,10 @@ $assignresult = mysqli_query($conn, $assignsql);
                     $i++;
                 }
             } else {
-                    echo "<div class='successmsg'><label class='successtext'>Data not found</label><br>
+                echo "<div class='successmsg'><label class='successtext'>Data not found</label><br>
             <label class='successtext'>To Post New Announcements <br><div class='btndiv'><a href='addassignment.php' class='button deletetext'>Click Here!</a></div></label></div>";
             }
-        }
+
             ?>
         </div>
     </section>

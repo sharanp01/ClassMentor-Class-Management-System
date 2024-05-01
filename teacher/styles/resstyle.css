@@ -55,8 +55,6 @@
   --font-color-sub: #666;
   --bg-color: #fff;
   --main-color: #323232;
-  /*  width: 390px;
-    height: 45px; */
   border-radius: 5px;
   border: 2px solid var(--main-color);
   background-color: var(--bg-color);

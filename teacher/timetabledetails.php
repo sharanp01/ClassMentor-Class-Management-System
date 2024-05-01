@@ -1,8 +1,11 @@
 <?php
 session_start();
+if (!isset($_SESSION['username'])) {
+    header("Location: ../index.php");
+    exit();
+}
 include('components/connect.php');
 include('components/sidebar.php');
-if(isset($_SESSION['username'])){
 $username = $_SESSION['username'];
 $sql = "select * from teacherdetails where Username= '$username' ";
 $result = mysqli_query($conn, $sql);
@@ -33,8 +36,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $timestart = sanitizeInput($_POST['timetablestarttime']);
     $timeend = sanitizeInput($_POST['timetableendtime']);
 
-    $timestartDateTime = DateTime::createFromFormat('H:i', $timestart); // Convert start time to DateTime object
-    $timeendDateTime = DateTime::createFromFormat('H:i', $timeend); // Convert end time to DateTime object`
+    $timestartDateTime = DateTime::createFromFormat('H:i', $timestart); 
+    $timeendDateTime = DateTime::createFromFormat('H:i', $timeend); 
 
     if ($timestartDateTime >= $timeendDateTime) {
         $errors['timetabletime'] = "End time must be after start time.";
@@ -120,7 +123,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 <div class="btndiv centerdiv">
                     <button type="submit" name="submit" id="button" class="button">Schedule Lecture</button>
-                    <?php if (isset($errors['timetable-insertion'])) echo "{$errors['timetable-insertion']}"; }?>
+                    <?php if (isset($errors['timetable-insertion'])) echo "{$errors['timetable-insertion']}"; ?>
                 </div>
     </section>
 </body>

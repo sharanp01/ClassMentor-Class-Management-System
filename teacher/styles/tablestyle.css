@@ -1,6 +1,6 @@
 .table-control{
     width: 80%;
-   /*  height: 80vh; */
+ 
     background-color: white;
     border-radius: 40px;
     margin-top: 40px;
@@ -169,7 +169,7 @@
     margin-top: 20px;
    
   }
-  /* CSS for present status */
+
 .resinput{
   text-align: left;
 }

@@ -1,8 +1,11 @@
 <?php
 session_start();
+if (!isset($_SESSION['username'])) {
+    header("Location: ../index.php");
+    exit();
+}
 include('components/connect.php');
 include("components/sidebar.php");
-if(isset($_SESSION['username'])){
 $username = $_SESSION['username'];
 $studentsql = "select * from studentdetails where Username = '" . $username . "' ";
 $studentresult = mysqli_query($conn, $studentsql);
@@ -31,7 +34,7 @@ $assignmentresult = mysqli_query($conn, $assignmentsql);
                 ClassMentor
             </div>
             <div class="right-content">
-               
+
                 <div class="dropdown">
                     <div class="dropdown">
                         <a href="logout.php"><button class="Btn">
@@ -74,10 +77,9 @@ $assignmentresult = mysqli_query($conn, $assignmentsql);
                     $i++;
                 }
             } else {
-                echo "<div class='successmsg'><label class='successtext'>Data not found</label><br>
-            <label class='successtext'>To Post New Announcements <br><div class='btndiv'><a href='add-notice.php' class='button deletetext'>Click Here!</a></div></label></div>";
+                echo "<div class='successmsg'><label class='successtext'>Marks Not Assigned for the assignment!Check Later</label><br></div>";
             }
-        }
+
                 ?>
         </div>
 </body>

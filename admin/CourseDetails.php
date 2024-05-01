@@ -1,9 +1,12 @@
 <?php
 session_start();
+if (!isset($_SESSION['username'])) {
+    header("Location: index.php");
+    exit();
+}
 include('components/dbconnection.php');
 include('components/adminHeader.php');
 include('components/sidebar.php'); 
-if (isset($_SESSION['username'])) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -39,25 +42,22 @@ if (isset($_SESSION['username'])) {
                                     return htmlspecialchars(strip_tags($data));
                                 }
 
-                                // Retrieve data from the form
+                            
                                 $coursename = mysqli_real_escape_string($con, $_POST["coursename"]);
                                 $sqlcheck = "Select * from coursedetails where Coursename = '$coursename'";
                                 $rescheck = mysqli_query($con, $sqlcheck);
                                 if (mysqli_num_rows($rescheck) <= 0) {
-                                    // SQL query to insert data into the database
+                                
                                     $sql = "INSERT INTO coursedetails (Coursename)
         VALUES ('$coursename')";
 
-                                    // Execute the query
+                                    // Execute the quer
                                     if ($con->query($sql) === TRUE) {
                                         echo "<div class='btndiv'><label class='form-text'>Data Inserted successfully</label></div>";
                                     } else {
                                     }
                                 }
                             }
-                        }else{
-                            header("Location:index.php");
-                        }
                             ?>
                         </form>
                     </div>

@@ -82,18 +82,7 @@ session_start();
                         }
                         ?>
                     </div>
-                    <!--  <div class="switch2">
-                        <div class="switch3">
-                            <label class="switch">
-                                <input type="checkbox" name="login">
-                                <div class="slider">
-                                    <span>Teacher</span>
-                                    <span>Student</span>
-                                </div>
-                            </label>
-                        </div>
-                        <label for=""><a href="forgot-password.php">Forgot Password?</a></label>
-                    </div> -->
+                  
                     <div class="switch2">
                         <label for=""><a href="forgot-password.php" class="forgot-password">Forgot Password?</a></label>
                         <div class="switch3">

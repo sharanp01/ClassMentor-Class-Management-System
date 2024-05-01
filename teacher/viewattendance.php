@@ -1,8 +1,12 @@
 <?php
 session_start();
+if (!isset($_SESSION['username'])) {
+    header("Location: ../index.php");
+    exit();
+}
 include('components/connect.php');
 include('components/sidebar.php');
-if (isset($_SESSION['username'])) {
+
     $username = $_SESSION['username'];
     $sql = "select * from teacherdetails where Username= '$username' ";
     $result = mysqli_query($conn, $sql);
@@ -101,7 +105,7 @@ if (isset($_SESSION['username'])) {
                         echo "<div class='btndiv'>No attendance is taken for this date!</div>";
                     }
                 }
-            }
+            
                 ?>
 
                 <script>
@@ -109,12 +113,12 @@ if (isset($_SESSION['username'])) {
                         var table = document.getElementById("attendanceTable");
                         var rows = table.getElementsByTagName("tr");
 
-                        // Loop through each row (skipping the first row, which is the header)
+                       
                         for (var i = 1; i < rows.length; i++) {
                             var cell = rows[i].getElementsByClassName("status")[0];
                             var status = cell.textContent.trim().toLowerCase();
 
-                            // Set background color based on status
+                          
                             if (status === 'Present') {
                                 cell.style.backgroundColor = 'lightgreen';
                             } else if (status === 'Absent') {

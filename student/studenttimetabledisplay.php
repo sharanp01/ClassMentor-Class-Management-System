@@ -1,16 +1,18 @@
 <?php
 session_start();
+if (!isset($_SESSION['username'])) {
+    header("Location: ../index.php");
+    exit();
+}
 include("components/connect.php");
-include('components/sidebar.php');
-
-if(isset($_SESSION['username'])){
+include('components/sidebar.php'); 
 $username = $_SESSION['username'];
 $studentsql = "SELECT CourseID FROM studentdetails WHERE Username = '" . $username . "'";
 $studentresult = mysqli_query($conn, $studentsql);
 $row1 = mysqli_fetch_assoc($studentresult);
 $col1 = $row1['CourseID'];
 
-// Fetch timetable data for the current date and onwards
+
 $currentDate = date('Y-m-d');
 $sql = "SELECT teacherdetails.Firstname, subjectdetails.Subjectname, timetabledetails.Date, timetabledetails.Starttime, timetabledetails.Endtime 
         FROM timetabledetails
@@ -31,7 +33,7 @@ $result = mysqli_query($conn, $sql);
     <link rel="stylesheet" href="styles/studentstyle.css">
     <title>Timetable</title>
     <style>
-        /* Add your calendar styling here */
+      
         .calendar {
             display: grid;
             border: 2px solid black;
@@ -82,16 +84,16 @@ $result = mysqli_query($conn, $sql);
             <h1 class="heading-text">Timetable</h1>
             <div class="calendar">
                 <?php
-                // Initialize an array to hold timetable data organized by date
+                
                 $timetableData = array();
 
-                // Fetch timetable data into the array
+            
                 while ($row = mysqli_fetch_assoc($result)) {
                     $date = date('Y-m-d', strtotime($row['Date']));
                     $timetableData[$date][] = $row;
                 }
 
-                // Loop through the days starting from the current date
+             
                 for ($i = 0; $i < 7; $i++) {
                     $date = date('Y-m-d', strtotime($currentDate . ' + ' . $i . ' day'));
                     $dayName = date('l', strtotime($date));
@@ -99,9 +101,9 @@ $result = mysqli_query($conn, $sql);
                     echo '<div class="calendar-day">';
                     echo '<div class="calendar-day-heading lecture">' . $dayName . '</div>';
 
-                    // Check if timetable data exists for the current date
+               
                     if (isset($timetableData[$date])) {
-                        // Loop through the timetable data for the current date
+                    
                         foreach ($timetableData[$date] as $timetable) {
                             echo '<div class="lecture">';
                             echo '<strong>' . $timetable['Date'] . '</strong><br>';
@@ -115,7 +117,7 @@ $result = mysqli_query($conn, $sql);
                     }
 
                     echo '</div>';
-                   }   }
+                   }   
                 ?>
             </div>
         </div>

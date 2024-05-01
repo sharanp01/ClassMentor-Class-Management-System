@@ -1,4 +1,9 @@
 <?php
+session_start();
+if (!isset($_SESSION['username'])) {
+    header("Location: ../index.php");
+    exit();
+}
 include('components/sidebar.php');
 include('components/connect.php');
 if (isset($_GET['quizid'])) {

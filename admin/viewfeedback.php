@@ -1,9 +1,12 @@
 <?php
 session_start();
+if (!isset($_SESSION['username'])) {
+    header("Location: index.php");
+    exit();
+}
 include("components/adminHeader.php");
 include("components/sidebar.php");
 include("components/dbconnection.php");
-if (isset($_SESSION['username'])) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -121,10 +124,8 @@ if (isset($_SESSION['username'])) {
                                         echo "<div class='btndiv'><label class='successtext'>feedback not found</label></div>";
                                     }
                                 }
-                            }
-                            else{
-                                header("Location:index.php");
-                            }
+                            
+                          
                                 ?>
                             </div>
                         </form>

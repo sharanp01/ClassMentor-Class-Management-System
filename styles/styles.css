@@ -133,16 +133,7 @@ header {
   margin-top: 10px;
   margin-bottom: 0px;
 }
-/* .switch2 {
-  position: fixed;
-  height: 40px;
-  width: 95%;
-  margin-top: 10px;
-  margin-left: 20px;
-  margin-right: 2px;
-  display: block;
-  justify-content: end;
-} */
+
 .switch {
   position: fixed;
   font-size: 10px;
@@ -152,40 +143,31 @@ header {
   height: 1.5rem;
   padding-bottom: 10px;
 }
-/* .switch3 {
-  margin-top: 18px;
-  margin-left: 455px;
-  width: 29%;
-  position: relative;
-}
- */
+
 .switch2 {
   position: fixed;
   height: 40px;
   margin-top:20px ;
   width:51%;
   display: flex;
-  justify-content: space-between; /* Aligns items with space in between */
+  justify-content: space-between; 
 }
 
 .switch3 {
-  /* Remove unnecessary styling */
+  
   width: auto;
   position: relative;
 }
 
 .forgot-password {
-  margin-left: 40px; /* Adjust as needed */
+  margin-left: 40px; 
   vertical-align: middle;
   color: white;
   font-family: var(--main-font);
   font-size: 1rem;
-  text-decoration: none; /* To remove underline from the link */
+  text-decoration: none; 
 }
 
-/* Rest of your CSS styles remain the same */
-
-/* The slider */
 .slider {
   position: absolute;
   cursor: pointer;
@@ -204,9 +186,7 @@ header {
   font-family: var(--main-font);
   font-size: 1rem;
   box-shadow: inset 0 0 10px 5px rgba(0, 0, 0, 0.2);
-  /* border: 1px solid black; */
-  width: 200px;
-  padding: 2px 0 2px 0;
+
   height: 25px;
 }
 

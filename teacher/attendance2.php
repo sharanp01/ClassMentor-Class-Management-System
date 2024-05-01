@@ -1,8 +1,11 @@
 <?php
 session_start();
+if (!isset($_SESSION['username'])) {
+    header("Location: ../index.php");
+    exit();
+}
 include('components/connect.php');
 include('components/sidebar.php');
-if(isset($_SESSION['username'])){
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -83,12 +86,7 @@ if(isset($_SESSION['username'])){
                                         <td><?php echo $result5['Firstname']; ?></td>
                                         <td><?php echo $result5['Lastname']; ?></td>
                                         <td>
-                                            <!-- <div class="radio"> -->
-                                            <!-- <input type="radio" name=""
-                                value="Present">Present</div>
-                                <div class="radio">
-                            <input type="radio" name="attendance_status[<?php /* echo $result5['StudentID'];  */ ?>]"
-                                value="Absent">Absent</div> -->
+                                            
                                             <div class="wrapper">
                                                 <div class="option">
                                                     <input class="input" type="radio" name="attendance_status[<?php echo $result5['StudentID']; ?>]" value="Present" checked="">
@@ -135,34 +133,33 @@ if(isset($_SESSION['username'])){
         </div>";
                         }
                     }
-                     }     ?>
+                        ?>
             </form>
     </section>
 
     <script>
-        // Get references to the table and its container
+     
         const table = document.getElementById('my-table');
         const container = document.getElementById('table-container');
 
-        // Function to adjust container height based on table height
+        
         function adjustContainerHeight() {
             container.style.height = table.offsetHeight + 'px';
         }
 
-        // MutationObserver to observe changes in the table's child elements
         const observer = new MutationObserver(() => {
             adjustContainerHeight();
         });
 
-        // Configuration of the observer: observe changes in childList
+       
         const observerConfig = {
             childList: true
         };
 
-        // Start observing the table
+       
         observer.observe(table, observerConfig);
 
-        // Call adjustContainerHeight initially
+       
         adjustContainerHeight();
     </script>
 </body>

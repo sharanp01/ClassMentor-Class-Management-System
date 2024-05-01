@@ -1,8 +1,11 @@
 <?php
-session_Start();
+session_start();
+if (!isset($_SESSION['username'])) {
+    header("Location: index.php");
+    exit();
+}
 include('components/dbconnection.php');
 include('components/sidebar.php');
-if (isset($_SESSION['username'])) {
 $errors = [];
 
 function sanitizeInput($data)
@@ -111,36 +114,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="card">
                     <div class="cardbody">
                         <form action="" method="POST" class="formsample">
-                            <!-- First Name -->
+                        
                             <div class="form-group">
                                 <label class="form-text">First Name</label>
                                 <input type="text" name="studentfname" value="<?= isset($_POST['studentfname']) ? htmlspecialchars($_POST['studentfname']) : ''; ?>" class="form-control" required>
                                 <?php if (isset($errors['firstname'])) echo "<div class='errormsgcss'><span class='errormsg'>{$errors['firstname']}</span></div>"; ?>
                             </div>
-                            <!-- Last Name -->
+                           
                             <div class="form-group">
                                 <label for="exampleInputName1" class="form-text">Lastname</label>
                                 <input type="text" name="studentlname" value="<?= isset($_POST['studentlname']) ? htmlspecialchars($_POST['studentlname']) : ''; ?>" class="form-control" required>
                                 <?php if (isset($errors['lastname'])) echo "<div class='errormsgcss'><span class='errormsg'>{$errors['lastname']}</span></div>"; ?>
                             </div>
-                            <!-- Email -->
+                         
                             <div class="form-group">
                                 <label for="exampleInputName1" class="form-text">Email</label>
                                 <input type="email" name="studentemail" value="<?= isset($_POST['studentemail']) ? htmlspecialchars($_POST['studentemail']) : ''; ?>" class="form-control" required>
                                 <?php if (isset($errors['email'])) echo "<div class='errormsgcss'><span class='errormsg'>{$errors['email']}</span></div>"; ?>
                             </div>
-                            <!-- Phone -->
+                            
                             <div class="form-group">
                                 <label for="exampleInputName1" class="form-text">Phone</label>
                                 <input type="text" name="studentphone" value="<?= isset($_POST['studentphone']) ? htmlspecialchars($_POST['studentphone']) : ''; ?>" class="form-control" required>
                                 <?php if (isset($errors['phone'])) echo "<div class='errormsgcss'><span class='errormsg'>{$errors['phone']}</span></div>"; ?>
                             </div>
-                            <!-- Age -->
+                        
                             <div class="form-group">
                                 <label for="exampleInputName1" class="form-text">Age</label>
                                 <input type="number" name="studentage" value="<?= isset($_POST['studentage']) ? htmlspecialchars($_POST['studentage']) : ''; ?>" class="form-control" required>
                             </div>
-                            <!-- Education -->
+                           
                             <div class="form-group">
                                 <?php
                                 $query = "select * from coursedetails";
@@ -148,7 +151,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 if (mysqli_num_rows($result) > 0) {
                                     echo "<label for='columns' class='form-text'>Select a course:</label><br>";
                                     echo "<select id='showdata' name='selected_column' class= 'form-control'>";
-                                    // Output data of each row
+                                  
                                     while ($row = mysqli_fetch_assoc($result)) {
                                         echo "<option value='" . $row['Coursename'] . "' class= 'option-control'>" . $row['Coursename'] . "</option>";
                                     }
@@ -158,21 +161,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 }
                                 ?>
                             </div>
-                            <!-- Username -->
+                           
                             <div class="form-group">
                                 <label for="exampleInputName1" class="form-text">Username</label>
                                 <input type="text" name="susername" value="<?= isset($_POST['susername']) ? htmlspecialchars($_POST['susername']) : ''; ?>" class="form-control" required>
                                 <?php if (isset($errors['username'])) echo "<div class='errormsgcss'><span class='errormsg'>{$errors['username']}</span></div>"; ?>
                             </div>
-                            <!-- Password -->
+                         
                             <div class="form-group">
                                 <label for="exampleInputName1" class="form-text">Password</label>
-                                <input type="password" name="tpassword1" class="form-control" required>
+                                <input type="text" name="tpassword1" class="form-control" required>
                             </div>
-                            <!-- Confirm Password -->
+
                             <div class="form-group">
                                 <label for="exampleInputName1" class="form-text">Confirm Password</label>
-                                <input type="password" name="tpassword2" class="form-control" required>
+                                <input type="text" name="tpassword2" class="form-control" required>
                                 <?php if (isset($errors['password'])) echo "<div class='errormsgcss'><span class='errormsg'>{$errors['password']}</span></div>"; ?>
                             </div>
                             <div class="btndiv">
@@ -181,10 +184,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </form>
                         <?php if (isset($errors['db-insertion'])) echo "<div class='btndiv'>{$errors['db-insertion']}</div>"; ?>
                         <?php if (isset($errors['usernameduplication'])) echo "<div class='btndiv'>{$errors['usernameduplication']}</div>";
-                        }
-                        else{
-                            header("Location:index.php");
-                        } ?>
+                       ?>
                     </div>
                 </div>
             </div>

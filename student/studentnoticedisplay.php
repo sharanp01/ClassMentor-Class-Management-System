@@ -1,8 +1,11 @@
 <?php
 session_start();
+if (!isset($_SESSION['username'])) {
+    header("Location: ../index.php");
+    exit();
+}
 include('components/connect.php');
 include('components/sidebar.php');
-if(isset($_SESSION['username'])){
 $username = $_SESSION['username'];
 $studentsql = "select CourseID from studentdetails where Username = '" . $username . "' ";
 $studentresult = mysqli_query($conn, $studentsql);
@@ -43,7 +46,7 @@ $result = mysqli_query($conn, $sql);
             margin-bottom: 20px;
         }
 
-        /* .announcement-label */
+    
         hr {
             border: 2px solid black;
             margin: 12px 10px 15px 10px;
@@ -121,10 +124,10 @@ $result = mysqli_query($conn, $sql);
                     }
                 }
             } else {
-                echo "<div class='successmsg'><label class='successtext'>Data not found</label><br>
-    <label class='successtext'>To Post New Announcements <br><div class='btndiv'><a href='add-notice.php' class='button deletetext'>Click Here!</a></div></label></div>";
+                echo "<div class='successmsg centerdiv'><label class='successtext'>No New Announcement Posted!</label>
+   </div>";
             }
-        }
+        
             ?>
         </div>
 

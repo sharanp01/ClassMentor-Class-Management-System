@@ -1,4 +1,9 @@
-<?php   
+<?php  
+session_start();
+if (!isset($_SESSION['username'])) {
+     header("Location: ../index.php");
+     exit();
+ } 
  include ('components/connect.php');  
  if (isset($_GET['id'])) {  
       $id = $_GET['id'];  

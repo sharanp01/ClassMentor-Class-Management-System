@@ -185,7 +185,7 @@
 }
 .home-section {
   position: relative;
-  background: /* #e4e9f7 */inherit;
+  background: inherit;
   left: 260px;
   width: calc(100% - 260px);
   transition: all 0.5s ease;
@@ -203,16 +203,13 @@
   align-items: center;
   padding: 10px;
 }
-/* .sidebar.close ~ .home-section{
-  left: 78px;
-  width: calc(100% - 78px);
-} */
+
 
 .left-content {
   flex: 1;
 }
 .right-content {
-  /*  margin-left: auto; */
+
   justify-content: center;
   text-align: center;
   padding: 10px;
@@ -236,41 +233,11 @@
   margin-left: 20px;
 }
 
-/* The container <div> - needed to position the dropdown content */
 .dropdown {
   position: relative;
   display: inline-block;
   right: 40px;
 }
-
-/* Dropdown Content (Hidden by Default) 
-  .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    z-index: 1;
-  }
-  
-  .dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-  }
-  
-  
-  .dropdown-content a:hover {
-    background-color: #f1f1f1;
-  }
-  
-
-  .dropdown:hover .dropdown-content {
-    display: block;
-  } */
-
-/* Change the background color of the dropdown button when the dropdown content is shown */
 
 @media screen and (max-height: 450px) {
   .sidenav {
@@ -314,7 +281,7 @@
   margin-left: 20px;
 }
 
-/* plus sign */
+
 .sign {
   width: 100%;
   transition-duration: 0.3s;
@@ -330,7 +297,7 @@
 .sign svg path {
   fill: black;
 }
-/* text */
+
 .text {
   position: absolute;
   right: 0%;
@@ -341,7 +308,7 @@
   font-weight: 600;
   transition-duration: 0.3s;
 }
-/* hover effect on button width */
+
 .Btn:hover {
   width: 110px;
   border-radius: 40px;
@@ -353,14 +320,14 @@
   transition-duration: 0.3s;
   padding-left: 20px;
 }
-/* hover effect button's text */
+
 .Btn:hover .text {
   opacity: 1;
   width: 70%;
   transition-duration: 0.3s;
   margin-left: 10px;
 }
-/* button click effect*/
 .Btn:active {
   transform: translate(2px, 2px);
 }
+

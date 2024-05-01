@@ -1,8 +1,11 @@
 <?php
 session_start();
+if (!isset($_SESSION['username'])) {
+    header("Location: ../index.php");
+    exit();
+}
 include('components/connect.php');
 include('components/sidebar.php');
-if(isset($_SESSION['username'])){
 $username = $_SESSION['username'];
 $studentsql = "select CourseID from studentdetails where Username = '" . $username . "' ";
 $studentresult = mysqli_query($conn, $studentsql);
@@ -13,7 +16,7 @@ $sql = "SELECT subjectdetails.Subjectname, teacherdetails.Firstname, assignmentd
 FROM assignmentdetails
 INNER JOIN subjectdetails ON subjectdetails.SubjectID = assignmentdetails.SubjectID
 INNER JOIN teacherdetails ON teacherdetails.TeacherID = assignmentdetails.TeacherID
-WHERE assignmentdetails.CourseID = '$col1' and AssignmentSubDate='$currentDate'";
+WHERE assignmentdetails.CourseID = '$col1' and AssignmentSubDate >= '$currentDate'";
 $result = mysqli_query($conn, $sql);
 ?>
 <!DOCTYPE html>
@@ -45,7 +48,7 @@ $result = mysqli_query($conn, $sql);
             margin-bottom: 20px;
         }
 
-        /* .announcement-label */
+       
         .announcement-heading {
             font-size: 1.3rem;
             text-align: center;
@@ -120,7 +123,7 @@ $result = mysqli_query($conn, $sql);
             } else {
                 echo "<div class='successmsg'><label class='successtext'>No new Assignments Assigned</label><br></div>";
             }
-        }
+        
             ?>
         </div>
 
