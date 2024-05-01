@@ -1,7 +1,9 @@
 <?php
+session_start();
 include("components/dbconnection.php");
  include("components/adminHeader.php"); 
 include("components/sidebar.php"); 
+if (isset($_SESSION['username'])) {
 $sql = "SELECT COUNT(*) AS total_rows FROM studentdetails";
 $sql2 = "SELECT COUNT(*) AS total_rows FROM teacherdetails";
 $sql3 = "SELECT COUNT(*) AS total_rows FROM coursedetails";
@@ -22,6 +24,11 @@ if($res3)
 {
     $row = $res3 ->fetch_assoc();
     $total_rows3 = $row['total_rows'];
+}
+}
+else
+{
+    header('Location:index.php');
 }
 ?>
 <!DOCTYPE html>

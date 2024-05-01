@@ -1,11 +1,15 @@
 <?php
+session_start();
 include('components/adminHeader.php');
 include('components/sidebar.php');
 include('components/dbconnection.php');
+if (isset($_SESSION['username'])) {
 $query = "select * from coursedetails";
 $run = mysqli_query($con, $query);
-
-$query2 = "select * from subjectdetails";
+$query2 = "Select subjectdetails.Subjectname, subjectdetails.SubjectID, teacherdetails.Firstname,teacherdetails.Lastname, coursedetails.Coursename
+from subjectdetails
+join coursedetails on coursedetails.CourseID = subjectdetails.SubjectID
+join teacherdetails on teacherdetails.TeacherID = subjectdetails.TeacherID";
 $run2 = mysqli_query($con, $query2);
 ?>
 <!DOCTYPE html>
@@ -48,6 +52,7 @@ $run2 = mysqli_query($con, $query2);
                                             <tr class="heading">
                                                 <th>Course ID</th>
                                                 <th>Coursename</th>
+                                                <th>Delete</th>
                                             </tr>
 
                                 <?php
@@ -57,7 +62,7 @@ $run2 = mysqli_query($con, $query2);
                                  <tr class='data'>  
                                       <td>" . $result3['CourseID'] . "</td>  
                                       <td>" . $result3['Coursename'] . "</td>  
-                                      <td><a href='deletecourse.php?id=" . $result3['CourseID'] . "' id='btn'>Delete</a></td>  
+                                      <td><a href='deletecourse.php?id=" . $result3['CourseID'] . "' id='btn' style = ' text-decoration: none;'>Delete</a></td>  
                                  </tr>  
                             ";
                                         $i++;
@@ -75,6 +80,7 @@ $run2 = mysqli_query($con, $query2);
                                             <tr class="heading">
                                                 <th>Course ID</th>
                                                 <th>Coursename</th>
+                                                <th>Delete</th>
                                             </tr> <?php
                                                     $i = 1;
                                                     if ($num = mysqli_num_rows($run) > 0) {
@@ -84,7 +90,7 @@ $run2 = mysqli_query($con, $query2);
                           <tr class='data'>  
                                <td>" . $result['CourseID'] . "</td>  
                                <td>" . $result['Coursename'] . "</td>   
-                               <td><a href='deletecourse.php?id=" . $result['CourseID'] . "' id='btn'>Delete</a></td>  
+                               <td><a href='deletecourse.php?id=" . $result['CourseID'] . "' id='btn' style = ' text-decoration: none;'>Delete</a></td>  
                           </tr>  
                      ";
                                                             $i++;
@@ -116,7 +122,11 @@ $run2 = mysqli_query($con, $query2);
                         <?php
                         if (isset($_POST['submit3'])) {
                             $search = $_POST['searchname2'];
-                            $sql2 = "Select SubjectID, CourseID, TeacherID, Subjectname from subjectdetails where Subjectname ='$search'";
+                            $sql2 = "Select subjectdetails.Subjectname, subjectdetails.SubjectID, teacherdetails.Firstname,teacherdetails.Lastname, coursedetails.Coursename
+                            from subjectdetails
+                            join coursedetails on coursedetails.CourseID = subjectdetails.SubjectID
+                            join teacherdetails on teacherdetails.TeacherID = subjectdetails.TeacherID
+                            where Subjectname = '$search'";
                             $result3 = mysqli_query($con, $sql2);
                             if ($result3) {
                                 if (mysqli_num_rows($result3) > 0) { ?>
@@ -124,9 +134,10 @@ $run2 = mysqli_query($con, $query2);
                                         <table border="1" cellspacing="6" cellpadding="6">
                                             <tr class="heading">
                                                 <th>Subject ID</th>
-                                                <th>Course ID</th>
-                                                <th>Teacher ID</th>
+                                                <th>Course name</th>
+                                                <th>Teacher name</th>
                                                 <th>Subjectname</th>
+                                                <th>Delete</th>
                                             </tr>
 
                                 <?php
@@ -135,10 +146,10 @@ $run2 = mysqli_query($con, $query2);
                                         echo "  
                                  <tr class='data'>  
                                       <td>" . $result4['SubjectID'] . "</td>  
-                                      <td>" . $result4['CourseID'] . "</td>  
-                                      <td>" . $result4['TeacherID'] . "</td>  
+                                      <td>" . $result4['Coursename'] . "</td>  
+                                      <td>" . $result4['Firstname'] . " ".$result4['Lastname']."</td>  
                                       <td>" . $result4['Subjectname'] . "</td>
-                                      <td><a href='deletesubject.php?id=" . $result4['SubjectID'] . "' id='btn'>Delete</a></td>  
+                                      <td><a href='deletesubject.php?id=" . $result4['SubjectID'] . "' id='btn' style = ' text-decoration: none;'>Delete</a></td>  
                                  </tr>  
                             ";
                                         $i++;
@@ -155,9 +166,10 @@ $run2 = mysqli_query($con, $query2);
                                         <table border="1" cellspacing="6" cellpadding="6">
                                             <tr class="heading">
                                                 <th>Subject ID</th>
-                                                <th>Course ID</th>
-                                                <th>Teacher ID</th>
+                                                <th>Course name</th>
+                                                <th>Teacher name</th>
                                                 <th>Subjectname</th>
+                                              <th>Delete</th>
                                             </tr> <?php
                                                     $i = 1;
                                                     if ($num = mysqli_num_rows($run2) > 0) {
@@ -166,10 +178,10 @@ $run2 = mysqli_query($con, $query2);
                                                             echo "  
                           <tr class='data'>  
                                <td>" . $result5['SubjectID'] . "</td>  
-                               <td>" . $result5['CourseID'] . "</td>   
-                               <td>" . $result5['TeacherID'] . "</td>  
+                               <td>" . $result5['Coursename'] . "</td>  
+                               <td>" . $result5['Firstname'] . " ".$result5['Lastname']."</td>   
                                <td>" . $result5['Subjectname'] . "</td> 
-                               <td><a href='deletesubject.php?id=" . $result5['SubjectID'] . "' id='btn'>Delete</a></td>  
+                               <td><a href='deletesubject.php?id=" . $result5['SubjectID'] . "' id='btn' style = ' text-decoration: none;'>Delete</a></td>  
                           </tr>  
                      ";
                                                             $i++;
@@ -178,7 +190,11 @@ $run2 = mysqli_query($con, $query2);
                                                     ?>
                                         </table>
                                     </div>
-                                <?php } ?>
+                                <?php }
+                                }
+                                else{
+                                    header("Location:index.php");
+                                } ?>
 
                                     </div>
                     </div>

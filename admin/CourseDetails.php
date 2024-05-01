@@ -1,8 +1,9 @@
 <?php
+session_start();
 include('components/dbconnection.php');
 include('components/adminHeader.php');
 include('components/sidebar.php'); 
-
+if (isset($_SESSION['username'])) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -54,6 +55,9 @@ include('components/sidebar.php');
                                     }
                                 }
                             }
+                        }else{
+                            header("Location:index.php");
+                        }
                             ?>
                         </form>
                     </div>

@@ -63,7 +63,7 @@ session_start();?>
                 $count = mysqli_num_rows($result);
 
                 if ($count == 1) {
-                    $_SESSION["username"] = $username;
+                    $_SESSION['username'] = $username;
                     header("Location:dashboard.php");
                     exit();
                 } else {

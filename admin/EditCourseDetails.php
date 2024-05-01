@@ -1,7 +1,9 @@
 <?php
+session_start();
 include('components/dbconnection.php');
 include('components/adminHeader.php');
 include('components/sidebar.php');
+if (isset($_SESSION['username'])) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -37,6 +39,10 @@ include('components/sidebar.php');
                                     echo "<select id='showdata' name='selected_column' class= 'form-control'>";
                                     // Output data of each row
                                     while ($row = mysqli_fetch_assoc($result)) {
+                                        if($row['Field'] == 'CourseID')
+                                        {
+                                            continue;
+                                        }
                                         echo "<option value='" . $row['Field'] . "' class= 'option-control'>" . $row['Field'] . "</option>";
                                     }
                                     echo "</select>";
@@ -104,6 +110,10 @@ include('components/sidebar.php');
                                     echo "<select id='showdata' name='selected_column' class= 'form-control'>";
                                     // Output data of each row
                                     while ($row = mysqli_fetch_assoc($result)) {
+                                        if($row['Field'] == 'SubjectID' || $row['Field'] == 'TeacherID' || $row['Field'] == 'CourseID' )
+                                        {
+                                            continue;
+                                        }
                                         echo "<option value='" . $row['Field'] . "' class= 'option-control'>" . $row['Field'] . "</option>";
                                     }
                                     echo "</select>";
@@ -179,6 +189,9 @@ include('components/sidebar.php');
                                     echo "<label class='form-text'>Please enter the data</label>";
                                 }
                             }
+                        }else{
+                            header("Location:index.php");
+                        }
                             ?>
                     </div>
                 </div>

@@ -1,7 +1,8 @@
 <?php
+session_Start();
 include('components/dbconnection.php');
 include('components/sidebar.php');
-
+if (isset($_SESSION['username'])) {
 $errors = [];
 
 function sanitizeInput($data)
@@ -179,7 +180,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             </div>
                         </form>
                         <?php if (isset($errors['db-insertion'])) echo "<div class='btndiv'>{$errors['db-insertion']}</div>"; ?>
-                        <?php if (isset($errors['usernameduplication'])) echo "<div class='btndiv'>{$errors['usernameduplication']}</div>"; ?>
+                        <?php if (isset($errors['usernameduplication'])) echo "<div class='btndiv'>{$errors['usernameduplication']}</div>";
+                        }
+                        else{
+                            header("Location:index.php");
+                        } ?>
                     </div>
                 </div>
             </div>

@@ -31,16 +31,16 @@ include("components/adminHeader.php");
     <div class="dropdown" id="courseDropdown">
         <a href="CourseDetails.php" class="droptext">Add Course</a>
         <a href="SubjectDetails.php" class="droptext">Add Subject</a>
-        <a href="CourseList.php" class="droptext">Course List</a>
+        <a href="CourseList.php" class="droptext">Course/Subject List</a>
         <a href="EditCourseDetails.php" class="droptext">Edit Course</a>
     </div>
-    <a href="viewfeedback.php" class="sidetext">Feedback</a>
+    <a href="viewfeedback.php" class="sidetext" style="margin-bottom: 20px;">Feedback</a>
 
     </div>
 <script>
 function toggleDropdown(menu) {
         const dropdown = document.getElementById(menu + 'Dropdown');
-        dropdown.style.maxHeight = dropdown.style.maxHeight === '0px' ? '200px' : '0px';
+        dropdown.style.maxHeight = dropdown.style.maxHeight === '0px' ? '300px' : '0px';
     }
 </script>
 </body>

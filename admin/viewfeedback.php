@@ -1,7 +1,9 @@
 <?php
+session_start();
 include("components/adminHeader.php");
 include("components/sidebar.php");
 include("components/dbconnection.php");
+if (isset($_SESSION['username'])) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -119,6 +121,10 @@ include("components/dbconnection.php");
                                         echo "<div class='btndiv'><label class='successtext'>feedback not found</label></div>";
                                     }
                                 }
+                            }
+                            else{
+                                header("Location:index.php");
+                            }
                                 ?>
                             </div>
                         </form>

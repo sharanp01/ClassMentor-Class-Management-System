@@ -1,6 +1,8 @@
 <?php
+session_start();
 include('components/sidebar.php');
 include("components/dbconnection.php");
+if (isset($_SESSION['username'])) {
 $errors = [];
 
 function sanitizeInput($data)
@@ -143,7 +145,12 @@ VALUES ('$firstname', '$lastname', '$email', '$phone', '$subjectsTaken', '$educa
                             <div class="btndiv"><button class="btn" name="submit" value="submit">Add Teacher</button>
                         </form>
                         <?php if (isset($errors['db-insertion'])) echo "<div class='btndiv'>{$errors['db-insertion']}</div>"; ?>
-                        <?php if (isset($errors['usernameduplication'])) echo "<div class='btndiv'>{$errors['usernameduplication']}</div>"; ?>
+                        <?php if (isset($errors['usernameduplication'])) echo "<div class='btndiv'>{$errors['usernameduplication']}</div>";
+                        
+}
+else{
+    header("Location:index.php");
+}?>
 
                     </div>
                 </div>

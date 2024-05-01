@@ -14,7 +14,7 @@ include("components/connect.php");
 </head>
 
 <body>
-    <div class="home-content">
+    <div class="home-content" style="background-color: black;">
         <div class="left-content">
             ClassMentor
         </div>

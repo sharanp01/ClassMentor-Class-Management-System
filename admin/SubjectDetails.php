@@ -1,7 +1,9 @@
 <?php
+session_start();
 include('components/dbconnection.php');
 include('components/adminHeader.php');
 include('components/sidebar.php');
+if (isset($_SESSION['username'])) {
 $errors = [];
 
 function sanitizeInput($data)
@@ -120,7 +122,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                             <div class="btndiv"><button class="btn" name="submit2" value="submit">Add Subject</button>
                             </div>
-                            <?php if (isset($errors['subject-insertion'])) echo "<div class='btndiv'>{$errors['subject-insertion']}</div>"; ?>
+                            <?php if (isset($errors['subject-insertion'])) echo "<div class='btndiv'>{$errors['subject-insertion']}</div>"; 
+                            
+                            }
+                            else{
+                                header("Location:index.php");
+                            }?>
                         </form>
                     </div>
                 </div>

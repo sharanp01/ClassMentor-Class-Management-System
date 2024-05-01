@@ -1,6 +1,8 @@
 <?php 
+session_start();
 include('components/sidebar.php');
 include('components/dbconnection.php');
+if (isset($_SESSION['username'])) {
 $query = "select * from teacherdetails";  
 $run = mysqli_query($con,$query);  
 ?>
@@ -48,7 +50,8 @@ $run = mysqli_query($con,$query);
            <th>Subjects Taken</th>  
            <th>Education</th>  
            <th>Username</th>
-           <th>Password</th>  
+           <th>Delete</th>
+         
                         </tr>
 
                         <?php
@@ -64,8 +67,8 @@ $run = mysqli_query($con,$query);
                                       <td>".$result3['Subjectstaken']."</td>  
                                       <td>".$result3['Education']."</td>  
                                       <td>".$result3['Username']."</td>  
-                                      <td>".$result3['Password']."</td>  
-                                      <td><a href='deleteteacher.php?id=".$result3['TeacherID']."' id='btn'>Delete</a></td>  
+                                      
+                                      <td><a href='deleteteacher.php?id=".$result3['TeacherID']."' id='btn' style = ' text-decoration: none;'>Delete</a></td>  
                                  </tr>  
                             "; 
                             $i++; 
@@ -90,7 +93,7 @@ $run = mysqli_query($con,$query);
            <th>Subjects Taken</th>  
            <th>Education</th>  
            <th>Username</th>
-           <th>Password</th>  
+           <th>Delete</th>
       </tr>    <?php   
       $i=1;  
            if ($num = mysqli_num_rows($run)>0) {  
@@ -105,8 +108,8 @@ $run = mysqli_query($con,$query);
                                <td>".$result['Subjectstaken']."</td>  
                                <td>".$result['Education']."</td>  
                                <td>".$result['Username']."</td>  
-                               <td>".$result['Password']."</td>  
-                               <td><a href='delete.php?id=".$result['TeacherID']."' id='btn'>Delete</a></td>  
+                            
+                               <td><a href='delete.php?id=".$result['TeacherID']."' id='btn' style = ' text-decoration: none;'>Delete</a></td>  
                           </tr>  
                      ";  
                      $i++;
@@ -115,7 +118,11 @@ $run = mysqli_query($con,$query);
       ?> 
             </table>
             </div>
-<?php }?>
+<?php }
+}
+else{
+     header("Location:index.php");
+}?>
 
             </div>
           </div>

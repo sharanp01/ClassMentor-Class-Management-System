@@ -107,7 +107,13 @@ if (isset($_SESSION['username'])) {
                 </div>
                 <div class="btndiv centerdiv">
                     <button type="submit" name="submit" id="button" class="button">Post Announcement</button>
-                    <?php if (isset($errors['announcement-insertion'])) echo "{$errors['announcement-insertion']}";} ?>
+                    <?php if (isset($errors['announcement-insertion'])) echo "{$errors['announcement-insertion']}";
+                  
+}
+/* else{
+    header("Location: /cms/index.php");
+} */
+?>
                 </div>
             </form>
         </div>

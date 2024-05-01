@@ -1,7 +1,12 @@
 <?php
+session_start();
 include('components/sidebar.php');
 include('components/dbconnection.php');
-$query = "select StudentID, Firstname, Lastname, Email, Phone, Age, Username, Password from studentdetails";
+if (isset($_SESSION['username'])) {
+$query = "Select studentdetails.StudentID, studentdetails.Firstname, studentdetails.Lastname, studentdetails.Age, studentdetails.Phone, studentdetails.Email, studentdetails.Username, coursedetails.Coursename 
+from studentdetails
+Join coursedetails On studentdetails.CourseID = coursedetails.CourseID
+";
 $run = mysqli_query($con, $query);
 ?>
 <!DOCTYPE html>
@@ -35,7 +40,10 @@ $run = mysqli_query($con, $query);
                         <?php
                         if (isset($_POST['submit'])) {
                             $search =  mysqli_real_escape_string($con, ($_POST['searchname']));
-                            $sql2 = "Select StudentID, Firstname, Lastname, Email, Phone, Age, Username, Password from studentdetails where Username='$search'";
+                            $sql2 = "Select studentdetails.StudentID, studentdetails.Firstname, studentdetails.Lastname, studentdetails.Age, studentdetails.Phone, studentdetails.Email, studentdetails.Username, coursedetails.Coursename 
+                            from studentdetails
+                            Join coursedetails On studentdetails.CourseID = coursedetails.CourseID
+                            where studentdetails.Username = '$search'";
                             $result2 = mysqli_query($con, $sql2);
                             if ($result2) {
                                 if (mysqli_num_rows($result2) > 0) { ?>
@@ -48,8 +56,8 @@ $run = mysqli_query($con, $query);
                                                 <th>Email</th>
                                                 <th>Phone</th>
                                                 <th>Age</th>
+                                                <th>Coursname</th>
                                                 <th>Username</th>
-                                                <th>Password</th>
                                                 <th>Delete</th>
 
                                             </tr>
@@ -65,9 +73,9 @@ $run = mysqli_query($con, $query);
                                       <td>" . $result3['Email'] . "</td>  
                                       <td>" . $result3['Phone'] . "</td>  
                                       <td>" . $result3['Age'] . "</td>  
+                                      <td>" . $result3['Coursename'] . "</td>  
                                       <td>" . $result3['Username'] . "</td>  
-                                      <td>" . $result3['Password'] . "</td>  
-                                      <td><a href='deletestudent.php?id=" . $result3['StudentID'] . "' id='btn'>Delete</a></td>  
+                                      <td><a href='deletestudent.php?id=" . $result3['StudentID'] . "' id='btn' style = ' text-decoration: none;'>Delete</a></td>  
                                  </tr>  
                             ";
                             $i++;
@@ -89,8 +97,9 @@ $run = mysqli_query($con, $query);
                                                 <th>Email</th>
                                                 <th>Phone</th>
                                                 <th>Age</th>
+                                                <th>Coursname</th>
                                                 <th>Username</th>
-                                                <th>Password</th>
+                                                <th>Delete</th>
                                             </tr> <?php
                                                     $i = 1;
                                                     if ($num = mysqli_num_rows($run) > 0 ) {
@@ -104,9 +113,10 @@ $run = mysqli_query($con, $query);
                                <td>" . $result['Email'] . "</td>  
                                <td>" . $result['Phone'] . "</td>  
                                <td>" . $result['Age'] . "</td>  
+                               <td>" . $result['Coursename'] . "</td>  
                                <td>" . $result['Username'] . "</td>  
-                               <td>" . $result['Password'] . "</td>  
-                               <td><a href='deletestudent.php?id=" . $result['StudentID'] . "' id='btn'>Delete</a></td>  
+                             
+                               <td><a href='deletestudent.php?id=" . $result['StudentID'] . "' id='btn' style = ' text-decoration: none;'>Delete</a></td>  
                           </tr>  
                      ";
                                                             $i++;
@@ -115,7 +125,12 @@ $run = mysqli_query($con, $query);
                                                     ?>
                                         </table>
                                     </div>
-                                <?php } ?>
+                                <?php } 
+                                }
+                                else{
+                                    header("Location:index.php");
+                                }
+                                    ?>
 
                                     </div>
                     </div>
