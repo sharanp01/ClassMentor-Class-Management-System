@@ -57,7 +57,7 @@ $assignmentresult = mysqli_query($conn, $assignmentsql);
                         <th>Sr No</th>
                         <th>Assignment Question</th>
                         <th>Assignment Weightage</th>
-                        <th>Your's Marks</th>
+                        <th>Your Marks</th>
                     </tr>
 
                 <?php

@@ -70,9 +70,7 @@ if (isset($_SESSION['username'])) {
     INNER JOIN subjectdetails ON attendancedetails.SubjectID = subjectdetails.SubjectID
      WHERE attendancedetails.Date = '$date' and attendancedetails.SubjectID = '$subjectanswer2'";
                     $result = mysqli_query($conn, $sql);
-
-
-                    if ($result) {
+                    if (mysqli_num_rows($result)>0) {
                 ?>
 
                         <table border="1" cellspacing="6" cellpadding="6" id="attendancetable">
@@ -100,7 +98,7 @@ if (isset($_SESSION['username'])) {
                             $i++;
                         }
                     } else {
-                        echo "<div class='btndiv'>Data not found</div>";
+                        echo "<div class='btndiv'>No attendance is taken for this date!</div>";
                     }
                 }
             }

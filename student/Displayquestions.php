@@ -93,23 +93,6 @@
         }
         ?>
     </div>
-    <!-- <script>
-// Timer countdown in seconds
-var seconds = 10;
-
-// Function to update the countdown display
-function updateCountdown() {
-    document.getElementById('timer').textContent = seconds;
-    seconds--;
-    if (seconds < 0) {
-        clearInterval(timer);
-        document.getElementById("quizForm").submit();
-    }
-}
-
-// Update the countdown display every second
-var timer = setInterval(updateCountdown, 1000);
-</script> -->
 </body>
 
 </html>

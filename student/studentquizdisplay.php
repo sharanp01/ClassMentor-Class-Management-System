@@ -9,7 +9,10 @@ $studentresult = mysqli_query($conn, $studentsql);
 $row1 = mysqli_fetch_assoc($studentresult);
 $col1 = $row1['CourseID'];
 $col2 = $row1['StudentID'];
-$sql3 = "Select * from quiztopic where CourseID='$col1'";
+$sql3 = "Select subjectdetails.Subjectname, quiztopic.Quiztopic, quiztopic.Difficulty, quiztopic.QuizID
+from quiztopic 
+join subjectdetails on subjectdetails.SubjectID = quiztopic.SubjectID
+where quiztopic.CourseID='$col1'";
 $result3 = mysqli_query($conn, $sql3);
 ?>
 <!DOCTYPE html>
@@ -56,6 +59,7 @@ $result3 = mysqli_query($conn, $sql3);
                         <th>Sr No</th>
                         <th>Quiz Topic</th>
                         <th>Diffculty</th>
+                        <th>Subject</th>
                         <th>Give Test</th>
                         <th>View Test Results</th>
                     </tr>
@@ -69,6 +73,7 @@ $result3 = mysqli_query($conn, $sql3);
               <td>" . $i . "</td>  
               <td>" . $result4['Quiztopic'] . "</td>
               <td>" . $result4['Difficulty'] . "</td>
+              <td>" . $result4['Subjectname'] . "</td>
               <td><a href='Displayquestions.php?id=" . $result4['QuizID'] . "&studid=" . $col2 . "' id='btn' class='deletetext2' >Select</a></td>
               <td><a href='Showresult.php?id=" . $result4['QuizID'] . "&studid=" . $col2 . "' id='btn' class='deletetext2' >View</a></td>
          </tr>  
@@ -76,8 +81,8 @@ $result3 = mysqli_query($conn, $sql3);
                     $i++;
                 }
             } else {
-                echo "<div class='successmsg'><label class='successtext'>Data not found</label><br>
-            <label class='successtext'>To Assign New Tests <br><div class='btndiv'><a href='QuizDetails.php' class='button deletetext'>Click Here!</a></div></label></div>";
+                echo "<div class='successmsg'><label class='successtext'>No new Test is defined by your teacher</label><br>
+            </div>";
             }
 
           }  ?>

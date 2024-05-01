@@ -53,11 +53,12 @@ if ($email == false) {
                                 } else {
                                     $code = 0;
                                     $email = $_SESSION['email'];
+                                    $password = password_hash($password, PASSWORD_DEFAULT);
                                     $encpass = $password;
                                     $update_pass = "UPDATE studentdetails SET code = $code, Password = '$encpass' WHERE Email = '$email'";
                                     $run_query = mysqli_query($conn, $update_pass);
                                     if ($run_query) {
-                                        echo "<div style='color:green; margin-bottom:20px; font-size:1rem;'>password changed successfully!</div>";
+                                        echo "<div style='color:lightgreen; margin-bottom:20px; font-size:1rem;'>password changed successfully!</div>";
                                     } else {
                                         echo "<div style='color:red; margin-bottom:20px; font-size:1rem;'>Failed to change your password!</div>";
                                     }
@@ -71,11 +72,12 @@ if ($email == false) {
                                 } else {
                                     $code = 0;
                                     $email = $_SESSION['email'];
+                                    $password = password_hash($password, PASSWORD_DEFAULT);
                                     $encpass = $password;
                                     $update_pass = "UPDATE teacherdetails SET code = $code, Password = '$encpass' WHERE Email = '$email'";
                                     $run_query = mysqli_query($conn, $update_pass);
                                     if ($run_query) {
-                                        echo "<div style='color:green; margin-bottom:20px; font-size:1rem;'>password changed successfully!</div>";
+                                        echo "<div style='color:lightgreen; margin-bottom:20px; font-size:1rem;'>password changed successfully!</div>";
                                     } else {
                                         echo "<div style='color:red; margin-bottom:20px; font-size:1rem;'>Failed to change your password!</div>";
                                     }

@@ -32,9 +32,9 @@ if (isset($_GET['studid'])) {
             } else {
             }
         }
+
         $check = "Select * from quizmarks where QuizID='$id' AND StudentID='$studid'";
         $checkresult = mysqli_query($conn, $check);
-
         if (mysqli_num_rows($checkresult) <= 0) {
             $sql = "INSERT into quizmarks(QuizID,StudentID,Attempted,Notattempted,Wrongans,Totalmarks) VALUES ('$id','$studid','$attempted','$notattempted','$wrongquestions','$score')";
             $result = mysqli_query($conn, $sql);
@@ -101,6 +101,7 @@ if (isset($_GET['studid'])) {
                                 <th>Total Score</th>
                             </tr>
 
+
             <?php
                         echo "  
          <tr class='data'>  
@@ -120,8 +121,17 @@ if (isset($_GET['studid'])) {
 
 
             ?>
-            
-    </div>
+                        </table>
+                        <div class="btndiv centerdiv">
+                            <a href="studentquizdisplay.php" style="color: white; text-decoration:none;"><button class="button">Go back to Tests Page</button></a>
+                        </div>
+            </div>
+            <script>
+                history.pushState(null, null, location.href);
+                window.onpopstate = function(event) {
+                    history.go(1);
+                };
+            </script>
         </body>
 
         </html>

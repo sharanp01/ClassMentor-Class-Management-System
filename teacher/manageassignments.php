@@ -8,7 +8,8 @@ $sql = "select * from teacherdetails where Username= '$username' ";
 $result = mysqli_query($conn, $sql);
 $answer = mysqli_fetch_assoc($result);
 $answer2 = $answer['TeacherID'];
-$assignsql = "Select * from assignmentdetails where TeacherID='$answer2'";
+$currentDate = date("Y-m-d");
+$assignsql = "Select * from assignmentdetails where TeacherID='$answer2' and AssignmentSubdate >='$currentDate'";
 $assignresult = mysqli_query($conn, $assignsql);
 ?>
 <!DOCTYPE html>
@@ -95,14 +96,12 @@ $assignresult = mysqli_query($conn, $assignsql);
                     $i++;
                 }
             } else {
-                echo "<div class='successmsg'><label class='successtext'>Data not found</label><br>
-            <label class='successtext'>To Post New Announcements <br><div class='btndiv'><a href='add-notice.php' class='button deletetext'>Click Here!</a></div></label></div>";
+                    echo "<div class='successmsg'><label class='successtext'>Data not found</label><br>
+            <label class='successtext'>To Post New Announcements <br><div class='btndiv'><a href='addassignment.php' class='button deletetext'>Click Here!</a></div></label></div>";
             }
         }
             ?>
         </div>
-
-
     </section>
 </body>
 

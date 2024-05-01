@@ -8,7 +8,8 @@ if (isset($_SESSION['username'])) {
     $result = mysqli_query($conn, $sql);
     $answer = mysqli_fetch_assoc($result);
     $answer2 = $answer['TeacherID'];
-    $sql = "Select * from timetabledetails where TeacherID = '$answer2' ";
+    $currentDate = date("Y-m-d");
+    $sql = "Select * from timetabledetails where TeacherID = '$answer2' and Date >= '$currentDate'";
     $result = mysqli_query($conn, $sql);
 ?>
     <!DOCTYPE html>

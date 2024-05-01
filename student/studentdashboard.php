@@ -12,14 +12,6 @@ $subjectsql = "SELECT subjectdetails.Subjectname, teacherdetails.Firstname FROM 
                INNER JOIN teacherdetails ON teacherdetails.TeacherID = subjectdetails.TeacherID
                WHERE CourseID = '$col1'";
 $subjectresult = mysqli_query($conn, $subjectsql);
-/* $currentDate = date('Y-m-d');
-$schedulesql = "SELECT teacherdetails.Firstname, subjectdetails.Subjectname, timetabledetails.Date, timetabledetails.Starttime, timetabledetails.Endtime 
-FROM timetabledetails
-INNER JOIN teacherdetails ON teacherdetails.TeacherID = timetabledetails.TeacherID
-INNER JOIN subjectdetails ON subjectdetails.SubjectID = timetabledetails.SubjectID
-WHERE timetabledetails.CourseID='$col1' AND timetabledetails.Date >='$currentDate'
-ORDER BY timetabledetails.Date ASC ";
-$scheduleresult = mysqli_query($conn, $schedulesql); */
 $currentDate = date('Y-m-d');
 $nextDate = date('Y-m-d', strtotime($currentDate . ' + 1 day')); // Get the date for the next day after the current date
 $schedulesql = "SELECT teacherdetails.Firstname, subjectdetails.Subjectname, timetabledetails.Date, timetabledetails.Starttime, timetabledetails.Endtime 
@@ -48,7 +40,7 @@ $scheduleresult = mysqli_query($conn, $schedulesql);
                 ClassMentor
             </div>
             <div class="right-content">
-                <label for="" class="dropdowntext" style="margin-right: 30px;">Welcome sathya04</label>
+                <label for="" class="dropdowntext" style="margin-right: 30px;">Welcome <?php echo $username; ?></label>
                 <div class="dropdown">
                     <div class="dropdown">
                         <a href="logout.php"><button class="Btn">

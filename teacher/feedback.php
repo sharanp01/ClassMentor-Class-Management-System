@@ -115,8 +115,8 @@ if (isset($_SESSION['username'])) {
                     $i++;
                 }
             } else {
-                echo "<div class='successmsg'><label class='successtext'>Data not found</label><br>
-    <label class='successtext'>To Post New Announcements <br><div class='btndiv'><a href='add-notice.php' class='button deletetext'>Click Here!</a></div></label></div>";
+                echo "<div class='successmsg'><label class='successtext'>No Feedback Found Please wait until someone provides the feedback!</label><br></div>";
+   
             }
         } ?>
             </div>

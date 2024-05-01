@@ -87,7 +87,7 @@ if (isset($_SESSION['username'])) {
                                             <td><?php echo $result5['Firstname']; ?></td>
                                             <td><?php echo $result5['Lastname']; ?></td>
                                             <td>
-                                                <input type="text" name="marks[<?php echo $result5['StudentID']; ?>]" class="resname" />
+                                                <input type="text" name="marks[<?php echo $result5['StudentID']; ?>]" class="resname" required />
                                             </td>
                                         </tr>
                                 <?php

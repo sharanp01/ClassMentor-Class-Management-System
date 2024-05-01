@@ -8,11 +8,12 @@ $studentsql = "select CourseID from studentdetails where Username = '" . $userna
 $studentresult = mysqli_query($conn, $studentsql);
 $row1 = mysqli_fetch_assoc($studentresult);
 $col1 = $row1['CourseID'];
+$currentDate = date("Y-m-d");
 $sql = "SELECT subjectdetails.Subjectname, teacherdetails.Firstname, assignmentdetails.Assignmentquestion, assignmentdetails.AssignmentSubdate, assignmentdetails.Assignmentweightage, assignmentdetails.AssignmentSublink
 FROM assignmentdetails
 INNER JOIN subjectdetails ON subjectdetails.SubjectID = assignmentdetails.SubjectID
 INNER JOIN teacherdetails ON teacherdetails.TeacherID = assignmentdetails.TeacherID
-WHERE assignmentdetails.CourseID = '$col1'";
+WHERE assignmentdetails.CourseID = '$col1' and AssignmentSubDate='$currentDate'";
 $result = mysqli_query($conn, $sql);
 ?>
 <!DOCTYPE html>
@@ -117,8 +118,7 @@ $result = mysqli_query($conn, $sql);
                     $i++;
                 }
             } else {
-                echo "<div class='successmsg'><label class='successtext'>Data not found</label><br>
-    <label class='successtext'>To Post New Announcements <br><div class='btndiv'><a href='add-notice.php' class='button deletetext'>Click Here!</a></div></label></div>";
+                echo "<div class='successmsg'><label class='successtext'>No new Assignments Assigned</label><br></div>";
             }
         }
             ?>
